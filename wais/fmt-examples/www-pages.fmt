@@ -1,0 +1,34 @@
+<record-end> //
+
+<layout>
+<headline> /<[tT][iI][tT][lL][eE]> */ /<\/[tT][iI][tT][lL][eE]>/ 
+        80 /<[tT][iI][tT][lL][eE]> *./
+<end>
+
+<field> /<[tT][iI][tT][lL][eE]>/
+ti "Title" stemming TEXT BOTH
+<end> /<\/[tT][iI][tT][lL][eE]>/
+
+<field> /<[hH][0-9]>/
+hl "Headline" stemming TEXT BOTH
+<end> /<\/[hH][0-9]/
+
+<field> /<[dD][tT]>/
+dt "Description Term" stemming TEXT BOTH
+<end> /<[dD][dD]>/
+
+<field> /<[aA][dD][dD][rR][eE][Ss][Ss]>/
+ad "Description Term" stemming TEXT BOTH
+<end> /<\/[aA][dD][dD][rR][eE][Ss][Ss]>/
+
+<field> /<[Bb]>/
+stemming TEXT GLOBAL
+<end> /<\/[Bb]>/
+
+<field> /<[iI]>/
+stemming TEXT GLOBAL
+<end> /<\/[iI]>/
+
+<field> /^./
+stemming TEXT GLOBAL
+<end> /$/

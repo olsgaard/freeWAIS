@@ -1,0 +1,139 @@
+Wed May 31 15:51:55 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* wais-ui.c:
+	Fix from kru@upc.muc.de (Frithjof Kruggel): -s option in waisq,
+	waissearch
+
+Wed May  3 12:24:07 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* waissearch.c: getenv("USER") fix
+
+Thu Apr 27 12:06:19 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* waisq.c: PROXIMITY patch by Tom Snee <tsnee@merengue.oit.unc.edu>
+
+Mon Mar 13 12:18:34 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* waisq.c:
+	fixed: waisq was assuming that the normal interactive env. variables
+	were present (HOME, etc) and dereferencing them w/o checking if
+	the were NULL
+
+Tue Jan 10 16:52:57 1995  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* swais.c: Fix for convex (will be the last #is system_xyz! shudder !)
+
+	* document.c:
+	Little fix for multiple submissions of the same query, which breaks xwasq.
+	Not the last!
+
+	* wais-ui.c: Fix from Jonny
+
+Thu Dec 22 14:57:23 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Makefile.in: CFLAGS gets replaced by configure now.
+
+Tue Dec 13 18:52:45 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Makefile.in: chip@chinacat.unicom.com (Chip Rosenthal) patches.
+	Excluding the merge of libinv and libwais
+
+Thu Oct  6 13:28:06 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* waissearch.c: Patch from Mariusz Niewczas
+
+Tue Sep 27 17:27:30 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* waissearch.c: Steve Hsieh: 100000 -> BUFSZ
+
+Thu Sep  8 16:41:46 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* swais.c: make BSD happy
+
+Wed Sep  7 13:31:13 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* swais.c, waissearch.c:
+	ctype is now included from cdialect.h after inclusion of string.h.
+	ds, inclusion
+	of string.h after that caused probems
+
+	* Makefile.in, Imakefile: moved TELL_USER to defaults.tmpl
+
+Mon Aug 22 14:13:31 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* source.c: jp made the getenv code safer
+
+Mon Aug 15 16:17:05 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* source.c: fixed uncheckt usage of getenv("USER") in printf
+
+Mon Aug  8 07:33:09 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* waissearch.c, globals.h:
+	Moved wais_log_file_name and waislogfile to cutil.[ch]
+
+Fri Aug  5 08:55:03 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* globals.h: dumped numtosave since it's unused
+
+	* Retrieval.h, wais-ui.c, util.c, source.c, question.h, question.c, messages.h, list.h, lisp-ui.c, globals.h, document.h, document.c, waisq.c, wais.h:
+	Release beta 04
+
+	* wais.el.raw: Initial revision
+
+	* wais-ui.h, util.h: Release beta 04
+
+	* uri-lucid.lisp, swais.c: Initial revision
+
+	* status.h, source.h: Release beta 04
+
+	* lucid.lisp, dirname, README, Makefile.original: Initial revision
+
+Fri Jul 22 12:30:46 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Imakefile, Makefile.in, waissearch.c:
+	Renamed logfile to waislogfile and log_file_name to wais_log_file_name
+	to avoid clashes when linking with gopher and other systems
+
+Thu Jun 23 10:27:00 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Makefile.in: Initial revision
+
+Wed Apr  6 23:55:24 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Imakefile, waissearch.c: 08, autoconf
+
+Wed Mar 23 15:30:09 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Imakefile: better support for LOCAL_SEARCH
+
+Fri Mar 11 09:13:19 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* waissearch.c: some fixes ?
+
+	* Imakefile: Real Imakefile
+
+Wed Mar  9 09:26:10 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* fix-gmacs.sh, Imakefile: Initial revision
+
+Fri Feb 25 10:15:50 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* waissearch.c: Initial revision
+
+Fri Jul  2 19:27:26 1993  warnock  <warnock@woodstock>
+
+	* source.c, shell-ui.c:
+	fix call to getdomainname from mike@tab00.larc.nasa.gov
+
+Thu Jul  1 19:22:15 1993  warnock  <warnock@woodstock>
+
+	* shell-ui.c, source.c: gethostname -> mygethostname
+
+Wed Jun 23 20:06:03 1993  warnock  <warnock@woodstock>
+
+	* source.c: Removed FORWARDER_SERVER pointer to Francois
+
+	* wais.h, wais-ui.h, util.h, status.h, source.h, question.h, messages.h, list.h, globals.h, document.h, Retrieval.h, waisq.c, wais-ui.c, util.c, source.c, shell-ui.c, screen-ui.c, question.c, lisp-ui.c, document.c:
+	Initial revision
+

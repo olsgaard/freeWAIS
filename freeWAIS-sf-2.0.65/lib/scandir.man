@@ -1,0 +1,119 @@
+.TH SCANDIR 3
+.\" $Header: /usr/local/ls6/src+data/src/freeWAIS-sf-2.0/lib/RCS/scandir.man,v 2.0 1995/09/08 08:03:41 pfeifer Exp $
+.SH NAME
+scandir, alphasort \- scan a directory
+.SH SYNOPSIS
+.nf
+.ft B
+#include <sys/types.h>
+#include <sys/dir.h>
+
+int
+scandir(name, list, selector, sorter)
+.in +4n
+char *name;
+struct direct ***list;
+int (*selector)();
+int (*sorter)();
+.in -4n
+
+int
+alphasort(d1, d2)
+.in +4n
+struct direct **d1;
+struct direct **d2;
+.in -4n
+.ft R
+.fi
+.SH DESCRIPTION
+.I Scandir
+reads the directory
+.I name
+and builds a NULL\-terminated array of pointers to the entries found
+in that directory.
+This array is put into the location pointed to by the
+.I list
+parameter.
+.PP
+If the
+.I selector
+parameter is non\-NULL, it is taken to be a pointer to a function called
+with each entry, to determine whether or not it should be included in
+the returned list.
+If the parameter is NULL, all entries are included.
+.PP
+As an added feature, the entries can be sorted (with
+.IR qsort (3))
+before the list is returned.
+If the
+.I sorter
+parameter is non\-NULL, it is passed to qsort to use as the comparison
+function.
+The
+.I alphasort
+routine is provided to sort the array alphabetically.
+.PP
+The array pointed to by
+.I list
+and the items it points to are all space obtained through
+.IR malloc (3),
+and their storage can be reclaimed as shown in the example below.
+.SH "EXAMPLE"
+Here is a small
+.IR ls (1)\-like
+program:
+.ne 50
+.RS
+.nf
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/dir.h>
+
+extern int alphasort();
+
+static int
+filesonly(e)
+	struct direct *e;
+{
+	struct stat sb;
+
+	return(stat(e->d_name, &sb) >= 0 && (sb.st_mode & S_IFMT) == S_IFREG);
+}
+
+main(ac, av)
+	int ac;
+	char *av[];
+{
+	register int i;
+	register int j;
+	struct direct **list;
+
+	if (ac != 2) {
+		fprintf(stderr, "usage: %s dirname\n", av[0]);
+		exit(1);
+	}
+	if (chdir(av[1]) < 0) {
+		perror(av[1]);
+		exit(1);
+	}
+	if ((i = scandir(".", &list, filesonly, alphasort)) < 0) {
+		perror("Error reading directory");
+		exit(1);
+	}
+	for (j = 0; j < i; j++)
+		printf("%s\n", list[j]->d_name);
+	for (j = 0; j < i; j++)
+		free((char *)list[j]);
+	free((char *)list);
+	exit(0);
+}
+.fi
+.RE
+.SH "SEE ALSO"
+directory(3), qsort(3)
+.SH DIAGNOSTICS
+Returns the number of entries in the ``list,'' or \-1 if the directory
+could not be opened or a memory allocation failed.
+.SH BUGS
+The routine can be slightly wasteful of space.

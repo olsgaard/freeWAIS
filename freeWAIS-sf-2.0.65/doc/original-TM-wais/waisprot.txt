@@ -1,0 +1,1004 @@
+-----------------------------------------------------------------------------
+
+				     
+			WAIS Protocol Users Manual
+
+				     
+			       Release 1.0.1
+				     
+
+Harry Morris 
+(morris@think.com)
+Thinking Machines Corporation
+3.30.90
+
+
+
+	 1.0	INTRODUCTION:
+	 2.0	THE PROTOCOL ARCHITECTURE:
+	 3.0	THE Z39.50 APDU LIBRARY:
+	 4.0	THE Z39.50 UTILITY FUNCTIONS:
+	 5.0 	Z39.50 TYPE 1 QUERY
+	 6.0	INTEGRATION OF WAIS AND Z39.50 LIBRARIES:
+	 7.0	THE WAIS LIBRARY:
+	 8.0	WAIS TYPE 1 QUERY:
+	 9.0	IMPLEMENTATION NOTES:
+	10.0	WALK THROUGH OF INIT APDU:
+	11.0	WALK THROUGH OF WAIS INIT RESPONSE PROTOCOL EXTENSION:
+	12.0	WALK THROUGH OF SAMPLE APPLICATION:
+	13.0	ISSUES:
+	14.0	SPEC NOTES:
+	15.0	DISCLAIMER:
+ 
+ 
+ 
+1.0		INTRODUCTION:
+
+The WAIS protocol is an extension to ANSI's Z39.50 protocol.  The
+extensions are documented in "WAIS Intgerface Protocol Prototype
+Functional Specification Version 1.5" by Franklin Davis. 
+
+This document describes an initial implementation of the protocol.
+The implementation is in ANSI C.  It is provided in two libraries - 
+the base Z39.50 library and the WAIS protocol libarary.  The libraries
+define structures for each APDU and element set.  Functions are
+provided to build, and destroy the structures.  Each structure can
+also be written into a buffer and read from a buffer.  The structure's
+representation in the buffer is defined in the specifications.
+
+
+2.0		THE PROTOCOL ARCHITECTURE:
+
+The Z39.50 layer provides support for the basic APDU's, utility functions 
+for  manipulating tagged data, and hooks for use by the application layer.  
+
+The WAIS protocol defines several structures which may be associated with 
+APDU's.  It also provides definitions of the Z39.50 hook functions, which 
+allow the structures to be read and written.
+
+These layers specify the translation of an object (a C struct) to and from
+a memory buffer.  The representation within the buffer is that defined in
+the Z.39.50 spec.  
+
+It is the responsibility of application to construct, send, recieve, and
+destroy the Z39.50 and WAIS objects.  
+
+
+3.0		THE Z39.50 APDU LIBRARY:
+
+Six APDU's are currently defined: Init,InitResponse,Search,SearchResponse,
+Present,PresentResponse.  Other APDU's will be added as time premits.
+The C definitions are direct translations of the structures outlined in
+appendix A of the Z39.50 spec.  The following functions are provided to
+create, destroy, read, and write the respective APDU's.
+
+
+	typedef struct InitAPDU {
+		pdu_type		PDUType;
+		boolean			willSearch,willPresent,willDelete;
+		boolean			supportAccessControl,supportResourceControl;
+		long			PreferredMessageSize;
+		long			MaximumRecordSize;
+		char*			IDAuthentication;
+		char*			ImplementationID;
+		char* 			ImplementationName;
+		char*			ImplementationVersion;
+		any*			ReferenceID;
+		void*			UserInformationField;
+		} InitAPDU;
+	
+	InitAPDU* makeInitAPDU(
+		boolean search,boolean present,boolean delete,
+		boolean accessControl,boolean resourceControl,
+		long prefMsgSize,long maxMsgSize,
+		char* auth,char* id,char* name, char* version,
+		any* refID,any* userInfo);
+
+	void freeInitAPDU(InitAPDU* init);
+
+	void writeInitAPDU(InitAPDU* init,char* buffer);
+
+	InitAPDU* readInitAPDU(char* buffer);
+
+
+	typedef struct InitResponseAPDU {
+		pdu_type		PDUType;
+		boolean			Result;
+		boolean			willSearch,willPresent,willDelete;
+		boolean			supportAccessControl,supportResourceControl;
+		long			PreferredMessageSize;
+		long 			MaximumRecordSize;
+		char*			IDAuthentication;
+		char*			ImplementationID;
+		char* 			ImplementationName;
+		char*			ImplementationVersion;
+		any*			ReferenceID;
+		void*			UserInformationField;
+		} InitResponseAPDU;
+
+	InitResponseAPDU* makeInitResponseAPDU(
+		boolean result,
+		boolean search,boolean present,boolean delete,
+		boolean accessControl,boolean resourceControl,
+		long prefMsgSize,long maxMsgSize,
+		char* auth,char* id,char* name, char* version,
+		any* refID,any* userInfo);
+		
+	void freeInitResponseAPDU(InitResponseAPDU* init);
+
+	void writeInitResponseAPDU(InitResponseAPDU* init,char* buffer);
+
+	InitResponseAPDU* readInitResponseAPDU(char* buffer);
+
+	InitResponseAPDU* replyToInitAPDU(InitAPDU* init,boolean result,
+		any* userInfo);
+		This is a convienience function to create a default InitResponse
+		given a response.
+
+
+	typedef struct SearchAPDU {
+		pdu_type		PDUType;
+		long	 		SmallSetUpperBound;
+		long			LargeSetLowerBound;
+		long	 		MediumSetPresentNumber;
+		boolean 		ReplaceIndicator;
+		char*			ResultSetName;
+		char**			DatabaseNames;   
+		char*			QueryType;
+		char**			ElementSetNames;  
+		any*			ReferenceID;
+		void*			Query;
+		} SearchAPDU;
+
+	SearchAPDU* makeSearchAPDU(
+		long small,long large, long medium,
+		boolean replace,char* name,char** databases,char* type,
+		char** elements,any* refID,any* queryInfo);
+
+	void freeSearchAPDU(SearchAPDU* query);
+
+	void writeSearchAPDU(SearchAPDU* query,char* buffer);
+	
+	SearchAPDU* readSearchAPDU(char* buffer);
+
+
+	typedef struct SearchResponseAPDU {
+		pdu_type		PDUType;
+		long			SearchStatus;
+		long			ResultCount;
+		long			NumberOfRecordsReturned;
+		long		 	NextResultSetPosition;
+		long			ResultSetStatus;
+		long 			PresentStatus;
+		any*			ReferenceID;
+		void*			DatabaseDiagnosticRecords;
+		} SearchResponseAPDU;
+
+	SearchResponseAPDU* makeSearchResponseAPDU(
+		boolean result,long count,
+		long recordsReturned,long nextPos,
+		long resultStatus,long presentStatus,
+		any* refID,any* records);
+
+	void freeSearchResponseAPDU(SearchResponseAPDU* queryResponse);
+
+	void writeSearchResponseAPDU(SearchResponseAPDU* queryResponse,
+	                             char* buffer);
+
+	SearchResponseAPDU* readSearchResponseAPDU(char* buffer);
+
+
+	typedef struct PresentAPDU {
+		pdu_type		PDUType;
+		long			NumberOfRecordsRequested;
+		long			ResultSetStartPosition;
+		char*		 	ResultSetID;
+		char*			ElementSetNames; 
+		any*			ReferenceID;
+		void*			PresentInfo; /* XXX not in Z39.50 spec !!! */
+		} PresentAPDU;
+
+	PresentAPDU* makePresentAPDU(long recsReq, long startPos,
+		char* resultID,any* refID,void* info);
+
+	void freePresentAPDU(PresentAPDU* present);
+
+	void writePresentAPDU(PresentAPDU* present,char* buffer);
+
+	PresentAPDU* readPresentAPDU(char* buffer);
+
+
+	typedef struct PresentResponseAPDU {
+		pdu_type		PDUType;
+		boolean			PresentStatus;
+		long			NumberOfRecordsReturned;
+		long			NextResultSetPosition;
+		any*			ReferenceID;
+		void*			DatabaseDiagnosticRecords;
+		} PresentResponseAPDU;
+
+	PresentResponseAPDU* makePresentResponseAPDU(boolean status, 
+		long recsRet,long nextPos,any* refID,any* records);
+
+	void freePresentResponseAPDU(PresentResponseAPDU* present);
+
+	void writePresentResponseAPDU(PresentResponseAPDU* present,char* buffer);
+
+	PresentResponseAPDU* readPresentResponseAPDU(char* buffer);
+
+
+
+4.0		THE Z39.50 UTILITY FUNCTIONS:
+
+	The utility functions implement the core Z39.50 datatypes.  They are 
+	used internaly by the Z39.50 APDU library functions, and can be used 
+	to implement "user information" fields.  They are divided into four 
+	categories:
+	
+		1. Tagged Data Functions - these functions operate on tagged data.
+		   They are available for use in "user information" fields.
+		   
+		2. Raw Data Functions - these functions are used to implement the
+		   tagged data functions, and the fixed area of each APDU.  They
+		   are should not be used for "user information".
+		
+		3. Version Functions - these functions provide default definitions 
+		   for the optional version fields.
+		   
+		4. Utility Functions.
+
+	Tagged Data Functions:
+	
+	typedef struct any {	/* an any is a non-ascii string of characters */
+		unsigned long	size; 
+		char*			bytes;
+		} any;
+
+	any* makeAny(unsigned int size,char* data);
+	void freeAny(any* a);
+	any* duplicateAny(any* a);
+	char* writeAny(any* a,data_tag tag,char* buffer);
+	char* readAny(any** anAny,char* buffer);
+	unsigned long writtenAnySize(any* a);
+
+	typedef any	bit_map; 	/* a bit_map is a group of packed bits */
+
+	bit_map* makeBitMap(int numBits,...);
+		The variable arguments are boolean "bits".
+	void freeBitMap(bit_map* bm);
+	boolean bitAtPos(int pos,bit_map* bm);
+	char* writeBitMap(bit_map* bm,data_tag tag,char* buffer);
+	char* readBitMap(bit_map** bm,char* buffer);
+
+	char* writeNum(long num,data_tag tag,char* buffer);
+	char* readNum(long* num,char* buffer);
+
+	char* writeString(char* s,data_tag tag,char* buffer);
+	char* readString(char** s,char* buffer);
+		These are convienience functions that can be used anywhere an
+		Any is called for.
+
+
+	Raw Data Functions:
+	
+	char* writeCompressedInteger(unsigned int num,char* buf);
+	char* readCompressedInteger(unsigned int *num,char* buf);
+	char* writeCompressedIntegerWithPadding(unsigned long num,
+											unsigned int size,char* buffer);
+	unsigned long writtenCompressedIntSize(unsigned long num);
+		Compressed Integers are described on p. XXX of the Z39.50 document.
+	
+
+	typedef unsigned long data_tag;
+
+	char* writeTag(data_tag tag,char* buf);
+	char* readTag(data_tag* tag,char* buf);
+	data_tag peekTag(char* buf);
+	unsigned long writtenTagSize(data_tag tag);
+		
+	char* writeByte(unsigned char byte,char* buf);
+	char* readByte(unsigned char* byte,char* buf);
+
+	char* writeBoolean(boolean flag,char* buf);
+	char* readBoolean(boolean* flag,char* buf);
+
+	typedef unsigned long pdu_type;
+
+	char* writePDUType(pdu_type pduType,char* buf);
+	char* readPDUType(pdu_type* pduType,char* buf);
+	pdu_type peekPDUType(char* buf);
+
+	char* writeBinaryInteger(long num,unsigned int size,char* buf);
+	char* readBinaryInteger(long* num,unsigned int size,char* buf);
+	unsigned long writtenCompressedBinIntSize(long num);
+
+
+	Version Functions:
+	
+	char* writeProtocolVersion(char* buf);
+		Writes the version of the Z39.50 spec that is implemented.
+		This implementation is version 1.
+		
+	char* defaultImplementationID(void);
+	char* defaultImplementationName(void);
+	char* defaultImplementationVersion(void);
+		These functions write default information as suggested by the
+		implementers of the protocol.  The application may override
+		these fields.
+
+
+	Utility Functions:
+	
+	doList(void** list,void (*func)());
+	
+
+5.0 	Z39.50 TYPE 1 QUERY
+
+The Z39.50 specification defines a type one query as a series of terms, each
+of which is of type Attribute, ResultsSet, or Operator.  The the Attribute
+terms bind a variable in the current data base (eg. Author = E.A.Poe).  The
+ResultSet terms specify a subset of the database.  They are used to store 
+intermediate results.  The Operator terms specify an operation relating
+Attribute and ResultSet terms (eg. Author = E.A.Poe AND Publisher =
+McGraw-Hill).  The terms are gathered on a stack, and evaluated in RPN 
+order.  Results are left on the stack for return to the calling program.
+The following code defines a query term and provides functions for writing
+and reading terms and lists of terms.
+
+	typedef struct query_term {
+	  /* type */
+	  int	TermType;
+	  /* for term */
+	  char	Use[ATTRIBUTE_SIZE];
+	  char	Relation[ATTRIBUTE_SIZE];
+	  char	Position[ATTRIBUTE_SIZE];
+	  char	Structure[ATTRIBUTE_SIZE];
+	  char	Truncation[ATTRIBUTE_SIZE];
+	  char	Completeness[ATTRIBUTE_SIZE];
+	  any*	Term;
+	  /* for result set */
+	  any*	ResultSetID;
+	  /* for operator */
+	  char	Operator[OPERATOR_SIZE];
+	} query_term;
+		
+	query_term* makeAttributeTerm(
+	        char* use,char* relation,char* position,char* structure,
+			char* truncation,char* completeness,any* term);
+	query_term* makeResultSetTerm(any* resultSet);
+	query_term* makeOperatorTerm(char* operator);
+	void freeTerm(query_term* qt);
+	char* writeQueryTerm(query_term* qt,char* buffer);
+	char* readQueryTerm(query_term** qt,char* buffer);
+	any* writeQuery(query_term** terms);
+	query_term** readQuery(any* info);
+	
+
+
+6.0		INTEGRATION OF WAIS AND Z39.50 LIBRARIES:
+
+The WAIS protocol is implemented through the "user information" field of 
+Z39.50's APDU's.  Each Z39.50 APDU has a pointer to user information, and
+a hook function to read and write the information.  
+
+The functions are:
+
+	extern char* writeInitInfo(InitAPDU* init,char* buffer);
+	extern char* readInitInfo(void** info,char* buffer);
+	
+	extern char* writeInitResponseInfo(InitResponseAPDU* init,char* buffer);
+	extern char* readInitResponseInfo(void** info,char* buffer);
+	
+	extern char* writeSearchInfo(SearchAPDU* query,char* buffer);
+	extern char* readSearchInfo(void** info,char* buffer);
+	
+	extern char* writeSearchResponseInfo(SearchResponseAPDU* query,
+	          							 char* buffer);
+	extern char* readSearchResponseInfo(void** info,char* buffer);
+	
+	extern char* writePresentInfo(PresentAPDU* present,char* buffer);
+	extern char* readPresentInfo(void** info,char* buffer);
+	
+	extern char* writePresentResponseInfo(PresentResponseAPDU* present,
+									      char* buffer);
+	extern char* readPresentResponseInfo(void** info,char* buffer);
+
+The write functions are called after writing the standard APDU, and only if
+the user information field is not NULL.  The read functions are called 
+after reading the standard APDU.  They should return NULL if there is no
+user information, otherwise they should use the Z39.50 utility functions
+to reconstruct the user information as it was written.  
+
+
+7.0		THE WAIS LIBRARY:
+	
+The WAIS library is devided into two parts.  The first part defines 
+structures and code to manipulate the WAIS components which are directly
+mapped to Z39.50 APDUs.  The second part defines component structures 
+which are used by the WAIS protocol to pass specific elements between the
+origin and target.  Note that all objects of the first type also provide 
+implementations of the read and write functions described in section 6.0.
+
+
+	Basic WAIS Components:
+
+	
+	typedef struct WAISInitResponse {
+		long				ChunkCode;
+		long				ChunkIDLength;
+		char*				ChunkMarker;
+		char*				HighlightMarker;
+		char* 				DeHighlightMarker;
+		char*				NewlineCharacters;
+		/* XXX  need to add UpdateFrequency and Update Time */
+		} WAISInitResponse;
+	
+	WAISInitResponse* makeWAISInitResponse(
+		long chunkCode,long chunkIDLen,char* chunkMarker,
+		char* highlightMarker,
+		char* deHighlightMarker,char* newLineChars);
+	void freeWAISInitResponse(WAISInitResponse* init);
+
+
+	typedef struct WAISSearch {
+		char*				SeedWords;
+		DocObj**			Docs;
+		char**				TextList;
+		long				DateFactor;
+		char*				BeginDateRange;
+		char*				EndDateRange;
+		long				MaxDocumentsRetrieved;
+		} WAISSearch;
+	
+	WAISSearch* makeWAISSearch(
+		char* seedWords,DocObj** docs,char** textList,
+		long dateFactor,char* beginDateRange,char* endDateRange,
+		long maxDocsRetrieved);
+	void freeWAISSearch(WAISSearch* query);
+
+		
+	typedef struct WAISSearchResponse {
+		char*			       		SeedWordsUsed;
+		WAISDocumentHeader** 		DocHeaders;
+		WAISDocumentShortHeader** 	ShortHeaders;
+		WAISDocumentLongHeader** 	LongHeaders;
+		WAISDocumentText**			Text;
+		WAISDocumentHeadlines**		Headlines;
+		WAISDocumentCodes**			Codes;
+		} WAISSearchResponse;
+	
+	WAISSearchResponse* makeWAISSearchResponse(
+		char* seedWordsUsed,WAISDocumentHeader** docHeaders,
+		WAISDocumentShortHeader** shortHeaders,
+		WAISDocumentLongHeader** longHeaders,
+		WAISDocumentText** text,WAISDocumentHeadlines** headlines,
+		WAISDocumentCodes** codes);
+	void freeWAISSearchResponse(WAISSearchResponse* response);
+
+
+	typedef struct WAISPresent {
+		DocObj**	Documents; /* type of request is in element set */
+		} WAISPresent;
+	
+	WAISPresent* makeWAISPresent(DocObj** docs);
+	void freeWAISPresent(WAISPresent* present);
+
+
+	typedef struct WAISPresentResponse {
+		WAISDocumentText**		Text;
+		WAISDocumentHeadlines**	Headlines;
+		WAISDocumentCodes**		Codes;
+		} WAISPresentResponse;
+
+	WAISPresentResponse* makeWAISPresentResponse(WAISDocumentText** text,
+						     WAISDocumentHeadlines** headlines,
+						     WAISDocumentCodes** codes);
+	void freeWAISPresentResponse(WAISPresentResponse* response);
+
+
+	WAIS Elements:
+	
+		
+	typedef struct DocObj { /* specifies a section of a document */
+		any*	DocID;
+		long	ChunkCode;
+		union {
+			long	Pos;
+			any*	ID;
+		} ChunkStart;
+		union {
+			long	Pos;
+			any*	ID;
+		} ChunkEnd;
+		} DocObj;
+
+	DocObj* makeDocObjUsingWholeDocument(any* docID);
+	DocObj* makeDocObjUsingBytes(any* docID,long start,long end);
+	DocObj* makeDocObjUsingLines(any* docID,long start,long end);
+	DocObj* makeDocObjUsingParagraphs(any* docID,any* start,any* end);
+	void freeDocObj(DocObj* doc);
+		Note that DocObjs are used read and written internally.
+
+
+	typedef struct WAISDocumentHeader {
+		any*				DocumentID;
+		long				VersionNumber;
+		long				Score;     
+		long				BestMatch; 
+		long				DocumentLength;
+		long 				Lines;
+		char*				Source;
+		char*				Date;
+		char*				Headline;
+		char*				OriginCity;
+		} WAISDocumentHeader;
+	
+	WAISDocumentHeader* makeWAISDocumentHeader(
+		any* docID,long versionNumber,long score,long bestMatch,long docLen,
+		long lines,char* source,char* date,char* headline,char* originCity);
+	void freeWAISDocumentHeader(WAISDocumentHeader* header);
+	char* writeWAISDocumentHeader(WAISDocumentHeader* header,char* buffer);
+	char* readWAISDocumentHeader(WAISDocumentHeader** header,char* buffer);
+	
+	
+	typedef struct WAISDocumentShortHeader {
+		any*				DocumentID;
+		long				VersionNumber;
+		long				Score;     
+		long				BestMatch; 
+		long				DocumentLength;
+		long 				Lines;
+	 	} WAISDocumentShortHeader;
+	 
+	WAISDocumentShortHeader* makeWAISDocumentShortHeader(
+		any* docID,long versionNumber,long score,long bestMatch,
+		long docLen,long lines);
+	void freeWAISDocumentShortHeader(WAISDocumentShortHeader* header);
+	char* writeWAISDocumentShortHeader(WAISDocumentShortHeader* header,
+	                                   char* buffer);
+	char* readWAISDocumentShortHeader(WAISDocumentShortHeader** header,
+	                                  char* buffer);
+
+
+	typedef struct WAISDocumentLongHeader {
+		any*				DocumentID;
+		long				VersionNumber;
+		long				Score;     
+		long				BestMatch; 
+		long				DocumentLength;
+		long 				Lines;
+		char*				Source;
+		char*				Date;
+		char*				Headline;
+		char*				OriginCity;
+		char*				StockCodes;
+		char* 				CompanyCodes;
+		char*				IndustryCodes;
+	 	} WAISDocumentLongHeader;
+	WAISDocumentLongHeader* makeWAISDocumentLongHeader(
+		any* docID,long versionNumber,long score,long bestMatch,long docLen,
+		long lines,char* source,char* date, char* headline,char* originCity,
+		char* stockCodes,char* companyCodes,char* industryCodes);
+	void freeWAISDocumentLongHeader(WAISDocumentLongHeader* header);
+	char* writeWAISDocumentLongHeader(WAISDocumentLongHeader* header,
+									  char* buffer);
+	char* readWAISDocumentLongHeader(WAISDocumentLongHeader** header,
+									 char* buffer);
+
+	
+	typedef struct WAISDocumentText {
+		any*				DocumentID;
+		long				VersionNumber;
+		any*				DocumentText;
+		} WAISDocumentText;
+		
+	WAISDocumentText* makeWAISDocumentText(any* docID,long versionNumber,
+					       any* documentText);
+	void freeWAISDocumentText(WAISDocumentText* docText);
+	char* writeWAISDocumentText(WAISDocumentText* docText,char* buffer);
+	char* readWAISDocumentText(WAISDocumentText** docText,char* buffer);
+	
+	
+	typedef struct WAISDocumentHeadlines {
+		any*				DocumentID;
+		long				VersionNumber;
+		char*				Source;
+		char*				Date;
+		char*				Headline;
+		char*				OriginCity;
+		} WAISDocumentHeadlines;
+		
+	WAISDocumentHeadlines* makeWAISDocumentHeadlines(
+		any* docID,long versionNumber,char* source,char* date,
+		char* headline,char* originCity);
+	void freeWAISDocumentHeadlines(WAISDocumentHeadlines* docHeadline);
+	char* writeWAISDocumentHeadlines(WAISDocumentHeadlines* docHeadline,
+									 char* buffer);
+	char* readWAISDocumentHeadlines(WAISDocumentHeadlines** docHeadline,
+									char* buffer);
+	
+	
+	typedef struct WAISDocumentCodes {
+		any*				DocumentID;
+		long				VersionNumber;
+		char*				StockCodes;
+		char*				CompanyCodes;
+		char*				IndustryCodes;
+		} WAISDocumentCodes;
+	
+	WAISDocumentCodes* makeWAISDocumentCodes(
+		any* docID,long versionNumber,char* stockCodes,char* companyCodes,
+		char* industryCodes);
+	void freeWAISDocumentCodes(WAISDocumentCodes* docCodes);
+	char* writeWAISDocumentCodes(WAISDocumentCodes* docCodes,char* buffer);
+	char* readWAISDocumentCodes(WAISDocumentCodes** docCodes,char* buffer);
+	
+
+8.0		WAIS TYPE 1 QUERY
+
+The WAIS Protocol used type one queries to retrieve fragments of text from
+the target.  The syntax is:
+       
+     1.  retrieve the header/codes from a document:
+
+            System_Control_Number = docID	(attribute)
+
+	     return type is dependent on element set requested
+
+     2.  retrieve a fragment of the text of a document:
+
+            System_Control_Number = docID	(attribute)
+	 		Chunk >= start					(attribute)
+	    	And								(operator)
+	    	Chunk < end						(attribute)
+	    	And								(operator)
+
+	     return type is always WAISDocumentText
+
+   Information from multiple documents may be requested by using 
+   groups of the above joined by:
+
+            OR								(operator)
+
+The following functions translate between list of DocObjs and an any
+containing the DocObjs written in the form given above.
+
+	any* makeWAISType1Query(DocObj** docs);	
+	DocObj** readWAISType1Query(any* terms);
+
+
+9.0		IMPLEMENTATION NOTES:
+
+	Z39.50 Types:
+	
+		ANY	- 	Implemented as a structure containing a size field and
+				an arbitrary length block of bytes.  Value is NULL if
+				the element is not present.
+				
+		ASCII - Implemented as a C string (null terminated).  
+		        Value is NULL if the element is not present.
+		
+		BitMap -	Implemented as an any, with packed bits.  Value is NULL 
+		            if the element is not present.
+		
+		Data Tag -	Implemented as an unsigned int. 
+		
+		PduType -	Implemented as an enum.
+		
+		Binary Integer - 	implemented as a long.  Value is UNUSED if the
+							element is not present.
+		
+
+	Memory Mangement:
+	
+  		Memory management is fairly simple.  The idea is to minimize the 
+  		copying of large (application specific) data (eg. text buffers),
+  		while minimizing the amount of explicit freeing that must be
+  		done by the user of the protocol.
+  		
+  		Calls to makeFoo() always copy small arguments and simply reference 
+  		large arguments.  All Z39.50 APDU's are small, so they always copy.
+  		All WAIS objects are large, so they always reference.
+  		
+  		Calls to freeFoo() always free all elements of foo.
+  		
+  		What this means to you:   
+  		
+  		1. When making and APDU, be sure to free the arguments (an easy way
+  		   to do this is to use automatic arguments).
+  		
+  		2. When making a WAIS object, don't free the arguments (don't use
+  		   automatic arguments).
+  		
+  		3. If you want to hold onto part of an object that is about to be
+  		   freed, make a pointer to the part, and NULL out the pointer
+  		   in the object.
+  		   
+  		This is much harder to explain than to do.  Study the example code
+  		and/or call the author if you have questions.
+  		
+  		
+10.0		WALK THROUGH OF INIT APDU:
+
+The Init APDU is a typical of the Z39.50 APDU's.  The pseudo code for its
+functions is presented here.
+
+
+	makeInitAPDU(boolean willSearch,boolean willPresent,boolean willDelete,
+			     boolean supportAccessControl,
+			     boolean supportResourceControl,
+			     int preferredMessageSize,int maxMessageSize,
+			     string authorization,string identification,
+			     string implementationName,string implementationVersion,
+			     any referenceID,pointer userInformation)
+	 
+	{	Allocate space for an init APDU.
+	
+		Assign it values based on the arguments.  This may involve checking
+		that all required arguments are there, and making copies of some 
+		arguments.
+		
+	 	Return the new APDU.
+	}
+  
+	
+	freeInitAPDU(InitAPDU init)
+	
+	{ 	Deallocate any arguments that were copied in makeInitAPDU().
+	
+		Deallocate the APDU itself.
+	}
+	
+	
+	writeInitAPDU(InitAPDU init,memoryBuffer buffer)
+	
+	{	Declare a pointer buf pointing into buffer, starting HEADER_LEN
+		bytes in.
+		
+		Write init's PDUType at buf, and set buf to the end of the write.
+		
+		Write the rest of init's data, doing any conversions necessary.
+		
+		Record the size of APDU (buf - buffer) in the first HEADER_LEN 
+		bytes of buffer.
+		
+		Call writeInitInfo() to write user information into the buffer.		
+	}
+	
+	
+	readInitAPDU(memoryBuffer buffer)
+	
+	{	Declare a pointer buf pointing into the begining of buffer.
+	
+		Declare local variables for the elements of the APDU.
+		
+		Read the APDU's size (stored in the first HEADER_LEN bytes).
+		
+		Read the APDU elements that are reqired to be there.
+		
+		Decode the ones which are packed (bitmaps)
+		
+		While buf is less that (buffer + size + HEADER_LEN)
+	    { 	Read the next tag.
+	    	
+	    	Based on the value of the tag, read in an optional element.
+	    	
+	    	Increment buf by the size of the element.
+	    }
+	    
+	    Call readInitInfo() to read user information from the buffer.
+	    
+	    Call makeInitAPDU() to create an init APDU.
+	    
+	    Deallocate any local variables.
+	    
+	    Return the new init APDU.
+	}
+	
+
+11.0		WALK THROUGH OF WAIS INIT RESPONSE PROTOCOL EXTENSION:
+
+The WAIS Init Response is a typical of the Z39.50 protocol extension.  
+The pseudo code for its functions is presented here.  It is essentially
+identical to that of any of the Z39.50 APDU's.  Note that the reading and
+writing routines are Z39.50 hooks.
+
+
+	makeWAISInitResponse(int chunkCode,int chunkIDLen,string chunkMarker,
+						 string highlightMarker,string deHighlightMarker,
+						 string newLineChars)
+			
+	{	Allocate space for an init response.
+	
+		Assign it values based on the arguments.  This may involve checking
+		that all required arguments are there, and making copies of some 
+		arguments.
+		
+	 	Return the new response object.
+	}
+	
+	
+	freeWAISInitResponse(WAISInitResponse response)
+	
+	{	Deallocate any arguments that were copied in makeWAISInitResponse().
+	
+		Deallocate the response itself.
+	}
+	
+	
+	writeInitResponseInfo(InitResponseAPDU responseAPDU,memoryBuffer buffer)
+
+	{	Declare a pointer response pointing at the user information field
+		of responseAPDU.
+		
+		Estimate the size of the written representation in bytes.  Determine
+		how many bytes are needed to represent that size (round up).  Add 
+		the size of a tag field, and the size of the size field (always 1). 
+	    This is the WAIS_HEADER_LEN.
+	
+	   	Declare a pointer buf pointing into buffer, starting WAIS_HEADER_LEN
+		bytes in.
+		
+		Write the response's data at buf, doing any conversions necessary.
+		
+		Record the size of response's size (buf - buffer) in the first 
+		WAIS_HEADER_LEN bytes of buffer.
+	}
+	
+	
+	readInitResponseInfo(memoryBuffer buffer)
+
+	{	Declare a pointer buf pointing into the begining of buffer.
+	
+		Declare local variables for the elements of the response.
+		
+		Read the response's size (the first element).
+		
+		While buf is less that (buffer + size)
+	    { 	Read the next tag.
+	    	
+	    	Based on the value of the tag, read in an element.
+	    	
+	    	Increment buf by the size of the element.
+	    }
+	    
+	    Call makeWAISInitResponse() to create an response object.
+	    
+	    Deallocate any local variables.
+	    
+	    Return the new response object.
+	}
+	
+
+12.0	WALK THROUGH OF SAMPLE APPLICATION:
+
+This section outlines how an application may play the role of origin or 
+target.  The pseudo code will be the same for every APDU. 
+
+
+	requestText(document,startLine,endLine)     (for example)
+	
+	{ 	Call makeWAISPresent(document,startLine,endLine) to construct a 
+		WAIS present object.
+	
+		Call makePresentAPDU(<z39.50 args>,WAISpresent) to construct a 
+		z39.50 present APDU with WAIS present object as its user 
+		information.
+		
+		Call writePresentAPDU(presentAPDU,buffer) to write the APDU and the
+		user information to the buffer.
+		
+		Send the buffer to the target over whatever transport mechanism is
+		available.
+		
+		Free the objects, or store them for future use.
+	}
+
+	
+	recieveAPDU(buffer)
+	
+	{	Call peekPDUType(buffer) to determine which APDU is in the buffer.
+	
+		Switch on the result to the appropriate reading routines:
+		
+			if pdu = initResponseAPDU
+				apdu := readInitAPDU(buffer)
+				
+			else if pdu = searchResponseAPDU
+				apdu := readSearchResponseAPDU(buffer)
+				
+			else if pdu = presentResponseAPDU
+				apdu := readPresentResponseAPDU(buffer)
+				
+		 Process the response.
+		 
+		 Free the apdu.
+	}
+
+
+13.0	ISSUES:
+
+The following are some of the open issues which we are still working on
+This is not necessarily a complete set.  If you think of more, or
+have suggestions on how to approach these, please don't hesitate to contact
+the author.
+
+- The following parts are defined in the WAIS Protocol Spec 1.5, but are 
+  not yet supported in the libraries: Chunk negotiation
+  
+  
+- Although the Present and PresentResponse APDUs (and their matching WAIS
+  elements) are defined, they are not officially part of the WAIS protocol
+  library, and as such they have not been fully implemented/tested.
+  
+- The Z39.50 spec does not define the concrete representation of the Present 
+  Response APDU.  The structure defined here is a straigtforward translation
+  of the abstract representation.
+
+- The spec does not provide for a user information field in the Present 
+  APDU.  We have added one, and believe it should be made a standard part of the
+  spec.
+
+- We do not check to ensure that the refID fields are limited to 64 
+  characters as outlined in the spec.
+
+- We do nothing to respect MaximumRecordSize
+
+- Fix up naming conventions - should all these functions be prefixed with
+  "Z3950_" to prevent name collisions?
+
+- Add support for other apdu's.
+
+- Check consistency with spec.
+
+- Test portability to other platforms - Partial port to Saber-C on Sun
+  platforms is successful.
+
+- We need a way for servers to indicate what chunk sizes they will support.
+  This could be done in the init/initResponse APDUs by passing a bitmap
+  with the bit at possition N specifying the availablity of chunk size N.
+  There are other difficulties with Chunks that the are under consideration
+  at Thinking Machines.
+  
+- The use of malloc will contribute to fragmentation of the heap which
+  may be unacceptable on machines w/o virtual memory (macs).  We may
+  need a more abstract memory model.
+  
+
+14.0	SPEC NOTES:
+
+There are several issues alluded to in the spec that are not directly 
+addressed.  They are discussed here.
+
+- The size of a Binary integer is unspecified.  We have chosen to use C long
+  ints (4 bytes).  When writing them in a variable section, we use only as
+  many bytes as are required to represent their data.
+
+
+14.0	DISCLAIMER:
+
+The libraries described here are initial implementations and are 
+subject to change.  We will make every effort to stabilize the
+libraries as soon as possible, and to inform all users of changes.
+
+One of our first goals will be to confirm that the implementation
+actually conforms to the Z39.50 specification.  The WAIS protocol
+will undoubtably evolve over time as we gain experience with developing
+information servers and clients.
+
+These libraries will be placed in the public domain as soon as they
+are suitably stable.  Until Thinking Machines releases the libraries,
+please do not distribute the libraries without first contacting the
+author.
+
+As always, if there is a discrepancy between the documentation and the
+code - believe the code.
+
+
+
+
+01234567890123456789012345678901234567890123456789012345678901234567890123456789
+
+
+
+

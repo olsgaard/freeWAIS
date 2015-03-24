@@ -1,0 +1,97 @@
+Fri Feb 10 10:33:58 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* myAsciiSink.c, Xwais.raw: Release 1.1.2
+
+Tue Jan 10 17:06:47 1995  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* qdisplay.c: Better layout and colors?
+
+	* qcommands.c:
+	Bug wich causes coredump when submitting the same query more than once
+	No completely salvaged
+
+	* Xwais.raw: Better layout and colors?
+
+Fri Dec 23 16:46:16 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* util.c: Use default borderWidth dimension; i.e. 1
+
+	* qdisplay.c: Change label to make layout correct
+
+Thu Dec 22 14:58:11 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Makefile.in: CFLAGS gets replaced by configure now.
+
+Tue Dec 13 18:52:45 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Makefile.in: chip@chinacat.unicom.com (Chip Rosenthal) patches.
+	Excluding the merge of libinv and libwais
+
+Thu Nov 24 10:04:45 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* qcommands.c: XtMalloc for string was too short
+
+Mon Oct 31 15:05:12 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* myAsciiSink.c: runns under X11R6
+
+Fri Oct 21 13:02:19 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* myAsciiSinkP.h, myAsciiSink.c:
+	Now at least compiles under X11R6 - query is invisible :(
+
+	* myAsciiSink.c: Moved the Log to the top
+
+Thu Sep  8 16:43:50 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* MyList.c, myAsciiSink.c:
+	Added include cdialect.h to enshure, that string.h is included
+	before ctype.h
+
+Mon Aug  8 07:33:17 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* xwais.h, xwais.c:
+	Moved wais_log_file_name and waislogfile to cutil.[ch]
+
+Fri Aug  5 08:54:30 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* xwais.h: dumped numtosave since it's unused
+
+	* xquestion.h, makex.sh, display.c, cursor.h, MyList.c, My-Makefile, Imakefile, xwaisq.c, xwais.h, xwais.c, xstuff.h, util.h, util.c, text.h, text.c, tcommands.h, tcommands.c, scrolllist.h, scommands.h, scommands.c, qdisplay.h, qdisplay.c, qcommands.h, qcommands.c, myAsciiSrcP.h, myAsciiSrc.h, myAsciiSinkP.h, myAsciiSink.h, myAsciiSink.c, list.h, filereq.h, filereq.c, display.h:
+	Release beta 04
+
+	* cr: Initial revision
+
+	* catalog.c, cat.h: Release beta 04
+
+	* Xwais.old: Initial revision
+
+	* Retrieval.h, MyListP.h, MyList.h: Release beta 04
+
+	* Makefile.in: Initial revision
+
+Fri Mar 25 10:21:02 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* AsciiSrcSearch.c, Viewport.c, myAsciiSrc.c, qcommands.c:
+	now will try to make 8-bit chars work
+
+Wed Mar 23 19:09:33 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* myAsciiSink.c: *** empty log message ***
+
+Wed Mar 23 15:29:37 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* x/Imakefile: better support for -DLOCAL_SEARCH
+
+Fri Mar 11 09:15:45 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* x/Xwais.raw: Changed for installation with imake
+
+	* x/Imakefile:
+	New installation. Compiles now with the -DLOCAL_SEARCH switch
+
+Thu Mar 10 17:35:55 1994  Huynh Quoc T. Tung  (huynh1@woodstock)
+
+	* x/XwaisqHELP:
+	descriptions for field, boolean, partial, literal search.
+

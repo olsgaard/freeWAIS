@@ -1,0 +1,987 @@
+1) What is freeWAIS-sf? 
+  1.1) What does 'stemming' mean? 
+  1.2) What does 'soundex' mean? 
+2) Where to get ... 
+  2.1) Most of the ftp accessable Stuff is mirrored on different 
+  2.2) Where can I get this list (freeWAIS-sf-faq) 
+  2.3) Where can I get the comp.infosystems.wais FAQ 
+  2.4) What is the current Version of freeWAIS-sf? 
+  2.5) Where can I get some Documentation? 
+  2.6) Where can i get examples of this $#@ format files? 
+3) Is there ...? 
+  3.1) Is there and Emacs client for freeWAIS-sf? 
+  3.2) Is there an X11 client for freeWAIS-sf 
+  3.3) Does the X client compile with X11R6 
+  3.4) Is there a WWW gateway dedicated for usage with freeWAIS-sf? 
+4) Can I ... 
+  4.1) How must a field name look like? 
+5) How can I ... 
+  5.1) How can I index index mails? 
+  5.2) How can I index HTML entities? 
+  5.3) How can I force 'c++' to appear in the index? 
+  5.4) How can I index HTML files? 
+  5.5) How can I index my http server? 
+  5.6) How can I index my ftp server? 
+  5.7) How to remove a file from index ? 
+  5.8) How should I maintain WAIS indexes? 
+  5.9) How can I search for the date specified in the layout. 
+6) Trouble ... 
+  6.1) waisindex dumps core when it reads more than 20 filenames from 
+  stdin. 
+  6.2) Hey, is directory-of-servers at quake.think.com down or what? 
+  6.3) Compilation of the ctype directory does not work! 
+  6.4) warning: couldn't open database.syn -translation disabled. 
+7) Does freeWAIS-sf run on .... 
+8) Does freeWAIS-sf work with ... 
+  8.1) Can i use other wais clients to query a freeWAIS-sf server? 
+  8.2) Can i link freeWAIS-sf with gopher? 
+  8.3) Gopher Error: Nothing Available! 
+  8.4) Can i link freeWAIS-sf with Mosaic? 
+  8.5) Can i link freeWAIS-sf with the cern httpd? 
+----------------------------------------------------------------------
+
+
+
+ 
+
+
+Subject: 1) What is freeWAIS-sf?
+
+  1.1) What does 'stemming' mean? 
+  1.2) What does 'soundex' mean?
+
+  FreeWAIS-sf is an extension of the 
+  freeWAIS software provided by the the Clearinghouse for Networked 
+  Information Discovery and Retrieval (CNIDR). The SF suffix in the 
+  software name stands for ßtructured fields," an indexing and search 
+  feature which distinguishes this software from its predecessors. 
+
+    It is based on the version 0.202 of this software but includes and 
+    enhances much of what freeWAIS-0.3 contains. 
+
+    Major extensions of FreeWAIS-sf include: 
+
+          Introduction of text, date, and numeric field structures 
+          within a document, which allows a document to be indexed 
+          using potentially overlapping fields. 
+
+          Support for complex Boolean searches (a query parser is 
+          integrated in the server). 
+
+          Stemming and phonetic coding may be switched on and off for 
+          each individual field. 
+
+          Definition of document format and layout of the headlines are 
+          now configurable by a new specification language based on 
+          regular expressions. No C-code must be written to index new 
+          document types. 
+
+          Installation procedure now just requires running a sh script 
+          and answering simple questions. The script is generated using 
+          the GNU autoconf utility. No Makefile sets for individual 
+          systems are necessary. For development purposes, additional 
+          Imakefiles are provided since the Makefiles do not contain 
+          dependencies 
+
+          Support for country specific character sets (8-Bit) 
+
+          Lots of bug fixes. 
+
+    All changes are restricted to the indexer and server to allow 
+    existing clients to query FreeWAIS-sf databases. Document types 
+    contained in the original distribution remain intact. You can use 
+    FreeWAIS-sf as you would use original freeWAIS or take advantage of 
+    its enhanced features. 
+
+------------------------------
+Subject: 1.1) What does 'stemming' mean?
+
+    Stemming in a field means, that every word is reduced to its word 
+    stemm, before it is added to or search in the index. This way 
+    'computer', 'computing' and 'computers' are treated identically. 
+
+------------------------------
+Subject: 1.2) What does 'soundex' mean?
+
+    Like stemming, every word is mapped to its soundex code before 
+    added to or search in the index. Equal or similar sounding words 
+    are treated as if they were identical. 
+
+------------------------------
+Subject: 2) Where to get ...
+
+  2.1) Most of the ftp accessable Stuff is mirrored on different 
+  2.2) Where can I get this list (freeWAIS-sf-faq)
+  2.3) Where can I get the comp.infosystems.wais FAQ
+  2.4) What is the current Version of freeWAIS-sf?
+  2.5) Where can I get some Documentation?
+  2.6) Where can i get examples of this $#@ format files?
+
+------------------------------
+Subject: 2.1) Most of the ftp accessable Stuff is mirrored on different
+   sites. Please check archie or one of the sites below. The load on
+   our server is growing out of bounds. We had to close it for the
+   public - for the big files at least. Since all Packets are routed
+   over the EUnet site, it will be faster to get the stuff from there
+   as from ls6-www.
+
+
+    ftp.maxwell.syr.edu
+        /infosystems/wais/FreeWAIS-sf/freeWAIS-sf-2.0/
+    ftp.germany.eu.net
+        /pub/infosystems/wais/Unido-LS6/freeWAIS-sf-2.0/
+    ftp.switch.ch
+        /mirror/wais/servers/sf-alpha/freeWAIS-sf-2.0/
+    ftp.leo.org
+        /pub/comp/infosys/wais/freeWAIS/freeWAIS-sf-2.0/
+
+	
+------------------------------
+Subject: 2.2) Where can I get this list (freeWAIS-sf-faq)
+
+    ftp://ls6-www.informatik.uni-dortmund.de/pub/wais/FAQ 
+    http://www.cis.ohio-state.edu/hypertext/faq/usenet/wais-faq/freeWAIS-sf/faq.html 
+
+------------------------------
+Subject: 2.3) Where can I get the comp.infosystems.wais FAQ
+
+    
+    http://www.cis.ohio-state.edu/hypertext/faq/usenet/wais-faq/getting-started/faq.html 
+
+------------------------------
+Subject: 2.4) What is the current Version of freeWAIS-sf?
+
+    The latest release of freeWAIS-sf is 2.0 from September 1995. 
+
+    The jump from 1.2 in the release number is due to technical 
+    problems when I switched to metaconfig for configuration and 
+    installation. 
+
+------------------------------
+Subject: 2.5) Where can I get some Documentation?
+
+    Write some - and share! Especially extensions to the Texinfo manual 
+    are very welcome. 
+
+    A paper I wrote: 
+        http://www.igd.fhg.de/www/www95/papers/47/fwsf/fwsf.html
+
+    The Texinfo-Manual: 
+        http://ls6-www.informatik.uni-dortmund.de/freeWAIS-sf/
+        ftp://ls6-www.informatik.uni-dortmund.de/pub/wais/freeWAIS-sf-2.0/fwsf.*
+	   36680 Jun 29  1995 /home/robots/ftp/pub/wais/freeWAIS-sf-1.2/fwsf.dvi.gz
+	   25319 Jun 29  1995 /home/robots/ftp/pub/wais/freeWAIS-sf-1.2/fwsf.info.gz
+	   78828 Jun 29  1995 /home/robots/ftp/pub/wais/freeWAIS-sf-1.2/fwsf.ps.gz
+	   26054 Jun 29  1995 /home/robots/ftp/pub/wais/freeWAIS-sf-1.2/fwsf.texi.gz
+
+    Documentation is still rudimentary. Any volonteers for writing 
+    parts of a more verbose ;-) documentation? 
+
+------------------------------
+Subject: 2.6) Where can i get examples of this $#@ format files?
+
+    You can fetch examples from 
+    ftp://ls6-www.informatik.uni-dortmund.de/pub/wais/fmt-examples 
+
+
+	
+	     223 Jun 14  1994 Douglas.fde
+	     717 Jun 14  1994 Douglas.fmt
+	    3026 Jun 14  1994 Douglas.text
+	     849 Aug 19  1994 HCIBIB.fmt
+	     667 Jun 10  1994 HCIIR.fmt
+	     158 Apr 13  1995 WRb.fde
+	     969 Apr 13  1995 WRb.fmt
+	    3049 Apr 13  1995 WRb.text
+	     849 Aug 19  1994 bibdb-html.fmt
+	     844 Aug 19  1994 demo.fmt
+	     143 Jun 10  1994 ftp-pages.fmt
+	     849 Aug 19  1994 irdigest.fmt
+	     838 Aug 19  1994 journals.fmt
+	     483 Apr 18  1995 proxy-html.fmt
+	    3826 Oct  9 11:39 test.fmt
+	     675 Oct 11 21:22 www-pages.fmt
+
+------------------------------
+Subject: 3) Is there ...?
+
+  3.1) Is there and Emacs client for freeWAIS-sf? 
+  3.2) Is there an X11 client for freeWAIS-sf
+  3.3) Does the X client compile with X11R6
+  3.4) Is there a WWW gateway dedicated for usage with freeWAIS-sf?
+
+------------------------------
+Subject: 3.1) Is there and Emacs client for freeWAIS-sf?
+
+    Yes the client comes with the source distribution. It is 
+    auto-magically configured in the installation procedure. 
+
+    It is installed in $DESTDIR/lib/emacs/lisp: 
+
+
+	
+	   75261 Jan 19 17:03 wais.el
+
+------------------------------
+Subject: 3.2) Is there an X11 client for freeWAIS-sf
+
+    Yes the client comes with the source distribution. It is 
+    auto-magically configured in the installation procedure. 
+
+    Application defaults are auto-magically generated and installed in 
+    It is installed in $DESTDIR/lib: 
+	     512 Oct  6 19:22 X11
+	    2106 Oct  6 19:28 XwaisHELP
+	    6218 Oct  6 19:28 XwaisqHELP
+	     512 Oct  6 19:11 emacs
+	    2110 Jan 19 17:03 libftw.a
+	  536714 Jan 19 17:03 libwais.a
+
+------------------------------
+Subject: 3.3) Does the X client compile with X11R6
+
+    Yes it does. 
+
+------------------------------
+Subject: 3.4) Is there a WWW gateway dedicated for usage with freeWAIS-sf?
+
+    Yes it's called SFgate and can be found on the ftp server 
+    ftp://ls6-www.informatik.uni-dortmund.de/pub/wais/ 
+
+    You can see it run at 
+    http://ls6-www.informatik.uni-dortmund.de/SFgate/bibdb-html. The SF 
+    icon leads to some documentation about SFgate. 
+
+------------------------------
+Subject: 4) Can I ...
+
+  4.1) How must a field name look like? 
+
+  
+------------------------------
+Subject: 4.1) How must a field name look like?
+
+    A field name must be composed of alpha characters only and must 
+    have at least 2 characters. 
+
+------------------------------
+Subject: 5) How can I ...
+
+  5.1) How can I index index mails? 
+  5.2) How can I index HTML entities?
+  5.3) How can I force 'c++' to appear in the index?
+  5.4) How can I index HTML files?
+  5.5) How can I index my http server?
+  5.6) How can I index my ftp server?
+  5.7) How to remove a file from index ?
+  5.8) How should I maintain WAIS indexes?
+  5.9) How can I search for the date specified in the layout.
+
+------------------------------
+Subject: 5.1) How can I index index mails?
+
+    cd to your wais source directory (e.g. ~/wais-sources) 
+
+    Create a mail.fmt file like the following: 
+
+ record-sep: /^From / # alternatively use your mail-separartor
+ layout:
+ headline: /^From: / /\J/ 20 /^From: ./
+ headline: /^Subject: / /\J/ 80 /^Subject: ./
+
+ region: /^From: /
+ from SOUNDEX LOCAL TEXT BOTH
+ end: /$/
+
+ region: /^Subject: /
+ subject stemming TEXT BOTH
+ end: /$/
+
+    Run 'waisindex -d mail -t fields <files>' 
+
+------------------------------
+Subject: 5.2) How can I index HTML entities?
+
+    You can specify country specific characters during configuration. 
+    This is (currently) the place to customize the delimiter set. Other 
+    way round: You can specify, which chars make up words. 
+
+    You can "misuse" this feature to force special characters ('-', 
+    '+', ...) to be treated as parts of words. 
+
+    If you insist on indexing things like 'Universit&auml;t', you 
+    should enter '&;' as country specific characters: 
+
+        You can compile freeWASI-sf with it's own ctype package. You
+        should do this, if you want to use special (country specific)
+        chars, which are not supported by your systems ctype.
+        Use your systems ctype (no)?
+     >  
+        Ok, will use my own ctype
+
+        
+        I will now ask for your special letters. If you do not want
+        to give the now, edit Default.tmpl after this configure run.
+        Input your upper case letters in the same order than your
+        lower case letters. toupper() and tolower() depend on this
+        order. Input letters which are upper and lower case in both
+        strings.
+        what are your lower case letters (äöüß)?
+     >  &;
+        what are your upper case letters (ÄÖÜß)?
+     >  &;
+
+------------------------------
+Subject: 5.3) How can I force 'c++' to appear in the index?
+
+    See question 'How can I index HTML entities ?' 
+
+------------------------------
+Subject: 5.4) How can I index HTML files?
+
+    First decide which TYPE your documents should have: 
+
+        1) If you want your WAIS server to deliver documents, TYPE
+           should be HTML.
+
+        
+           Your command line should *start*:
+
+                waisindex -T HTML ...
+
+           Then go along as with other databases. You can use type
+           field (-t field) in addition to the -T flags.
+
+        2) If you want an http server to deliver documents, TYPE should
+           be URL. You must tell waisindex, how the URL of the files
+           should be composed. This is done by specifying the prefix
+           to be removed from the file path and a prefix to add:
+
+           Your command line should *start*:
+
+                waisindex -t URL what-to-trim what-to-add ...
+
+
+    Note: If you have compiled with the modified URL handling 
+    (Questioned during configure) you can customize the headline also 
+    with document type URL. But currently only SFgate can handle such 
+    databases. The default handling is to put the URL in the headline. 
+
+------------------------------
+Subject: 5.5) How can I index my http server?
+
+    See question 'How can I index HTML files?' first. 
+
+    Lets assume, your servers pages reside in directory 
+    '/home/robots/www/pages'. Your servers URL might be 
+    'http://myserver/'. The database will be named 'www-pages'. 
+
+    An easy format file (www-pages.fmt) would be: 
+
+        record-sep: /\n\n/ # never matches
+
+        
+        layout:
+        headline: /<[Tt][Ii][Tt][Ll][Ee]>/ /<\/[Tt][Ii][Tt][Ll][Ee]>/ 80 
+           /<[Tt][Ii][Tt][Ll][Ee]> *./
+        end:
+
+        
+        region: /<[Hh][Tt][Mm][Ll]>/
+        stemming TEXT GLOBAL
+        end: /<.[Bb][Oo][Dd][Yy]>/
+
+    Then call 
+
+        waisindex -t URL /home/robots/www/pages http://myserver \
+                -d www-pages -t fields \
+                `find /home/robots/www/pages -type f -name "*.html" -print`
+
+    If you do not have the modified URL handling compiled in, the 
+    headline always contains the URL. With the modified handling, 
+    headlines contain the title string of the HTML document, if there 
+    is any. 
+
+    An example database is running at 
+    http://ls6-www.informatik.uni-dortmund.de/SFgate/www-pages rsp. 
+    wais://ls6-www.informatik.uni-dortmund.de/www-pages. 
+
+------------------------------
+Subject: 5.6) How can I index my ftp server?
+
+    See 'How can I index my http server?'. 
+
+        waisindex -t URL /home/robots/www/pages ftp://myserver \
+                -d ftp-files -t fields \
+                `find /home/robots/ftp/pub -type f -name "*.txt"`
+
+------------------------------
+Subject: 5.7) How to remove a file from index ?
+
+    You cannot remove files from the index. The index is add only (-a). 
+    But you can remove the source files referenced in the index. These 
+    files are silently ignored. The makedb program in the distribution 
+    emulates a sort of deletion. 
+
+------------------------------
+Subject: 5.8) How should I maintain WAIS indexes?
+
+    Use the makedb program in the distribution. See the manual to learn 
+    about it. 
+
+------------------------------
+Subject: 5.9) How can I search for the date specified in the layout.
+
+    The bad news is: you can't. The good is: you can define a field as 
+    data field with 2.0 PL 29 or higher. 
+
+------------------------------
+Subject: 6) Trouble ...
+
+  6.1) waisindex dumps core when it reads more than 20 filenames from 
+  stdin. 
+  6.2) Hey, is directory-of-servers at quake.think.com down or what?
+  6.3) Compilation of the ctype directory does not work!
+  6.4) warning: couldn't open database.syn -translation disabled.
+
+------------------------------
+Subject: 6.1) waisindex dumps core when it reads more than 20 filenames from stdin.
+
+    There is a hardcoded limit of 20 filenames (BLOCK_FILES_FROM_STDIN) 
+    in ir/waisindex.c which is not even checked for overruns (shudder). 
+    Either increase that value or use the patch01 for freeWAIS-sf-1.1 
+    wich allows for an arbitrary number of filenames: 
+
+    
+    ftp://ls6-www.informatik.uni-dortmund.de/pub/wais/freeWAIS-sf-1.1/patch01.gz 
+
+------------------------------
+Subject: 6.2) Hey, is directory-of-servers at quake.think.com down or what?
+
+    Yes it is. Use directory-of-servers at cnidir.org or 
+    server.wais.com instead. 
+
+------------------------------
+Subject: 6.3) Compilation of the ctype directory does not work!
+
+    If you see something like the following 
+
+        gcc -c  -DHAVE_CONFIG_H     -g mkctype.c
+        mkctype.c: In function `main':
+        mkctype.c:115: parse error before character 0344
+        mkctype.c:116: parse error before character 0304
+
+    You probably have sed metacharacters (like '&') defined as country 
+    specific characters. Escape them with a double '\'! 
+
+------------------------------
+Subject: 6.4) warning: couldn't open database.syn -translation disabled.
+
+    I get the following error: 
+  929: 1: ... -2: warning: couldn't open database.syn -translation disabled.
+    Is this a bad thing? 
+
+    No it just tells you, that a file database.syn could not be found 
+    and therefore the synonym table is empty. If you did not intend to 
+    use synonym tables, you are perfect ok. 
+
+------------------------------
+Subject: 7) Does freeWAIS-sf run on ....
+
+    We got UDP packets from freeWAIS-sf servers running on the 
+    following os/hw/cc combinations: 
+
+
+ A/UX    3.1        mc68040    gcc       	1.0
+ A/UX    3.1.1      mc68030    cc        	2.0.52
+ A/UX    3.1.1      mc68030    gcc       	1.0
+ A/UX    3.1.1      mc68040    gcc       	1.0, 1.1
+ A/UX    3.1.1      mc68040    gcc 2.6.3 	1.2-pre8
+ AIX     1          ********   3.1       	1.2-pre9
+ AIX     1          ********   cc        	1.0, 1.1
+ AIX     2          ********   cc        	0.9.10, 1.0, 1.1, 1.1.1, 1.1.2, 1.2, 1.2-pre8, 1.2-pre9, 2.0.16, 2.0.39, 2.0.45, 2.0.52, 2.0.60
+ AIX     2          ********   gcc       	1.0, 1.2-pre8
+ AIX     2          ********   gcc 2.6.0 	2.0.52
+ AIX     2          ********   gcc 2.6.2 	2.0.39
+ BOSX    2          0001849841 cc        	1.1
+ BSD/386 1.0        i386       gcc       	1.0
+ BSD/386 1.1        i386       gcc       	1.0, 1.1, 1.1.1, 1.1.2, 1.2-pre8
+ BSD/386 1.1        i386       gcc 1.42  	2.0.58
+ BSD/OS  2.0        i386       gcc       	1.0, 1.1, 1.2-pre9
+ BSD/OS  2.0        i386       gcc 1.42  	2.0.21
+ BSD/OS  2.0        i386       gcc 2.6.3 	1.2-pre10
+ BSD/OS  2.0.1      i386       gcc       	1.0, 1.1, 1.2-pre8, 1.2-pre9
+ BSD/OS  2.0.1      i386       gcc 2.6.3 	2.0.45, 2.0.55, 2.0.58, 2.0.60
+ BSD/OS  2.0.1      i386       shlicc2   	2.0.58
+ DYNIX/ptx 4.0        i386       cc        	1.1.1
+ FreeBSD 1.1.5(RELE i386       gcc       	1.0
+ FreeBSD 1.1.5.1(RE i386       gcc       	1.0, 1.1, 1.1.2
+ FreeBSD 2.0-RELEAS i386       gcc       	1.0, 1.1
+ FreeBSD 2.0.5-RELE i386       gcc       	1.0, 1.1, 1.2-pre8, 1.2-pre9
+ FreeBSD 2.0.950412 i386       gcc       	1.2-pre8
+ HI-OSF/1-M R2.0       hitm       cc        	1.2-pre10
+ HI-UX   01.04      3050/R     gcc 2.5.8 	2.0.52
+ HP-UX   A.09.00    9000/822   gcc       	1.0
+ HP-UX   A.09.00    9000/827   cc        	2.0.52
+ HP-UX   A.09.01    9000/710   gcc       	1.0, 1.1, 1.1.2
+ HP-UX   A.09.01    9000/715   gcc       	1.0, 1.1, 1.1.2
+ HP-UX   A.09.01    9000/720   gcc       	1.0
+ HP-UX   A.09.01    9000/720   gcc 2.4.4 	1.2
+ HP-UX   A.09.01    9000/730   gcc       	1.1.2, 1.2
+ HP-UX   A.09.01    9000/755   gcc       	1.0
+ HP-UX   A.09.01    9000/755   gcc 2.5.8 	1, 1.2
+ HP-UX   A.09.03    9000/712   cc        	2.0.50
+ HP-UX   A.09.03    9000/712   gcc       	1.1
+ HP-UX   A.09.03    9000/715   unknown   	1.1
+ HP-UX   A.09.03    9000/720   gcc       	1.1
+ HP-UX   A.09.03    9000/735   cc        	2.0.60
+ HP-UX   A.09.04    9000/806   cc        	2.0.60
+ HP-UX   A.09.04    9000/806   gcc 2.4.5 	1.2
+ HP-UX   A.09.04    9000/816   gcc       	1.0
+ HP-UX   A.09.04    9000/816   gcc 2.6.3 	1.
+ HP-UX   A.09.04    9000/827   cc        	2.0.60
+ HP-UX   A.09.04    9000/847   gcc       	1.1
+ HP-UX   A.09.04    9000/847   gcc 2.6.3 	1.
+ HP-UX   A.09.04    9000/887   cc        	1.0, 2.0.50
+ HP-UX   A.09.04    9000/887   gcc       	1.0
+ HP-UX   A.09.05    9000/712   gcc       	1.1
+ HP-UX   A.09.05    9000/712   gcc 2.6.3 	1.
+ HP-UX   A.09.05    9000/715   cc        	1.0, 1.1, 2.0.45
+ HP-UX   A.09.05    9000/715   gcc       	1.0
+ HP-UX   A.09.05    9000/720   cc        	2.0.50
+ HP-UX   A.09.05    9000/725   gcc       	1.1
+ HP-UX   A.09.05    9000/735   gcc       	1.0, 1.1
+ HP-UX   A.09.05    9000/735   gcc 2.6.0 	1, 1.2, 2.0.45
+ HP-UX   A.09.05    9000/735   gcc 2.7.0 	2.0.4
+ HP-UX   B.10.00    9000/809   gcc 2.5.8 	2.0.45
+ HP-UX   B.10.00    9000/809   gcc 2.7.0 	2.0.45
+ HP-UX   B.10.01    9000/715   cc        	2.0.60
+ IRIX    4.0.5F     IP20       gcc       	1.0
+ IRIX    4.0.5H     IP20       gcc       	1.0
+ IRIX    5.2        IP12       cc        	1.0, 1.1
+ IRIX    5.2        IP12       gcc       	1.0, 1.1
+ IRIX    5.2        IP17       cc        	1.1
+ IRIX    5.2        IP17       gcc       	1.1, 1.1.2
+ IRIX    5.2        IP19       cc        	1.0, 1.1
+ IRIX    5.2        IP20       cc        	1.0, 1.1, 1.1.1, 1.2
+ IRIX    5.2        IP22       cc        	1.0, 1.1, 1.2-pre8
+ IRIX    5.2        IP22       gcc       	1.0, 1.1, 1.1.2
+ IRIX    5.3        IP12       cc        	1.1, 1.1.2, 2.0.39
+ IRIX    5.3        IP12       gcc       	1.1
+ IRIX    5.3        IP17       cc        	2.0.50
+ IRIX    5.3        IP17       gcc       	1.1, 1.1.2
+ IRIX    5.3        IP19       cc        	1.1, 1.2-pre8, 2.0.52
+ IRIX    5.3        IP19       gcc       	1.0, 1.1
+ IRIX    5.3        IP19       gcc 2.7.0 	2.0.39
+ IRIX    5.3        IP20       cc        	1.0, 1.1
+ IRIX    5.3        IP20       gcc       	1.2
+ IRIX    5.3        IP22       cc        	1.0, 1.1, 1.2-pre10, 1.2-pre8, 2.0.39, 2.0.45, 2.0.52, 2.0.60
+ IRIX    5.3        IP22       gcc       	1.0, 1.0.10, 1.1
+ IRIX    5.3        IP22       gcc 2.7.0 	1.2-pre8, 2.0.35
+ Linux   1.0.8      i386       gcc       	1.0
+ Linux   1.0.8      i486       gcc       	1.0
+ Linux   1.0.9      i486       gcc       	1.0
+ Linux   1.0.9      i486       gcc 2.5.8 	1.2-pre8, 2.0.39
+ Linux   1.0.9      i586       gcc       	1.1
+ Linux   1.1.18     i486       gcc       	1.0, 1.1
+ Linux   1.1.18     i486       gcc 2.5.8 	1.2-pre8
+ Linux   1.1.18     i586       gcc       	1.0
+ Linux   1.1.33     i486       gcc       	1.0
+ Linux   1.1.45     i386       gcc       	1.0
+ Linux   1.1.45     i486       gcc       	1.0
+ Linux   1.1.47     i486       gcc       	1.0
+ Linux   1.1.47     i586       gcc       	1.1
+ Linux   1.1.49     i486       gcc       	1.0
+ Linux   1.1.50     i486       gcc       	1.0
+ Linux   1.1.50     i586       gcc       	1.0
+ Linux   1.1.51     i486       gcc       	1.0
+ Linux   1.1.52     i486       gcc       	1.0, 1.1
+ Linux   1.1.54     i486       gcc       	1.1
+ Linux   1.1.55     i486       gcc       	1.0
+ Linux   1.1.57     i486       gcc       	1.0
+ Linux   1.1.59     i386       gcc       	1.0
+ Linux   1.1.59     i486       gcc       	1.0, 1.1, 1.1.2
+ Linux   1.1.59     i486       gcc 2.5.8 	1.2-pre8, 1.2-pre9, 2.0.35, 2.0.39
+ Linux   1.1.59     i586       gcc       	1.0, 1.1
+ Linux   1.1.59     i586       gcc 2.6.3 	2.0.60
+ Linux   1.1.60     i486       gcc       	1.0
+ Linux   1.1.61     i486       gcc       	1.0
+ Linux   1.1.62     i486       gcc       	1.0, 1.1
+ Linux   1.1.62     i486       gcc 2.5.8 	1.2, 1.2-pre8
+ Linux   1.1.64     i486       gcc       	1.0
+ Linux   1.1.65     i486       gcc       	1.0
+ Linux   1.1.70     i486       gcc       	1.0
+ Linux   1.1.70     i586       gcc       	1.1
+ Linux   1.1.72     i486       gcc       	1.0
+ Linux   1.1.73     i486       gcc       	1.0
+ Linux   1.1.73     i586       gcc       	1.0, 1.1
+ Linux   1.1.75     i486       gcc       	1.0, 1.1
+ Linux   1.1.81     i486       gcc       	1.1
+ Linux   1.1.82     i486       gcc       	1.0
+ Linux   1.1.83     i486       gcc       	1.1
+ Linux   1.1.83     i486       gcc 2.5.8 	1.2-pre8
+ Linux   1.1.83     i586       gcc       	1.1
+ Linux   1.1.84     i486       gcc       	1.1
+ Linux   1.1.85     i486       gcc       	1.0
+ Linux   1.1.86     i486       gcc       	1.1, 1.1.2
+ Linux   1.1.86     i586       gcc       	1.1.1
+ Linux   1.1.87     i486       gcc       	1.0
+ Linux   1.1.88     i486       gcc       	1.0
+ Linux   1.1.94     i486       gcc       	1.1
+ Linux   1.1.95     i486       gcc       	1.1
+ Linux   1.2.0      i386       gcc 2.5.8 	1.2-pre8
+ Linux   1.2.0      i486       gcc       	1.0, 1.1.1, 1.1.2
+ Linux   1.2.0      i586       gcc 2.6.3 	1.2-pre9
+ Linux   1.2.1      i386       gcc       	1.0
+ Linux   1.2.1      i386       gcc 2.6.3 	1.2-pre8
+ Linux   1.2.1      i486       gcc       	1.0, 1.1, 1.1.1, 1.1.2
+ Linux   1.2.1      i486       gcc 2.6.3 	1.2-pre10, 2.0.39, 2.0.5
+ Linux   1.2.1      i586       gcc       	1.1, 1.2
+ Linux   1.2.1      i586       gcc 2.6.3 	1.2-pre8, 2.0.35, 2.0.39, 2.0.60
+ Linux   1.2.10     i386       gcc       	1.0
+ Linux   1.2.10     i486       gcc 2.5.8 	1.2-pre8, 2.0.16
+ Linux   1.2.10     i486       gcc 2.6.3 	1.2-pre9
+ Linux   1.2.10     i586       gcc 2.7.0 	2.0.60
+ Linux   1.2.11     i486       gcc       	1.0, 1.1
+ Linux   1.2.11     i586       gcc       	1.0, 1.1
+ Linux   1.2.11     i586       gcc 2.5.8 	1.2-pre9
+ Linux   1.2.12     i486       gcc       	1.1
+ Linux   1.2.12     i486       gcc 2.6.3 	2.0.52
+ Linux   1.2.13     i486       gcc       	1.0, 1.1
+ Linux   1.2.13     i486       gcc 2.5.8 	2.0.35, 2.0.39
+ Linux   1.2.13     i486       gcc 2.6.3 	2.0.39, 2.0.41, 2.0.45, 2.0.51, 2.0.60
+ Linux   1.2.13     i486       gcc 2.7.0 	2.0.39, 2.0.52, 2.0.55, 2.0.60
+ Linux   1.2.13     i586       gcc       	1.0, 1.1
+ Linux   1.2.13     i586       gcc 2.5.8 	2.0.35, 2.0.39
+ Linux   1.2.13     i586       gcc 2.6.2 	2.0.16
+ Linux   1.2.13     i586       gcc 2.6.3 	2.0.35, 2.0.39, 2.0.41, 2.0.52, 2.0.55, 2.0.60
+ Linux   1.2.13     i586       gcc 2.7.0 	2.0.39, 2.0.50, 2.0.52
+ Linux   1.2.3      i486       gcc       	1.0, 1.1, 1.1.1, 1.1.2
+ Linux   1.2.3      i486       gcc 2.6.3 	1.2-pre8, 1.2-pre9, 2.0.39, 2.0.60
+ Linux   1.2.3      i486       gcc 2.7.0 	1.2-pre8
+ Linux   1.2.3      i586       gcc       	1.1
+ Linux   1.2.3      i586       gcc 2.6.3 	2.0.39, 2.0.60
+ Linux   1.2.4      i486       gcc       	1.0
+ Linux   1.2.4      i586       gcc       	1.1
+ Linux   1.2.5      i486       gcc       	1.1
+ Linux   1.2.5      i586       gcc       	1.1
+ Linux   1.2.5      i586       gcc 2.6.3 	1.2-pre8, 2.0.39
+ Linux   1.2.6      i486       gcc       	1.0
+ Linux   1.2.6      i586       gcc       	1.1
+ Linux   1.2.7      i386       gcc 2.6.3 	2.0.39
+ Linux   1.2.7      i486       gcc       	1.1
+ Linux   1.2.7      i486       gcc 2.6.3 	2.0.39
+ Linux   1.2.8      i386       gcc       	1.1
+ Linux   1.2.8      i486       gcc       	1.0, 1.1, 1.1.2
+ Linux   1.2.8      i486       gcc 2.5.8 	1.2-pre8
+ Linux   1.2.8      i486       gcc 2.6.2 	1.2
+ Linux   1.2.8      i486       gcc 2.6.3 	1.2-pre8, 1.2-pre9, 2.0.35, 2.0.39, 2.0.52, 2.0.58, 2.0.60
+ Linux   1.2.8      i486       gcc 2.7.0 	2.0.35
+ Linux   1.2.8      i586       gcc       	1.1, 1.1.2, 1.2
+ Linux   1.2.8      i586       gcc 2.5.8 	1.2-pre8, 2.0.16
+ Linux   1.2.8      i586       gcc 2.6.3 	1.2-pre9, 2.0.45, 2.0.52, 2.0.60
+ Linux   1.2.8      i586       gcc 2.7.2 	2.0.52
+ Linux   1.2.9      i486       gcc       	1.0, 1.1, 1.1.2
+ Linux   1.2.9      i486       gcc 2.6.3 	1.2-pre9, 2.0.35, 2.0.45, 2.0.56
+ Linux   1.2.9      i586       gcc       	1.0, 1.1
+ Linux   1.2.9      i586       gcc 2.6.3 	1.2-pre8
+ Linux   1.3.14     i486       gcc       	1.0
+ Linux   1.3.15     i486       gcc       	1.1.2
+ Linux   1.3.15     i486       gcc 2.7.0 	2.0.35
+ Linux   1.3.15     i586       gcc 2.6.3 	1.2-pre9
+ Linux   1.3.17     i486       gcc 2.6.3 	2.0.39
+ Linux   1.3.2      i486       gcc       	1.1
+ Linux   1.3.20     i486       gcc       	1.1
+ Linux   1.3.20     i586       gcc       	1.1
+ Linux   1.3.21     i486       gcc       	1.1
+ Linux   1.3.23     i486       gcc       	1.1.2
+ Linux   1.3.23     i486       gcc 2.7.0 	2.0.61
+ Linux   1.3.25     i486       gcc       	1.1
+ Linux   1.3.25     i586       gcc 2.6.3 	1.2-pre9
+ Linux   1.3.3      i486       gcc       	1.1
+ Linux   1.3.30     i586       gcc 2.6.3 	2.0.16
+ Linux   1.3.33     i586       gcc 2.5.8 	2.0.52
+ Linux   1.3.35     i486       gcc       	1.1
+ Linux   1.3.36     i586       gcc 2.7.0 	2.0.39
+ Linux   1.3.37     i486       gcc 2.7.0 	2.0.35
+ Linux   1.3.4      i486       gcc 2.7.0 	1.2
+ Linux   1.3.42     i586       gcc 2.7.0 	2.0.60
+ Linux   1.3.43     i486       gcc       	1.1
+ Linux   1.3.43     i586       gcc 2.6.3 	2.0.60
+ Linux   1.3.44     i486       gcc       	1.1
+ Linux   1.3.44     i586       gcc 2.7.0 	2.0.52, 2.0.55
+ Linux   1.3.45     i486       gcc       	1.1
+ Linux   1.3.45     i586       gcc 2.6.3 	2.0.41
+ Linux   1.3.45     i586       gcc 2.7.0 	2.0.61
+ Linux   1.3.56     i586       gcc 2.5.8 	2.0.39
+ Linux   1.3.57     i586       gcc 2.7.0 	2.0.61
+ Linux   1.3.57     i586       gcc 2.7.2 	2.0.52
+ Linux   1.3.59     i486       gcc       	1.0
+ Linux   1.3.59     i586       gcc 2.5.8 	2.0.39
+ Linux   1.3.8      i486       gcc       	1.0, 1.1.1
+ Linux   1.3.8      i486       gcc 2.7.0 	1.2-pre8
+ NetBSD  1.0        i386       gcc       	1.0, 1.1, 1.1.1
+ NetBSD  1.0A       i386       gcc       	1.2
+ NetBSD  1.0A       sparc      gcc       	1.1
+ NetBSD  1.1        i386       gcc       	1.0, 1.1.1
+ OSF1    V1.3       alpha      cc        	1.0, 1.1
+ OSF1    V2.0       alpha      cc        	1.0, 1.1, 1.1.2, 1.2, 1.2-pre9, 2.0.49, 2.0.52, 2.0.58, 2.0.60
+ OSF1    V2.0       alpha      gcc       	1.0, 1.1, 1.1.2
+ OSF1    V2.1       alpha      cc        	1.0, 1.1, 1.2, 2.0.60
+ OSF1    V2.1       alpha      gcc       	1.0, 1.1
+ OSF1    V2.1       alpha      gcc 2.6.0 	1.2
+ OSF1    V3.0       alpha      cc        	1.0, 1.1, 1.1.2, 1.2, 1.2-pre10, 1.2-pre8, 2.0.16, 2.0.41, 2.0.60, 2.0.7
+ OSF1    V3.0       alpha      gcc       	1.0, 1.1, 1.1.2
+ OSF1    V3.0       alpha      gcc 2.6.3 	1.2
+ OSF1    V3.0       alpha      gcc 2.7.0 	2.0.7
+ OSF1    V3.2       alpha      cc        	1.0, 1.1, 1.1.2, 1.2-pre8, 2.0.16, 2.0.52, 2.0.60
+ OSF1    V3.2       alpha      gcc       	1.0
+ OSF1    V3.2       alpha      gcc 2.6.3 	1.2-pre8
+ OSF1    V3.2       alpha      gcc 2.7.0 	1.2, 2.0.39, 2.0.52
+ OSF1    V3.2       alpha      gcc 2.7.1 	2.0.45
+ SCO_SV  3.2        i386       cc        	1.1
+ SunOS   4.1.1      sun4       cc        	1.0.10
+ SunOS   4.1.1      sun4c      cc        	1.0, 1.0.10, 1.1
+ SunOS   4.1.1      sun4c      gcc       	1.0, 1.1, 1.1.2
+ SunOS   4.1.1      sun4c      gcc 2.5.8 	2.0.60
+ SunOS   4.1.1-GF   sun4c      gcc       	1.1
+ SunOS   4.1.1-GF   sun4c      gcc 2.3.2 	1.2
+ SunOS   4.1.1-JL   sun4c      gcc       	1.0, 1.1.2
+ SunOS   4.1.2      sun4       cc        	1.0
+ SunOS   4.1.2      sun4       gcc       	1.0
+ SunOS   4.1.2      sun4       gcc 2.5.8 	1.2-pre9
+ SunOS   4.1.2      sun4c      cc        	1.0, 1.0.10, 1.1.2
+ SunOS   4.1.2      sun4c      gcc       	1.0, 1.1, 1.2
+ SunOS   4.1.2      sun4c      gcc 2.6.3 	1.2-pre8
+ SunOS   4.1.2      sun4c      gcc cygnus-2.3.3	1.2-pre8
+ SunOS   4.1.2      sun4m      cc        	1.0.10
+ SunOS   4.1.2      sun4m      gcc       	1.1
+ SunOS   4.1.2      sun4m      gcc 2.2.2 	1.2-pre8
+ SunOS   4.1.3      sun4       cc        	1.0.10
+ SunOS   4.1.3      sun4       gcc       	1.0, 1.1, 1.1.1
+ SunOS   4.1.3      sun4c      cc        	1.0, 1.0.10, 1.1, 1.2-pre8, 2.0.35, 2.0.39, 2.0.52
+ SunOS   4.1.3      sun4c      gcc       	1.0, 1.1, 1.1.1, 1.1.2, 1.1.3
+ SunOS   4.1.3      sun4c      gcc 2.3.3 	1.2-pre8
+ SunOS   4.1.3      sun4c      gcc 2.4.5 	1.2-pre9, 2.0.45
+ SunOS   4.1.3      sun4c      gcc 2.5.5 	1.2-pre8, 2.0.16
+ SunOS   4.1.3      sun4c      gcc 2.5.7 	1.2-pre9
+ SunOS   4.1.3      sun4c      gcc 2.6.1 	2.0.52
+ SunOS   4.1.3      sun4c      gcc 2.6.3 	2.0.52, 2.0.60
+ SunOS   4.1.3      sun4m      acc       	1.0
+ SunOS   4.1.3      sun4m      cc        	1.0, 1.0.10, 1.1, 1.2-pre8, 2.0.16, 2.0.39, 2.0.52, 2.0.58
+ SunOS   4.1.3      sun4m      gcc       	0.9.10, 1.0, 1.1, 1.1.1, 1.1.2
+ SunOS   4.1.3      sun4m      gcc 2.4.5 	1.2, 2.0.16
+ SunOS   4.1.3      sun4m      gcc 2.5.8 	2.0.60
+ SunOS   4.1.3      sun4m      gcc 2.6.3 	2.0.16, 2.0.45, 2.0.60
+ SunOS   4.1.3      sun4m      gcc 2.7.0 	1.2, 2.0.60
+ SunOS   4.1.3-JL   sun4c      gcc       	1.0
+ SunOS   4.1.3-JL   sun4m      gcc       	1.0
+ SunOS   4.1.3C     sun4m      cc        	1.0.10, 1.2-pre8, 2.0.50
+ SunOS   4.1.3C     sun4m      gcc       	1.0, 1.1
+ SunOS   4.1.3C     sun4m      gcc 2.6.3 	1.2-pre8
+ SunOS   4.1.3_Axil sun4m      gcc       	1.0
+ SunOS   4.1.3_DB   sun4m      cc        	1.0.10
+ SunOS   4.1.3_U1   sun4       cc        	1.0.10
+ SunOS   4.1.3_U1   sun4c      cc        	1.0.10, 1.1.2, 2.0.35, 2.0.39, 2.0.52
+ SunOS   4.1.3_U1   sun4c      gcc       	1.0, 1.1, 1.1.2
+ SunOS   4.1.3_U1   sun4c      gcc 2.4.5 	1.2-pre8
+ SunOS   4.1.3_U1   sun4c      gcc 2.5.7 	2.0.39
+ SunOS   4.1.3_U1   sun4c      gcc 2.5.8 	1.2-pre8, 2.0.39, 2.0.45
+ SunOS   4.1.3_U1   sun4c      gcc 2.6.0 	1.2-pre8, 2.0.35
+ SunOS   4.1.3_U1   sun4c      gcc 2.6.3 	1.2, 1.2-pre8
+ SunOS   4.1.3_U1   sun4m      cc        	1.0, 1.0.10, 1.1, 1.1.2, 1.2-pre8, 2.0.39, 2.0.45, 2.0.60
+ SunOS   4.1.3_U1   sun4m      gcc       	1, 1.0, 1.1, 1.1.1, 1.1.2, 1.2
+ SunOS   4.1.3_U1   sun4m      gcc 2.4.5 	1.2-pre8, 1.2-pre9
+ SunOS   4.1.3_U1   sun4m      gcc 2.5.7 	2.0.39
+ SunOS   4.1.3_U1   sun4m      gcc 2.5.8 	1.2
+ SunOS   4.1.3_U1   sun4m      gcc 2.6.2 	1.2-pre8
+ SunOS   4.1.3_U1   sun4m      gcc 2.6.3 	1.2, 1.2-pre8
+ SunOS   4.1.3_U1   sun4m      gcc 2.7.0 	1.2-pre8, 2.0.52
+ SunOS   4.1.4      sun4       gcc       	1.0, 1.1
+ SunOS   4.1.4      sun4       gcc 2.6.3 	2.0.45
+ SunOS   4.1.4      sun4c      cc        	2.0.39
+ SunOS   4.1.4      sun4c      gcc       	1.0, 1.1
+ SunOS   4.1.4      sun4c      gcc 2.5.8 	1.2-pre8, 2.0.29, 2.0.37, 2.0.45, 2.0.47, 2.0.48
+ SunOS   4.1.4      sun4c      gcc 2.6.3 	2.0.56
+ SunOS   4.1.4      sun4c      gcc 2.7.0 	2.0.39, 2.0.51, 2.0.60
+ SunOS   4.1.4      sun4m      cc        	1.0.10, 1.2-pre8, 1.2.0, 2.0.0, 2.0.16, 2.0.60
+ SunOS   4.1.4      sun4m      gcc       	1.0, 1.1, 1.1.2
+ SunOS   4.1.4      sun4m      gcc 2.5.8 	2.0.3, 2.0.47
+ SunOS   4.1.4      sun4m      gcc 2.6.0 	1.2-pre9
+ SunOS   4.1.4      sun4m      gcc 2.6.3 	1.2-pre8, 2.0.39, 2.0.60
+ SunOS   4.1.4      sun4m      gcc 2.7.0 	1.2-pre9, 2.0.19, 2.0.21
+ SunOS   4.1.4-JL   sun4c      cc        	2.0.61
+ SunOS   4.1.4-JL   sun4m      gcc 2.3.1 	1.2-pre8
+ SunOS   4.1.4-JL   sun4m      gcc 2.6.3 	1.2-pre8
+ SunOS   4.1B       sun4       cc        	1.0.10
+ SunOS   5.2        sun4c      gcc       	1.0
+ SunOS   5.2        sun4m      gcc       	1.0, 1.1
+ SunOS   5.3        sun4c      cc        	1.0
+ SunOS   5.3        sun4c      gcc       	1.0, 1.1
+ SunOS   5.3        sun4c      gcc 2.5.6 	2.0.60
+ SunOS   5.3        sun4c      gcc 2.6.3 	2.0.39, 2.0.52
+ SunOS   5.3        sun4d      cc        	1.0
+ SunOS   5.3        sun4d      gcc       	1.0, 1.1
+ SunOS   5.3        sun4d      gcc 2.5.6 	1.2, 2.0.50, 2.0.52, 2.0.55
+ SunOS   5.3        sun4m      /usr/ucb/cc	2.0.45
+ SunOS   5.3        sun4m      acc       	1.0
+ SunOS   5.3        sun4m      cc        	1.0, 1.0.10, 1.1
+ SunOS   5.3        sun4m      gcc       	1.0, 1.0.10, 1.1, 1.1.1, 1.1.2
+ SunOS   5.3        sun4m      gcc 2.5.6 	1.2, 1.2-pre9, 2.0.45
+ SunOS   5.3        sun4m      gcc 2.5.8 	1.2, 2.0.0, 2.0.3, 2.0.60
+ SunOS   5.3        sun4m      gcc 2.6.0 	1.2-pre8
+ SunOS   5.3        sun4m      gcc 2.6.2 	1.2-pre8
+ SunOS   5.3        sun4m      gcc 2.6.3 	1.2-pre8, 2.0.35, 2.0.45, 2.0.52, 2.0.58
+ SunOS   5.3        sun4m      gcc 2.7.0 	1.2, 1.2-pre8, 2.0.35, 2.0.52
+ SunOS   5.4        i86pc      cc        	1.0
+ SunOS   5.4        i86pc      gcc       	1.0, 1.1
+ SunOS   5.4        i86pc      gcc 2.5.8 	2.0.35, 2.0.45
+ SunOS   5.4        i86pc      gcc 2.6.3 	1.2-pre8, 2.0.45
+ SunOS   5.4        i86pc      gcc 2.7.1 	2.0.60
+ SunOS   5.4        sun4       gcc       	1.0, 1.1
+ SunOS   5.4        sun4       gcc 2.6.0 	1.2-pre8
+ SunOS   5.4        sun4c      cc        	1.1, 2.0.39
+ SunOS   5.4        sun4c      gcc       	1.0, 1.1, 1.1.2
+ SunOS   5.4        sun4c      gcc 2.5.6 	1.2-pre8, 1.2-pre9, 2.0.50, 2.0.52
+ SunOS   5.4        sun4c      gcc 2.7.0 	1.2
+ SunOS   5.4        sun4d      cc        	1.1, 1.2-pre10
+ SunOS   5.4        sun4d      gcc       	1.0, 1.1, 1.1.2, 1.2
+ SunOS   5.4        sun4d      gcc 2.5.8 	2.0.16
+ SunOS   5.4        sun4d      gcc 2.6.2 	1.2-pre8, 2.0.16
+ SunOS   5.4        sun4d      gcc 2.6.3 	1.2-pre8
+ SunOS   5.4        sun4d      gcc 2.7.0 	2.0.50, 2.0.60
+ SunOS   5.4        sun4m      cc        	1.0, 1.0.10, 1.1, 1.1.2, 1.2-pre8, 1.2-pre9, 2.0.45, 2.0.50, 2.0.52
+ SunOS   5.4        sun4m      gcc       	1.0, 1.1, 1.1.1, 1.1.2, 1.2, 1.2-pre9
+ SunOS   5.4        sun4m      gcc 2.3.3 	1.2-pre8
+ SunOS   5.4        sun4m      gcc 2.4.5 	2.0.52
+ SunOS   5.4        sun4m      gcc 2.5.6 	1.2, 1.2-pre8, 2.0.55, 2.0.56, 2.0.60
+ SunOS   5.4        sun4m      gcc 2.5.8 	1.2, 1.2-pre8, 2.0.16, 2.0.45, 2.0.52
+ SunOS   5.4        sun4m      gcc 2.6.0 	1.2-pre8, 2.0.45, 2.0.52, 2.0.60
+ SunOS   5.4        sun4m      gcc 2.6.2 	1.2, 2.0.45, 2.0.52
+ SunOS   5.4        sun4m      gcc 2.6.3 	1.2, 1.2-pre8, 1.2-pre9, 2.0.16, 2.0.37, 2.0.39, 2.0.45, 2.0.5, 2.0.50, 2.0.52, 2.0.58, 2.0.60
+ SunOS   5.4        sun4m      gcc 2.7.0 	1.2-pre8, 1.2-pre9, 2.0.29, 2.0.39, 2.0.45, 2.0.50
+ SunOS   5.4        sun4m      gcc 2.7.1 	2.0.52
+ SunOS   5.4        sun4m      gcc 2.7.2 	2.0.52
+ SunOS   5.5        i86pc      gcc       	1.1
+ SunOS   5.5        sun4c      gcc 2.6.2 	2.0.52
+ SunOS   5.5        sun4d      gcc       	1.1
+ SunOS   5.5        sun4d      gcc 2.7.1 	2.0.61
+ SunOS   5.5        sun4m      cc        	1.1, 1.2-pre10, 2.0.52, 2.0.58
+ SunOS   5.5        sun4m      gcc 2.5.8 	2.0.45
+ SunOS   5.5        sun4m      gcc 2.7.2 	2.0.60
+ ULTRIX  4.2        RISC       cc        	1.1, 1.2-pre8
+ ULTRIX  4.2        RISC       gcc       	1.0, 1.1
+ ULTRIX  4.2        RISC       gcc 2.5.8 	1.2
+ ULTRIX  4.3        RISC       cc        	1.0, 1.2-pre8, 2.0.16
+ ULTRIX  4.3        RISC       gcc       	1.0
+ ULTRIX  4.4        RISC       cc        	2.0.60
+ ULTRIX  4.4        RISC       gcc       	1.0, 1.1
+ ULTRIX  4.4        RISC       gcc 2.3.3 	1.2-pre8
+ ULTRIX  4.4        RISC       gcc 2.6.3 	1.2-pre10
+ UNIX_SV 4.2        i386       cc        	1.0, 1.1
+ UNIX_SV 4.2        i386       gcc       	1.1
+ UNIX_SV 4.2MP      i386       cc        	1.1, 2.0.58
+ UNIX_SV 4.2MP      i386       gcc 2.5.8 	1.2-pre9, 2.0.45
+ UNIX_SVR42 4.2        i386       cc        	1.0
+ achus   4.2        i386       cc        	1.0, 2.0.39, 2.0.41
+ aps     4.0        i386       cc        	1.1.1
+ arthur  4.0        i386       cc        	1.1.1
+ bad     3.2        i386       gcc 2.6.2 	2.0.16
+ csercc2 3.2        i386       cc        	2.0.52
+ csercc2 3.2        i386       gcc 2.7.0 	2.0.52
+ dgldt   3.2        i386       gcc 2.6.3 	1.2-pre10
+ dgux    5.4        AViiON     gcc       	1.1
+ dgux    5.4R2.01   AViiON     gcc       	1.0
+ dgux    5.4R2.10   AViiON     gcc       	1.0
+ dgux    5.4R3.10   AViiON     gcc       	1.0, 1.1
+ easy    4.2        486/EISA   cc        	2.0.60
+ gonzo   3.2        i386       cc        	1.0
+ gopher  3.2        i386       cc        	1.0
+ hobbit  4.2MP      i386       cc        	1.1
+ info    3.2        i386       cc        	1.2-pre8, 1.2-pre9
+ jordan  3.2        i386       gcc 2.7.0 	2.0.52
+ mammoth 3.2        i386       gcc       	1.1.2
+ ns      3.2        i386       cc        	1.2-pre8
+ plato   4.0        i386       gcc       	1.1.2
+ scoma04 3.2        i386       cc        	1.1, 1.2-pre8
+ seq1    3.2.0      i386       cc        	1.1.1
+ telescan 3.2        i386       gcc       	1.1.1
+ uucp-gw 3.2        i386       gcc 2.6.2 	1.2-pre8, 
+
+    These are reported by mail: 
+
+   BSDI 2.0    p5-90      gcc 2.7.0
+   UNIX_SVR4 lab2 4.2 7.4.4 DRS 6000 sparc
+
+------------------------------
+Subject: 8) Does freeWAIS-sf work with ...
+
+  8.1) Can i use other wais clients to query a freeWAIS-sf server? 
+  8.2) Can i link freeWAIS-sf with gopher?
+  8.3) Gopher Error: Nothing Available!
+  8.4) Can i link freeWAIS-sf with Mosaic?
+  8.5) Can i link freeWAIS-sf with the cern httpd?
+
+------------------------------
+Subject: 8.1) Can i use other wais clients to query a freeWAIS-sf server?
+
+    Yes, all clients running the wais protocol (z39.50 V1 + adds) can 
+    query an freeWAIS-sf server. 
+
+    There is only one small incompatibility, which can be enabled 
+    during installation of freeWAIS-sf (default is: run compatible). 
+    This modification only applies to the document type URL and allows 
+    to customize the headline. The original handling uses the headline 
+    to store the URL. The modified freeWAIS-sf puts the URL in the 
+    document id field. But this handling currently is only supported by 
+    SFgate. 
+
+------------------------------
+Subject: 8.2) Can i link freeWAIS-sf with gopher?
+
+    Yes. Details for linking with gopher 2.1.1 and gopher 2.016 cand be 
+    found on the http server: 
+    http://ls6-www.informatik.uni-dortmund.de/freeWAIS-sf/ 
+
+    Since freeWAIS-sf uses the same protocol than other wais systems 
+    linking with them is ok - as long as you use only the protocol part 
+    and do not try to do searches calling internal functions. 
+
+------------------------------
+Subject: 8.3) Gopher Error: Nothing Available!
+
+    Do a "waisindex -export ...". It is important that the host and 
+    port information is compiled into the *.src file, EVEN IF THE 
+    SEARCHES ARE LOCAL! I have my gopher, wais , and all the databases 
+    all on the same machine. It is also important that the waisserver 
+    is running. 
+
+------------------------------
+Subject: 8.4) Can i link freeWAIS-sf with Mosaic?
+
+    Yes. No details yet - but it is not hard to do ;-) 
+
+------------------------------
+Subject: 8.5) Can i link freeWAIS-sf with the cern httpd?
+
+    Direct WAIS access for CERN httpd 3.0 is easy to provide with 
+    freeWAIS-sf 1.1. The only thing you need to do is rename the WAIS 
+    libraries in CERN httpd Makefile's. 
+
+    If you're a lucky guy and your system supports imake, you need to: 
+
+
+        Retrieve Rainer Klute's Imake extension to CERN httpd 3.0: 
+        ftp://ftp.germany.eu.net/pub/infosystems/www/cern/WWW-Imake.tar.gz 
+
+        Replace WWW.cf in the top-level directory with this code in 
+        http://ls6-www.informatik.uni-dortmund.de/freeWAIS-sf/section3_13.html 
+
+        Update the location of your freeWAIS-sf code in WWW.cf 
+        (variable WAISDIR) 
+
+    If your system doesn't support imake, you need to update manually 
+    the WAIS libraries in the Makefile pertaining to your architecture 
+    and the top-level Makefile. And think about how easy life would be 
+    if only you had imake. 
+

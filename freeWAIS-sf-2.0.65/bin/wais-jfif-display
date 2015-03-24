@@ -1,0 +1,2 @@
+#!/bin/sh
+(/big/wais/bin/xv $*) >/dev/null 2>&1

@@ -1,0 +1,209 @@
+
+Title: Release Notes for freeWAIS 0.2
+Authors: Jim Fullton, Archie Warnock and a cast of thousands
+Copyright: Copyright 1993 CNIDR
+Last Updated: 10.01.93
+Abstract: This file contains a list of fixes and enhancements
+for freeWAIS Version 0.2.
+
+General Notice:
+
+Copyright notices have been included for the developers
+who wished CNIDR to do so. CNIDR has also added a compilation
+copyright to the entire release to protect the work of the network
+community. See the COPYRIGHT file for more information-it has changed
+from the 0.1 release.
+
+1. Bug fixes:
+Lots were contributed by users, and were incorporated into the source
+code in too many places to enumerate.  See the source files themselves,
+or use RCS.
+
+2. Files renamed:
+I couldn't stand having main routines hidden in files whose names had no
+relationship to the programs.  So,
+
+ir/irbuild.c has been renamed ir/waisindex.c
+ir/server.c has been renamed ir/waisserver.c
+ui/screen-ui.c has been renamed ui/swais.c
+ui/shell-ui.c has been renamed ui/waissearch.c
+
+3.  Modified swais so that it uses curses for displaying documents rather
+piping the documents to a pager.  Piping didn't always work correctly on
+all machines (like my SGI).  Also, some additional cursor key support was
+added in swais, so that right arrow (->) and left arrow (<-) move you
+through the source list by screens.
+
+--------------------------------------------------------------------
+Title: Release Notes for freeWAIS 0.1
+Authors: Jim Fullton, Kevin Gamiel, Jane Smith, Robin Braun
+Copyright: Copyright 1993 CNIDR
+Last Updated: 04.09.93
+Abstract: This file contains a list of fixes and enhancements
+for freeWAIS Version 0.1.
+
+General Notice:
+
+Copyright notices have been included for the developers
+who wished CNIDR to do so. CNIDR has also added a compilation
+copyright to the entire release to protect the work of the network
+community. See the COPYRIGHT file for more information.
+
+
+Specific enhancements to the waisserver/waisindex:
+
+--
+1.Compressed files are now supported by the server.
+
+The server will uncompress files prior to indexing then discard
+the uncompressed files afterwards. Server based retrieval of
+compressed files has also been added.
+
+Jonathon Goldman (jonathon@think.com) of Thinking Machines Corporation
+
+--
+2. A new scoring mechanism is introduced for weighting
+returned items. 
+
+Documents are now scored based on the log of the query word
+frequency, the number of occurrences of the word throughout the
+entire database, and the size of the given document.
+
+Simon Spero (ses@sunsite.unc.edu) at UNC-CH
+
+--
+3. Synonym support is now included on a site specific level.
+
+The server administrator can manually create a file called
+database_name.syn containing a list in the form:
+
+    word synonym synonym synonym synonym
+    word synonym synonym synonym synonym
+    word synonym synonym synonym synonym
+    word synonym synonym synonym synonym
+
+Any word on a line will match any other word on the same line.
+
+        Example:
+
+        heart myocardium myocardial cardiac
+
+A document with the word cardiac will be returned as a hit for
+a query containing the word heart. The synonym list is at
+the administrator's discretion.  Note - when a synonym list is added
+or changed, the database must be re-indexed.
+
+Ahmet Taylor (Ahmet_Taylor@unc.edu) at UNC-CH
+
+--
+4. The symbol UNCOMPRESSOR has now been defined so that you can
+choose which external application is used for decompression.
+
+This is located in the futil.c file.
+
+Francois Schiettecatte (francois@welchgate.welch.jhu.edu) at the Welch
+Medical Library
+
+Jonathan I. Kamens (jik@athena.mit.edu) of Aktis, Inc.
+
+--
+5. A headline cleaner has been added to remove carriage
+return and line feed characters from the headline.
+
+This is located in irtfiles.c and is called cleanHeadline.
+
+Francois Schiettecatte (francois@welchgate.welch.jhu.edu) at the Welch
+Medical Library
+
+--
+6. Support for stemming is included in this release.
+
+The server stems the query words prior to searching. The stemmer
+is contained in stem.c and can optionally be replaced.  The
+default stemmer is a Porter stemmer.
+
+Francois Schiettecatte (francois@welchgate.welch.jhu.edu) at the Welch
+Medical Library
+
+Jim Fullton (Jim.Fullton@cnidr.org) of the CNIDR
+
+--
+7. There is now support for partial word searching and optional
+stop-list file support.
+
+Don Gilbert (gilbert@bio.indiana.edu) at Indiana University
+(see iubio-wais.readme and iubio-wais.news)
+
+--
+8. The ability to perform boolean and literal searches has been added.
+
+Tim Gauslin of the USGS
+(see iubio-wais.readme and iubio-wais.news)
+
+--
+9. Support is now in place for extra keywords and extra keyword
+file indexing.
+
+David Post (post@cs.cornell.edu) of the Design Research Institute
+
+--
+10. Support has been added for indexing and retrieving multitype
+documents.
+
+Francois Schiettecatte (francois@welchgate.welch.jhu.edu)
+
+--
+11. More granularity is now included in the -mem option. -mem
+will now understand 2 through 5.
+
+Jonathan I. Kamens (jik@athena.mit.edu) of Atkis, Inc.
+
+--
+12. Various fixes have been added which will allow wais to be built
+more easily on different platforms.
+
+Jonathan I. Kamens (jik@athena.mit.edu) of Atkis, Inc.
+
+--
+13. There is now a DUMPCORE compiler option which will force the
+waisserver to dump core when aborting.
+
+Jonathan I. Kamens (jik@athena.mit.edu) of Atkis, Inc.
+
+--
+14. The intermediate index files in the indexing process by waisindex
+are now merged during the process rather than at the end.
+
+This is more economical in terms of disk space. The END_MERGE
+compile option will override this feature and merge the files at
+the end of the indexing process which is how it used to work.
+
+Jonathan I. Kamens (jik@athena.mit.edu) of Atkis, Inc.
+
+--
+15. The quality of the source descriptions has been improved by
+automatically adding the fifty most frequently occurring words in the
+index to the .src file.
+
+AT&T and the Internic Team
+
+--
+16. Host and daatabase level server security has been added.
+
+Francois Schiettecatte (francois@welchgate.welch.jhu.edu)
+
+
+==============================================================================
+
+Much thanks goes to all of the contributors to this release. Your
+time and code are an invaluable part of freeWAIS-0.1 . We would
+like to particularly thank Francois Schiettecatte at Johns
+Hopkins University for all of his efforts in putting together
+freeWAIS-0.1. CNIDR looks forward to continued cooperation and
+work with all of you in the future.
+
+If you or your site is interested in becoming an official beta
+tester for CNIDR for future releases, please send your name and
+email address to freeWAIS@cnidr.org. This will help us to have a
+more organized distribution and test audience in the future.
+Thanks.

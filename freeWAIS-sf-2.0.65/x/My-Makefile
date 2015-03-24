@@ -1,0 +1,163 @@
+# A Makefile for xwais
+# Author: Jonny Goldman
+#
+# $Log: My-Makefile,v $
+# Revision 2.0  1995/09/08 08:05:54  pfeifer
+# Metaconfig baseline
+#
+# Revision 1.2  1994/08/05  07:30:25  pfeifer
+# Release beta 04
+#
+# Revision 1.1  1993/02/16  15:10:18  freewais
+# Initial revision
+#
+# Revision 1.16  92/05/08  11:43:46  jonathan
+# Made it work. 8^}
+# 
+# Revision 1.15  92/02/17  17:52:56  jonathan
+# Changed to reflect new scheme (executables in this directory, new
+# libraries).
+# 
+#
+# if xmkmf didn't work for you, maybe this will.
+
+VERSION = 0.857
+
+XWAIS = ./xwais
+XWAISQ = ./xwaisq
+
+# choose your compiler.
+
+CC = cc
+
+RM = /bin/rm -f
+AR = ar 
+ARFLAGS = r
+
+
+# to use Sun shared libraries, use cc
+
+LD = $(CC)
+
+# Edit these to point to your site's X directories.
+
+INSTALLDIR = /usr/bin/X11
+APPSDIR = /usr/lib/X11R4/app-defaults
+
+# if your X libraries are not in the standard places, add a -L to them.
+#LFLAGS = -L/import/X11R4/usr/lib
+#
+#for static linking under SunOS
+#LFLAGS = $(LFLAGS) -Bstatic
+
+# dealing with taking an internet name and resolving it.  
+# set to -lresolv or nothing
+#RESOLVER=	-lresolv 
+
+# add -lXm for Motif
+
+LIBS = -lXaw -lXmu -lXt -lXext -lX11 $(RESOLVER) -lm
+
+TOP = ..
+
+SRCDIR = $(TOP)/x
+SUPDIR = $(TOP)/ir
+UIDIR = $(TOP)/ui
+
+IR_LIB	= $(TOP)/bin/inv.a
+
+PROTOCOL_LIB	= $(TOP)/bin/wais.a
+
+LIBFTW = $(TOP)/bin/libftw.a
+
+UI_LIB = $(IR_LIB) $(PROTOCOL_LIB) $(LIBFTW)
+
+LOCAL_LIBRARIES = $(UI_LIB) $(LIBS)
+
+# if you X includes aren't in the usual places, add a -I to them here.
+
+INCLUDES = -I$(SRCDIR) -I$(SUPDIR) -I$(UIDIR)
+
+# for MOTIF widgets, add -DMOTIF and -D_NO_PROTO if your CC can't handle prototypes
+
+CFLAGS = $(INCLUDES) -DX_NOT_STDC_ENV -DUSE_ALTFONT
+
+TOBJ =  xwais.o \
+	display.o \
+	tcommands.o \
+	scommands.o
+
+QOBJ =  xwaisq.o \
+	qdisplay.o \
+	text.o \
+ 	qcommands.o \
+	filereq.o \
+	scommands.o \
+	catalog.o \
+	myAsciiSink.o \
+	myAsciiSrc.o \
+ 	$(TOP)/ui/question.o \
+	$(TOP)/ui/document.o \
+	$(TOP)/ui/wais-ui.o
+
+
+OBJS =  MyList.o \
+	util.o \
+	$(TOP)/ui/source.o
+
+XWAIS_OBJS = $(TOBJ) $(OBJS)
+XWAISQ_OBJS = $(QOBJ) $(OBJS)
+
+BITS = xwais.bit xwaisq.bit
+
+all:: $(XWAIS) $(XWAISQ) Xwais
+
+xwais.o: xwais.c xwais.h xwais.bit
+	$(CC) $(CFLAGS) -c xwais.c
+
+xwaisq.o: xwaisq.c xwais.h xwaisq.bit
+	$(CC) $(CFLAGS) -c  xwaisq.c
+
+$(IR_LIB):
+	(cd ../ir;make ${IR_LIB})
+
+$(PROTOCOL_LIB):
+	(cd ../ir;make ${PROTOCOL_LIB})
+
+$(XWAIS): $(XWAIS_OBJS) $(UI_LIB)
+	$(RM) $(XWAIS)
+	$(LD) $(LFLAGS) -o $@ $(XWAIS_OBJS) $(LOCAL_LIBRARIES)
+
+$(XWAISQ): $(XWAISQ_OBJS) $(UI_LIB)
+	$(RM) $(XWAISQ)
+	$(LD) $(LFLAGS) -o $@ $(XWAISQ_OBJS) $(LOCAL_LIBRARIES)
+
+Xwais: Xwais.raw
+	./fixResources.sh Xwais
+
+clean:
+	$(RM) *%
+	$(RM) *.o
+	$(RM) *~
+	$(RM) \#*\#
+	$(RM) .nfs*  # NFS Lossage
+	$(RM) *.elc
+	$(RM) $(XWAIS)
+	$(RM) $(XWAISQ)
+	$(RM) Xwais
+	$(RM) core
+
+$(INSTALLDIR)/xwais: $(XWAIS)
+	cp $(XWAIS) $(INSTALLDIR)/xwais
+	
+$(INSTALLDIR)/xwaisq: $(XWAISQ)
+	cp $(XWAISQ) $(INSTALLDIR)/xwaisq
+
+$(APPSDIR)/Xwais: Xwais
+	cp Xwais $(APPSDIR)/Xwais
+	
+INSTALLS = 	$(INSTALLDIR)/xwais $(INSTALLDIR)/xwaisq \
+	   	$(APPSDIR)/Xwais
+
+
+install: $(INSTALLS)

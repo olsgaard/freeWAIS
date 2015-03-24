@@ -1,0 +1,2618 @@
+\input texinfo
+@c                            -*- Mode: Texinfo -*-
+@c
+@c fswsf.texi --
+@c ITIID           : $ITI$ $Header $__Header$
+@c Author          : Ulrich Pfeifer
+@c Created On      : Wed May 31 08:47:07 1995
+@c Last Modified By:
+@c Last Modified On:
+@c Language        : TeXinfo
+@c Update Count    : 343
+@c Status          : Unknown, Use with caution!
+@c
+@c (C) Copyright 1995, Universit"at Dortmund, all rights reserved.
+@c
+@c HISTORY
+@c
+@c $$
+@c $Log: fwsf.texi,v $
+@c Revision 2.0.1.8  1996/01/23 15:09:39  pfeifer
+@c patch62: Fix for texinfo-3.7.
+@c
+@c Revision 2.0.1.7  1995/12/06  10:54:55  pfeifer
+@c patch53: Added some mirror sites.
+@c
+@c Revision 2.0.1.6  1995/11/17  14:51:51  pfeifer
+@c patch52: Typo, <numeric> -> numeric:.
+@c
+@c Revision 2.0.1.5  1995/11/09  14:03:59  pfeifer
+@c patch46: Frequency in dictionary is not document frequency.
+@c
+@c Revision 2.0.1.4  1995/11/03  09:49:49  pfeifer
+@c patch43: Included new test.fmt. Change some of the off-by-one regexps
+@c patch43: (probably not all).
+@c
+@c Revision 2.0.1.3  1995/10/27  09:53:41  pfeifer
+@c patch41: Updated mailinglist stuff.
+@c
+@c Revision 2.0.1.2  1995/10/10  12:37:05  pfeifer
+@c patch31: Roughly adapted to 2.0.
+@c
+@c Revision 2.0.1.2  1995/10/10  12:37:05  pfeifer
+@c patch31: Roughly adapted to 2.0.
+@c
+@c Revision 2.0.1.1  1995/10/09  13:00:54  pfeifer
+@c patch31: First 2.0 version.
+@c
+@c Revision 2.0  1995/09/08  07:56:40  pfeifer
+@c Metaconfig baseline
+@c
+@c Revision 1.10  1995/06/29  12:54:29  pfeifer
+@c Sicherung vor Mailinglist
+@c
+@c Revision 1.9  1995/06/21  10:35:39  pfeifer
+@c whatever
+@c
+@c Revision 1.8  1995/06/04  19:18:29  pfeifer
+@c finished auxiliary file section
+@c
+@c Revision 1.7  1995/06/04  12:46:44  pfeifer
+@c bis headline list
+@c
+@c Revision 1.6  1995/06/03  15:08:02  pfeifer
+@c Anhaenge fuer die grammatiken
+@c
+@c Revision 1.5  1995/06/03  13:48:06  pfeifer
+@c waisindex eingebaut. Format-Beschreibung angefangen.
+@c
+@c Revision 1.4  1995/06/03  11:33:51  pfeifer
+@c Installation soweit drin.
+@c
+@c Revision 1.2  1995/05/31  13:32:31  pfeifer
+@c configure
+@c
+@c
+@c %**start of header
+@setfilename fwsf.info
+@settitle freeWAIS-sf @c and SFgate
+@c %**end of header
+
+@finalout
+@setchapternewpage odd          @c 'odd', 'off', 'on' ?
+@syncodeindex fn cp
+@syncodeindex vr cp
+@syncodeindex ky cp
+@syncodeindex pg cp
+@syncodeindex tp cp
+@set edition 0.5
+@set update-date 1 October 1995
+@set update-month October 1995
+@set fwsf-version 2.0
+@set SFgate-version 4.0
+@iftex
+@afourpaper                     @c remove this line for printing letter size
+@defaultparindent = 0pt
+@parindent = 0pt
+@end iftex
+@ifinfo
+@paragraphindent 0
+@end ifinfo
+@ifinfo
+This file documents @strong{freeWAIS-sf} version @value{fwsf-version}.
+@c and @strong{SFgate} version @value{SFgate-version}.
+
+Copyright 1995 University of Dortmund, Germany.
+
+Permission is granted to make and distribute verbatim
+copies of this manual provided the copyright notice and
+this permission notice are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX
+and print the results, provided the printed document
+carries a copying permission notice identical to this
+one except for the removal of this paragraph (this
+paragraph not being relevant to the printed manual).
+
+@end ignore
+Permission is granted to copy and distribute modified
+versions of this manual under the conditions for
+verbatim copying, 
+@c provided also that the sections entitled ``Copying'' and ``GNU General
+@c Public License'' are included exactly as in the original, and
+provided
+that the entire resulting derived work is distributed
+under the terms of a permission notice identical to this
+one.
+
+Permission is granted to copy and distribute
+translations of this manual into another language,
+under the above conditions for modified versions,
+except that this permission notice may be stated in a
+translation approved by the Free Software Foundation.
+@end ifinfo
+
+@titlepage
+@title freeWAIS-sf @c and SFgate
+@subtitle The enhanced freeWAIS distribution
+@subtitle Edition @value{edition}, for freeWAIS-sf @value{fwsf-version} @c and SFgate @value{SFgate-version}
+@subtitle @value{update-month}
+
+@tex
+\vfill
+\input epsf                     % diese zeile nur einmal (besser oben)
+\vskip 0pt plus 1filll
+\epsfysize=5cm                 % Groesse
+\centerline{\leavevmode\epsffile{UniDo-Logo.eps}} % EPS file
+\vskip 0pt plus 1filll
+@end tex
+
+@author by Ulrich Pfeifer
+
+@c The following two commands start the copyright page.
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 1995 University of Dortmund, Germany.
+
+Permission is granted to make and distribute verbatim
+copies of this manual provided the copyright notice and
+this permission notice are preserved on all copies.
+
+Permission is granted to copy and distribute modified
+versions of this manual under the conditions for
+verbatim copying, 
+@c provided also that the sections entitled ``Copying'' and ``GNU General
+@c Public License'' are included exactly as in the original, and
+provided that the entire resulting derived work is distributed under the
+terms of a permission notice identical to this one.
+
+Permission is granted to copy and distribute
+translations of this manual into another language,
+under the above conditions for modified versions,
+except that this permission notice may be stated in a
+translation approved by the Free Software Foundation.
+@end titlepage
+@page
+
+@ifinfo
+@node top, Overview, (dir), (dir)
+@top freeWAIS-sf
+
+This file documents @strong{freeWAIS-sf} version @value{fwsf-version}.
+@c and @strong{SFgate} version @value{SFgate-version}.
+
+Copyright @copyright{} 1995 University of Dortmund, Germany.
+@end ifinfo
+
+@menu
+* Overview::                    What is freeWAIS-sf
+* Pointers to the Sources::     
+* Building::                    Building and Installing.
+* Building Databases::          Your own Databases.
+* Queries::                     Formulation and Evaluation of Queries
+* Linking with other Systems::  
+* Discussion of freeWAIS-sf::   
+* Sample Format::               
+* Query Syntax::                The yacc grammar.
+* Format Specification Syntax::  The yacc grammar.
+* freeWAIS-sf and CERN httpd::  
+* Index::                       Index to concepts, files, and variables
+
+ --- The Detailed Node Listing ---
+
+Overview
+
+* Protocol::                    The WAIS Protocol.
+* Architecture::                Client Server Architecture.
+
+Getting freeWAIS-sf and related stuff
+
+* Mirror Sites::                
+* Documentation::               
+* Sources::                     
+
+Building and Installation
+
+* Unpacking::                   Unpacking the Distribution.
+* Configure::                   Running @code{Configure}
+* Compiling::                   Compiling and running the tests
+* Installation::                Installation
+
+Running @code{Configure}
+
+* Configure Files::             Which files are generated by @code{Configure}?
+* Configure Questions::         What questions are asked by @code{Configure}?
+
+Questions
+
+* Which Regular Expressions::   Use your systems regular expressions?
+* Huge Headlines::              Will you have large databases?
+* Proximity Search::            String or proximity search?
+* Character Set::               Country specific characters?
+* LOCAL SEARCH::                Include server in clients?
+* URL Handling::                Use SFgate?
+* Installation Prefix::         Where should the binaries go?
+* Synonym Files::               Speedup for synonym files?
+* Registration::                Tell the world about the server?
+
+Compiling the system and running the tests
+
+* Tests::                       Running the tests
+
+Installation
+
+* Installation Files::          Installation Directories and Files
+* Installing the Server::       Installing the Server (for @code{inetd})
+
+Building Databases
+
+* waisindex Options::           @code{waisindex} Options
+* Format Description::          How to build this @@#$! @code{*.fmt} files
+* Index Files::                 Description of auxiliary files
+
+Bulding a Format Description
+
+* Regular Expressions::         
+* Format Description Structure::  
+
+Structure of the Format Descriptions
+
+* Documents Separation::        Split files in documents.
+* Layout Section::              Define your headline.
+* Fields and Index Types::      How to index the documents.
+
+The Index Files
+
+* Database Description::        The @samp{@var{database}.src} files
+* Filename List::               The @samp{@var{database}.fn} files
+* Headline List::               The @samp{@var{database}.hl} files
+* Document Table::              The @samp{@var{database}.doc} files
+* Catalog Files::               
+* Dictionary Files::            The @samp{@var{database}.dct} files
+* Inverted Files::              The @samp{@var{database}.inv} files
+
+Queries
+
+* Query Formulation::           How to formulate a Query?      
+* Query Weighting::             Where come these Scores from?
+
+Linking freeWAIS-sf with other Systems
+
+* WWW Clients::                 
+* WWW Server::                  
+* Gopher 2.1.1::                
+
+Discussion of freeWAIS-sf
+
+* Newsgroup comp.infosystems.wais::  
+* freeWAIS-sf Mailing-list::    
+* Bug Reports::                 
+* Submitting Patches::          
+@end menu
+
+@node Overview, Pointers to the Sources, top, top
+@chapter Overview
+
+The freeWAIS-sf distribution contains clients, servers, and auxiliary
+programs for the @sc{TCP/IP} protocol known as
+@dfn{WAIS}. @xref{Protocol}.
+The distribution is focussed on the WAIS server @code{waisserver} and
+the indexer @code{waisindex}. Clients are distributed only for
+convenience. You can use any WAIS client to query the freeWAIS-sf
+server.
+
+@menu
+* Protocol::                    The WAIS Protocol.
+* Architecture::                Client Server Architecture.
+@end menu
+
+@node Protocol, Architecture, Overview, Overview
+@section The WAIS Protocol
+@cindex WAIS
+@cindex Z39.50
+@cindex Protocol, supported
+
+The WAIS protocol is based on the @sc{ANSI} standard Z39.50 Version 1
+(aka Z39.50 V1 or Z39.50 88). It uses only a subset of features of the
+Z39.50. Namely no requests which require the server to preserve some
+state are used. The WAIS protocol extents this basic features with
+elements for relevance feedback.
+The WAIS protocol is sometimes slightly incorrect also referred to as
+Z39.50 V1.
+
+This ad hoc extension found their way back to the Z39.50 standard when
+the next version Z39.50 V2 (aka Z39.50 92) was defined. For
+implementation of WAIS-like (remember: WAIS is the name of the original
+protocol) the exist a definition of subset called the "WAIS Profile".
+Often Z39.50 V2 is used as synonym for this profile.
+freeWAIS-sf currently does @strong{not} support Z39.50 V2.
+
+@node Architecture,  , Protocol, Overview
+@comment  node-name,  next,  previous,  up
+@section Client Server Architecture
+@pindex waisindex
+@cindex Client Server Architecture
+@cindex Architecture
+
+A WAIS System consists of clients talking to a server via an TCP/IP
+network using the WAIS protocol. Servers answer search requesta using
+auxiliary data structures called the @dfn{index}. These are created for
+the original documents by the @code{waisindex} program. Retrieve-requests
+are answered by the server fetching (parts of) the original files.  As
+set of documents together with their associate index is called a
+@dfn{WAIS database}.
+@smallexample
+                           +------+
+                           |Client|
+                           +------+
+                               |
+                            TCP/IP
+                            network
+                               |
+                           +------+
+                     +---->|Server|<----+
+                     |     +------+     |
+                     |                  |
+                  +-----+          +---------+
+                  |Index|          |Documents|
+                  +-----+          +---------+
+                     ^                  |
+                     |     +-------+    |
+                     +-----|Indexer|<---+
+                           +-------+
+@end smallexample
+
+@node Pointers to the Sources, Building, Overview, top
+@chapter Getting freeWAIS-sf and related stuff
+
+@menu
+* Mirror Sites::                
+* Documentation::               
+* Sources::                     
+@end menu
+
+@node Mirror Sites, Documentation, Pointers to the Sources, Pointers to the Sources
+@section Mirror Sites
+@cindex Mirror Site, become one
+
+Most of the ftp accessable Stuff is mirrored on different sites. Please
+check archie or one of the sites below. The load on our server is
+growing out of bounds. We had to close it for the public - for the big
+files at least. Since all Packets are routed over the EUnet site, it
+will be faster to get the stuff from there as from ls6-www.
+
+@table @code
+@item ftp.wsct.wsc.com
+@file{/pub/freeWAIS-sf/}
+@item ftp.sysadmin.com
+@file{/pub/admin/www/misc/wais-sf/}
+@item ftp.maxwell.syr.edu
+@file{/infosystems/wais/FreeWAIS-sf/}
+@item ftp.germany.eu.net
+@file{/pub/infosystems/wais/Unido-LS6/}
+@item ftp.switch.ch
+@file{/mirror/wais/servers/sf-alpha/}
+@item ftp.leo.org
+@file{/pub/comp/infosys/wais/freeWAIS/}
+@item ftp.egg.com
+@file{/pub/infosystems}
+@c @item ftp.synet.edu.cn
+@c @file{/pub/mirror/wais/}
+@end table
+
+If you want to become a mirror site for freeWAIS-sf, send a mail to
+@samp{wais@@ls6.informatik.uni-dortmund} containing:
+
+@cartouche
+@itemize @bullet
+@item
+The ip-address and ip-name of the host you mirror from.
+@item
+The ip-name of the serveryou want to redistribute and the directory
+where the distribution will be available.
+@item 
+The frequency you will mirror the distribution.
+@end itemize
+@end cartouche
+
+@node Documentation, Sources, Mirror Sites, Pointers to the Sources
+@section Documentation
+
+@table @strong
+@item freeWAIS-sf-faq
+The freeWAIS-sf FAQ. Information which did not found its way in this
+manual.  
+@itemize @bullet
+@item
+@file{ftp://@var{mirror-site}/@var{mirror-dir}/freeWAIS-sf-faq}
+@item
+@file{http://www.cis.ohio-state.edu/hypertext/faq/usenet/wais-faq/\@*   freeWAIS-sf/faq.html}
+@end itemize
+
+@item comp.infosystems.wais FAQ
+Very old c.i.w FAQ. Some Pointers to clients.
+
+@file{http://www.cis.ohio-state.edu/hypertext/faq/usenet/wais-faq/\@*   getting-started/faq.html}
+@item This Manual
+@itemize @bullet
+@item
+@file{ftp://@var{mirror-site}/@var{mirror-dir}/freeWAIS-sf-@value{fwsf-version}/fwsf.texi.gz}
+@item
+@file{ftp://@var{mirror-site}/@var{mirror-dir}/freeWAIS-sf-@value{fwsf-version}/fwsf.dvi.gz}
+@item
+@file{ftp://@var{mirror-site}/@var{mirror-dir}/freeWAIS-sf-@value{fwsf-version}/fwsf.ps.gz}
+@item
+@file{ftp://@var{mirror-site}/@var{mirror-dir}/freeWAIS-sf-@value{fwsf-version}/fwsf.info.gz}
+@end itemize
+
+@item WWW95 Paper
+@file{http://www.igd.fhg.de/www/www95/papers/47/fwsf/fwsf.html}
+@end table
+
+@node Sources,  , Documentation, Pointers to the Sources
+@section Sources
+
+@table @strong
+@item freeWAIS-sf-@value{fwsf-version}
+@file{ftp://@var{mirror-site}/@var{mirror-dir}/freeWAIS-sf-@value{fwsf-version}/freeWAIS-sf-@value{fwsf-version}.tar.gz}
+@item waisperl
+For linking Perl with the freeWAIS-sf libraries. Used with SFgate.
+@file{ftp://@var{mirror-site}/@var{mirror-dir}/freeWAIS-sf-@value{fwsf-version}/waisperl/Wais-@value{fwsf-version}.tar.gz}
+@item SFgate
+The WWW Gateway for freeWAIS-sf.
+@table @file
+@item ftp://@var{mirror-site}/@var{mirror-dir}/SFgate-@value{SFgate-version}/SFgate-@value{SFgate-version}.tar.gz
+@end table
+@item Example Format Files
+@table @file
+@item ftp://@var{mirror-site}/@var{mirror-dir}/fmt-examples
+@end table
+@item Rainer Klute's Imake extension to CERN httpd 3.0
+@table @file
+@item ftp://ftp.germany.eu.net/pub/infosystems/www/cern/WWW-Imake.tar.gz
+@end table
+@end table
+
+@node Building, Building Databases, Pointers to the Sources, top
+@comment  node-name,  next,  previous,  up
+@chapter Building and Installation
+
+@menu
+* Unpacking::                   Unpacking the Distribution.
+* Configure::                   Running @code{Configure}
+* Compiling::                   Compiling and running the tests
+* Installation::                Installation
+@end menu
+
+@node Unpacking, Configure, Building, Building
+@comment  node-name,  next,  previous,  up
+@section Unpacking the Distribution
+@cindex Directory layout
+@cindex Unpacking
+
+The file @file{freeWAIS-sf-@value{fwsf-version}.tar.gz} is a @code{tar}
+archive compressed with GNU @code{gzip}. Unpack it with the following
+command:
+
+@example
+gunzip -cd freeWAIS-sf-@value{fwsf-version}.tar.gz | tar xvf -
+@end example
+
+The directory structure is as follows:
+
+@example
+                  |-FIELD-EXAMPLE
+                  |
+                  |-bin
+                  |
+                  |-ctype
+                  |               |-CNIDR
+                  |               |
+                  |               |-SF
+                  |-doc-----------|
+                  |               |-original-TM-wais-|-manl
+                  |
+|-freeWAIS-sf-@value{fwsf-version}-|-ir
+                  |
+                  |-lib
+                  |
+                  |-regexp
+                  |
+                  |-ui
+                  |
+                  |-x
+@end example
+
+The directories contain
+
+@table @file
+@item FIELD-EXAMPLE
+some test data and procedures, which check the system once you build it.
+@item bin
+some shell scripts. Most of them for displaying non text documents after
+retrieval. These scripts are not maintained. They are included for
+convenience and drawn form freeWAIS-0.2.
+@item ctype
+the code for the 8-bit character sets.
+@item doc
+the documentation which accompanied freeWAIS-0.2 in the subdirectories
+@file{CNIDR} and @file{original-TM-wais}. In @file{SF} the documentation
+written for freeWAIS-sf can be found.
+@item ir
+the main code parts for the indexer and the server.
+@item lib
+some replacement of C functions which might be missing on some systems.
+@item regexp
+the code for regular expression matching.
+@item ui
+some standard clients
+@item x
+the standard X11 client.
+@end table
+
+
+@node Configure, Compiling, Unpacking, Building
+@comment  node-name,  next,  previous,  up
+@section Running @code{Configure}
+@pindex configure
+@pindex config.status
+@pindex autoconf
+
+The distribution comes with a @code{Configure} script generated by 
+@code{metaconfig} which you should run next. It determines various system
+properties and asks you some questions.
+
+@menu
+* Configure Files::             Which files are generated by @code{Configure}?
+* Configure Questions::         What questions are asked by @code{Configure}?
+@end menu
+
+@node  Configure Files, Configure Questions, Configure, Configure
+@comment  node-name,  next,  previous,  up
+@subsection Files generated
+@cindex Configuration files
+@cindex CPP macros
+
+@code{Configure} generates some files:
+
+@table @file
+@item config.h, confmagic.h
+This is where most of the option settings go. You may edit
+@file{config.h} and change some of them. This file is referenced
+via @code{#include} statements by most C files.
+@item config.sh
+Here most setting for your directory layout and location of programs end
+up. This file is is sourced by all @code{*.SH} files when producing the
+corresponding files.
+
+You may change settings in @file{config.sh} and rerun @code{Configure}
+with the options @code{-der}.
+
+@item  Makefile
+@itemx FIELD-EXAMPLE/Makefile
+@itemx ctype/Makefile
+@itemx doc/original-TM-wais/manl/Makefile
+@itemx install
+@itemx ir/Makefile
+@itemx lib/Makefile
+@itemx regexp/Makefile
+@itemx ui/Makefile
+@itemx bin/Makefile
+
+Makefiles for bulding and installing the distribution.
+
+@item x/Imakefile
+
+Imakefile for building and installing the X11-Clients.
+
+@item bin/catalog
+@itemx bin/dictionary
+@itemx bin/inverted_file
+@itemx bin/makedb
+@itemx bin/mkfmt
+@itemx bin/ws
+
+Some scripts which depend on the path to @code{perl}.
+
+@end table
+
+@node   Configure Questions,  , Configure Files, Configure
+@comment  node-name,  next,  previous,  up
+@subsection Questions
+@cindex Configure Questions
+@cindex Customization
+@cindex Option at configure time
+
+Run @code{Configure} by submitting the following to your shell:
+
+@example
+./Configure
+@end example
+
+@code{Configure} will display a startup message and begin to check the
+required system properties.
+
+Intermixed with  questions about variaus system properties there are
+some questions about the desired properies if the freeWAIS-sf system
+itself. Theese are explained in little more detail below.
+
+@menu
+* Which Regular Expressions::   Use your systems regular expressions?
+* Huge Headlines::              Will you have large databases?
+* Proximity Search::            String or proximity search?
+* Character Set::               Country specific characters?
+* LOCAL SEARCH::                Include server in clients?
+* URL Handling::                Use SFgate?
+* Installation Prefix::         Where should the binaries go?
+* Synonym Files::               Speedup for synonym files?
+* Registration::                Tell the world about the server?
+@end menu
+
+Finally @code{Configure} prints the name of the files it generates and
+some short advice how to proceed.
+
+@node  Which Regular Expressions, Huge Headlines, Configure Questions, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Regular Expressions
+
+If your system has support for regular
+expression, the first question will be:
+
+@example
+@dots{}
+Checking if your systems regexp implementation works ...
+Yes, it works
+Do you want to use your systems regexp.h? [n]
+@end example
+
+It is usually save to accept the default @samp{no} and use the regular
+expressions included in the distribution. If that does not work (this
+maybe the case with IRIX) try your systems regular expressions by
+answering @samp{yes}. In fact every answer other that @samp{no} will be
+interpreted as @samp{yes}.
+
+@node  Huge Headlines, Proximity Search, Which Regular Expressions, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Huge Headlines
+@cindex Size, headlines
+
+The next question refers to the length of the headline file. If you will
+not have large databases, answer @samp{no} here. To estimate the size
+of your headline file, multiply the number of documents you want to
+index with the medium headline length. If this size fitz in three bytes,
+it is save to accept the default.
+
+@example
+Will you have HEADLINE files greater than 16 MB [n]
+@end example
+
+@deftypevr  @file{config.h} bool MYREGEXP
+If the answer is different from @samp{no}, a @code{#define} for
+@code{MYREGEXP} is added to @file{config.h}.
+@end deftypevr
+
+@node  Proximity Search, Character Set, Huge Headlines, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Proximity vs. String Search
+@cindex Proximity Search
+@cindex String Search
+
+Next decision selects one of two possible query extensions.
+
+@example
+This version of freeWAIS-sf supports new proximity operators by Tom
+Snee.  He also fixed the string search code.  You can now enable them
+at the cost of dropping the string search capability. There is
+currently no description of the proximity operators.  Have a look in
+ir/query_l.l to learn about them;
+
+Use proximity instead of string search? [n]
+@end example
+
+@deftypevr  @file{config.h} bool PROXIMITY
+If the answer is different from @samp{no}, a @code{#define} for
+@code{PROXIMITY} is added to @file{config.h}.
+@end deftypevr
+
+@node  Character Set, LOCAL SEARCH, Proximity Search, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Character Set
+@cindex Character Set
+
+@code{Configure} now asks for the character set, you want to use.
+All characters for which your @code{isalnum(c)} returns @code{true} are
+assumed to be legal within words.
+
+You can augment this character set by additional chars. If you want
+@samp{C++} to be a valid word, you must make @samp{+} an allowed
+character. This mechanism is usually used to add country specific ISO
+characters to the default ASCII set.
+
+@example
+You can compile freeWAIS-sf with it's own ctype package. You should do
+this, if you want to use special (country specific) chars, which are
+not supported by your systems ctype.
+
+Use your systems ctype? [n]
+@end example
+
+@deftypevr  @file{config.h} bool MYCTYPE
+If the answer is different from @samp{no}, a @code{#define} for
+@code{MYCTYPE} is added to @file{config.h}. This also leads to the
+inclusion of the @file{ctype} directory in the building process. So a
+option @code{-I../ctype} is added to the compiler flags.
+@end deftypevr
+
+The following question is asked only if the default is accepted.
+
+@example
+I will now ask for your special letters.  If you do not want to give
+the now, edit config.h after this Configure run. Input your upper case
+letters in the same order than your lower case letters. toupper() and
+tolower() depend on this order. Input letters which are upper and
+lower case in both strings.
+@ifinfo
+what are your lower case letters ["a"o"u"s]?
+@end ifinfo
+@tex
+what are your upper case letters [\"a\"o\"u\ss{}]?\point{}\key{\sc{[RETURN]}}
+@end tex
+@ifinfo
+what are your upper case letters ["A"O"U"s]?
+@end ifinfo
+@tex
+what are your lower case letters [\"A\"O\"U\ss{}]?\point{}\key{\sc{[RETURN]}}
+@end tex
+@end example
+
+@need 800
+@deftypevr  @file{config.h} string LCHARS
+@end deftypevr
+@deftypevr  @file{config.h} string UCHARS
+The character strings are added as extension of @code{LCHARS}
+rsp. @code{UCHARS}. Note that the order of character matters, since the
+index position is used for the macros @code{toupper(@var{c})} and
+@code{tolower(@var{c})}.
+@end deftypevr
+
+@node  LOCAL SEARCH, URL Handling, Character Set, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection @code{LOCAL_SEARCH}
+@cindex Stand-alone clients
+
+You can compile and link the clients with the capability to
+search index files directly. So you need not to install a
+server, for local searches. The clients will be greater, but
+faster with local searches.
+
+You will have to run the test (@pxref{Tests}) manually without the
+switch!
+
+@example
+Do you want to compile with -DLOCAL_SEARCH? [y]
+
+@end example
+
+@deftypevr  @file{config.h} bool LOCAL_SEARCH
+Server code is linked to the clients when true.
+@end deftypevr
+
+@node  URL Handling, Installation Prefix, LOCAL SEARCH, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Modified URL handling
+@cindex URL
+@cindex HTML
+@cindex WWW
+
+You can modify the URL document type, to put the URL of the indexed
+document in the document id instead of the headline. If you use this
+modification you can customize the headline (e.g.@: with the @samp{-t
+fields} option). Also it is not required to keep a copy of the documents
+for retrieval with the WAIS server. But currently only SFgate can handle
+this modified document-ids. Normal clients will not correctly interpret the
+document-ids and try to retrieve the document from a WAIS- instead of the
+corresponding HTTP server.  @xref{Top, , Overview, SFgate, The SFgate
+Manual}.
+
+@example
+Do you want to use the modified URL handling? [y]
+
+@end example
+
+@deftypevr  @file{config.h} bool URLDOCID
+The DocumentId is used to carry the URL to the client. The server will
+be unable to access the document. You can remove it after indexing.
+@end deftypevr
+
+@node  Installation Prefix, Synonym Files, URL Handling, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Installation Prefix
+
+@example
+Installation prefix to use? (~name ok) [/usr/local/ls6/wais]
+@end example
+
+@node  Synonym Files, Registration, Installation Prefix, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Synonym Files
+
+I added a patch from Alberto Accomazzi for speeding up usage of synonym
+files. He writes about his patch:
+
+@quotation
+For those of you who have fairly large synonym files (> 10Kb) and are
+running the software on a machine that supports shared memory (your
+machine does) enabling this feature will speed up the waisserver
+response time by a significant factor.
+
+For those of you who do not have shared memory, I have rewritten the
+memory allocation part of @file{synonym.c} so that bigger memory chunks are
+allocated and used rather than allocating memory for each word and
+synonym, so the code should be a little faster for you too.
+@end quotation
+
+@example
+Do you want to use shm cache? [n]
+@end example
+
+
+@node  Registration,  , Synonym Files, Configure Questions
+@comment  node-name,  next,  previous,  up
+@subsubsection Registration
+
+As distributed, freeWAIS-sf Release @value{fwsf-version} will send an UDP packet
+to my workstation every time waisserver reindexes his info database,
+containing your (numeric) UID, your operating system, your compiler
+version and the freeWAIS-sf version.
+
+This is @emph{just} because I would like to get an idea of to which
+systems/compilers freeWAIS-sf has be ported and how many people use it,
+and keep on using it (rather than tried it once folks).  It will
+@emph{never} become a licensing scheme or some crazy thing like that.  But,
+you can disable it by answering @samp{yes} to the following question.  If
+you do that, please let me know, if you are running freeWAIS-sf on a
+system/compiler, which is not mentioned in the @file{README}.
+
+@example
+Disable the UDP packet sending? [n] 
+Ok. Thank you for your trust.
+@end example
+
+
+@node  Compiling, Installation, Configure, Building
+@comment  node-name,  next,  previous,  up
+@section Compiling the system and running the tests
+@cindex Compiling
+
+When you have generated the makefiles using @code{Configure}
+(@pxref{Configure}), you can compile the system by just entering
+@samp{make all}. This will also index a test database and run some
+tests. Here is the list of the make targets:
+
+@table @code
+@item make
+   Build the system and run the tests.
+@item make install
+   Install binaries and scripts.
+@item make install.man
+   Install the manual pages.
+@item make clean
+   Remove object files, libraries, backups, @dots{}
+@item make realclean
+   Remove files generated by @code{flex}, @code{bison}, @code{dvips},
+   @code{latex}, @code{waisindex}.
+@end table
+
+If you need the x clients @code{cd} to the x subdirectory and enter
+@code{xmkmf} and @code{make depend} prior to @code{make all} and
+@code{make install}
+
+@menu
+* Tests::                       Running the tests
+@end menu
+
+@node  Tests,  , Compiling, Compiling
+@comment  node-name,  next,  previous,  up
+@subsection Running the tests
+@cindex Tests
+
+After successful compilation the @code{make} process indexes a test
+database and runs some queries. You will have to start the tests
+manually, if you did not chose the @code{LOCAL_SEARCH}
+option. @xref{LOCAL SEARCH}.
+
+@example
+cd FIELD-EXAMPLE
+../ir/waisserver -d . -p 9565
+make test
+@dots{}
+kill @var{waisserver-pid}
+@end example
+
+The results of the queries are compared to expected results contained in
+the distribution.  Depending on your choices during the configuration
+(@pxref{Configure}) some of the tests will fail. These are mentioned
+below. The @code{imake} makefiles will avoid the test which are expected
+to fail.
+
+Here is the list of tests:
+
+@table @dfn
+@item PLAIN
+@samp{Probabilistic Indexing}
+@item BOOLEAN
+@samp{au=(pennekamp or fuhr) and processing}
+@item COMPLEX
+@samp{py==1995 and (ti=(Retrieval freeWAIS) or au=pfeifer)}
+@item FIELD
+@samp{au=pfeifer}@*
+@item DATE
+@samp{ed>930101}@*
+@item GERMAN
+@ifinfo
+@samp{au=großjohann}
+@end ifinfo
+@tex
+@samp{au=gro\ss{}johann}
+@end tex
+@*This will only work if you made
+@ifinfo
+@samp{ß}
+@end ifinfo
+@tex
+@samp{\ss{}}
+@end tex
+a legal chracter. @xref{Character Set}.
+@item LITERAL
+@samp{'Enhanced Retrieval'}@*
+This test will fail, if you chosed the proximity operators during
+configuration. @xref{Proximity Search}.
+@item NUMERIC
+@samp{py==1995}
+@item PARTIAL
+@samp{Pfeif*}
+@item PROXIMITY
+@samp{(Searching w/2 Documents) or (Development pre/3 Linear)}@*
+This test will succeed only, if you chosed the proximity operator during
+configuration. @xref{Proximity Search}.
+@end table
+
+If some of the tests supposed to work fail, have a look at the
+@file{FIELD-EXAMPLE} directory. For each test there is a pair of file:
+@file{@var{testname}.is} and
+@file{@var{testname}.should}. @file{@var{testname}.should} is what the
+query result was on my machine and @file{@var{testname}.is} was produced
+running on your system. Compare the files and decide, if you can live
+with the differences, e.g.@: if only the weighting differs, you should be
+able to use the system.
+
+@node  Installation,  , Compiling, Building
+@comment  node-name,  next,  previous,  up
+@section Installation
+@cindex Installation
+
+If the tests where successful, you can install the system using
+@samp{make install}. @xref{Compiling, Make targets}.
+
+@menu
+* Installation Files::          Installation Directories and Files
+* Installing the Server::       Installing the Server (for @code{inetd})
+@end menu
+
+@node  Installation Files, Installing the Server, Installation, Installation
+@comment  node-name,  next,  previous,  up
+@subsection Installation Directories and Files
+@cindex X11, application resources
+@cindex Emacs
+@cindex Manual
+
+This is how your installation directory should look like after
+installation. @xref{Installation Prefix}.
+
+@example
+                      |-SFproxy           
+                      |-catalog           
+                      |-check-sources     
+                      |-dictionary        
+                      |-getaddrs          
+                      |-inverted_file     
+                      |-makedb            
+                      |-mkfmt             
+                      |-server_stats      
+                      |-stats.awk         
+                      |-stringtoany       
+                      |-swais             
+                      |-trunc             
+                      |-wais-gif-display  
+       |-bin----------|-wais-html-display 
+       |              |-wais-jfif-display 
+       |              |-wais-jpeg-display 
+       |              |-wais-pict-display 
+       |              |-wais-ppm-display  
+       |              |-wais-tiff-display 
+       |              |-waisindex         
+       |              |-waisping          
+       |              |-waisq             
+prefix-|              |-waisretrieve      
+       |              |-waissearch        
+       |              |-waisserver        
+       |              |-ws                
+       |              |-xwais             
+       |              |-xwaisq            
+       |                                  
+       |              |-X11---------------|-app-defaults----|-Xwais   
+       |-lib----------|-XwaisHELP         
+       |              |-XwaisqHELP        
+       |              |                   
+       |              |-emacs-------------|-lisp------------|-wais.el 
+       |              
+       |                                  |-catalog.1       
+       |                                  |-dictionary.1    
+       |                                  |-inverted_file.1 
+       |                                  |-makedb.1        
+       |                                  |-mkfmt.1         
+       |              |-man1--------------|-waisindex.1     
+       |-man----------|                   |-waisq.1         
+                      |                   |-waissearch.1    
+                      |                   |-waisserver.1    
+                      |                   |-xwais.1         
+                      |                   |-xwaisq.1        
+                      |
+                      |-man3--------------|-ftw.3           
+                                          |-scandir.3       @
+@end example
+
+@itemize @bullet
+@item
+The @file{@dots{}/bin} directory must be added to your path.
+@item
+The file @file{@dots{}/lib/app-defaults/Xwais} must be found by your X11
+server. You can safely move it to some directory
+(e.g.@: @file{/usr/local/X11/lib/X11/app-defaults}) where your server
+already searches or add the @file{@dots{}/lib/app-defaults/Xwais} directory to
+the search path e.g.@: by adding @samp{@dots{}/lib/app-defaults/Xwais,%N} to the
+environment variable @code{XUSERFILESEARCHPATH}.
+@item
+The file @file{@dots{}/lib/emacs/lisp/wais.el} must be found by Emacs
+(@pxref{Top, , Overview, emacs, The GNU Emacs Manual}). You can safely move the
+file to your site lisp directory or add @samp{@dots{}/lib/emacs/lisp} to
+your emacs @code{load-path}.
+@item
+You should also add @file{@dots{}/man} to your @code{MANPATH}. Note that
+the manuals are out of date!
+@end itemize
+
+@node  Installing the Server,  , Installation Files, Installation
+@comment  node-name,  next,  previous,  up
+@subsection Installing the Server
+@pindex inetd
+@cindex Services
+@cindex Default port
+
+To install the server for being started by @code{inetd} proceed as
+follows. The description applies to SUNOS 4.1.3 but should be similar on
+other *NIX systems. 
+
+You do not have to install a server, if your clients are compiled and
+linked with the @code{LOCAL_SEARCH} (@pxref{LOCAL SEARCH}) option
+on. Without a server only clients which have access to the database
+files can do searches.
+
+Add a line for the WAIS protocol to your @file{/etc/services}:
+
+@example
+wais           210/tcp
+@end example
+
+You can use any term instead of @samp{wais} if you want. But
+@samp{z3950} is misleading (@pxref{Protocol}). You can choose a port
+different from 210 if you want. Make sure, that your database
+descriptions contain the right port then (@pxref{Database Description}).
+
+To @file{/etc/inetd.conf} add a (one!) line:
+
+@example
+wais   stream  tcp     nowait  wais    \
+        @var{installdir}/bin/waisserver waisd.d -d @var{databasedir}  -e @var{logfile}
+@end example
+
+Send the inet daemon a @samp{HUP} signal:
+
+@example
+kill -HUP @var{inetd-pid}
+@end example
+
+@node  Building Databases, Queries, Building, top
+@comment  node-name,  next,  previous,  up
+@chapter Building Databases
+
+If you successfuly compiled and installed the system, you already have
+build your own database. This database will serve as an example throughout
+this section.
+
+Let's first define some terms.
+
+@table @dfn
+@item Document
+The entities you want to search for.
+@item Source
+The files containing the documents you want to
+make searchable.
+@item Index
+A set of files generated by @code{waisindex} which are used by the
+server to perform searches. @xref{Index Files}.
+@item Database
+The combination of source and index.
+@item Format
+The layout of the documents including the separation of documents in the
+files.
+@item Field
+The Format description might associate regions in the documents with
+certain concept types. The sender of an email might be associated to the
+concept @samp{author}. Searches might be constrained to such an concept
+type or @dfn{field} for short.
+@item Type
+A type is attached to each document in the database. The possible types
+roughly correspond to mime content types. Possible types are
+@samp{TEXT}, @samp{HTML}, @samp{URL}, @dots{}.
+@end table
+
+In general you have two options when indexing a new database: You can
+use a build-in format or use the @samp{-t fields} option. The first
+alternative is not covered by this manual since the latter is more
+general and you can emulate the build-in formats with the field indexing.
+
+@menu
+* waisindex Options::           @code{waisindex} Options
+* Format Description::          How to build this @@#$! @code{*.fmt} files
+* Index Files::                 Description of auxiliary files
+@end menu
+
+@node  waisindex Options, Format Description, Building Databases, Building Databases
+@comment  node-name,  next,  previous,  up
+@section @code{waisindex} Options
+@pindex waisindex
+@cindex Waisindex options
+@cindex Stopwords
+
+The following is mostly drawn from the @code{waisindex} manual.
+
+@table @code
+@item -d @var{index-filename}
+This is the base filename for the index files. Therefore if
+@file{/usr/local/foo} is specified, then the index files will be called
+@file{/usr/local/foo.dct} etc. The index should be stored on the local
+file system of the machine running waisindex.  It works over NFS, but it
+is much slower.
+@item -a
+Append this index to an existing one.  Useful for incremental additions
+or updates.  This will only add onto an index, so that if a file has
+changed, it will get reindexed, but the old entries will not be purged.
+Therefore, to save space, it is a good idea to reindex the whole set of
+files periodically.
+@item -r
+Recursively index subdirectories.
+@item -mem
+How much main memory to use during indexing. This variable will have a
+large effect on how fast indexing is done.
+@item -export
+This causes the resulting source description file to include the
+host-name and tcp-port for use by the clients.  Otherwise the file
+contains no connection information, and is expected to be used only for
+local searches.
+@item -nocat
+Inhibits the creation of a catalog.  This is useful for databases with a
+large number of documents, as the catalog contains 3 lines per document.
+@item -T @var{type}   
+Sets the type of the document to @var{type}.
+@item -t @var{format}
+This is the format of files that are handled by waisindex. To find out
+the list of currently known types, execute the waisindex command with no
+arguments and it will list them. Use @samp{@code{-t fields}} to use the
+field indexing. The file @file{@var{database}.fmt} must contain the
+format description.
+@item -stop
+This option refers to the list of otherwise valid words which will be
+excluded from indexing and therefor searching.
+
+If @samp{-stop} is given the build-in stop list is @emph{not} used. In
+any case the file @file{@var{database}.stop} might contain stopwords
+separated by newlines. If fact @code{waisindex} might add some words, if
+they occur to often.
+@item @var{filename} @dots{}
+These are the files that will be indexed according to the arguments
+above.  To insure the files are registered in the filename list
+correctly, it is advised that these are full paths (beginning with a
+@samp{/}).  If the database is used from a machine other than the
+machine on which the index is created, this should be a
+machineindependent path.
+@item -stdin
+Read the names of the files to index from standard input instead  from
+the argument line.
+@item -line
+Makes the proximity operators use the lines aus units instead of words.
+@end table
+
+
+@node  Format Description, Index Files, waisindex Options, Building Databases
+@comment  node-name,  next,  previous,  up
+@section Bulding a Format Description
+@cindex Format Description
+@cindex @code{fmt} files
+
+The trickiest part when building a new database is to write a format
+description --- the horrible @file{@code{@var{database}.fmt}} files.
+
+An important thing to know when writing format descriptions is that
+@code{waisindex} parses sources files @emph{line by line}. All of the
+nice regular expressions have to match a single line. So including multiple
+linefeeds in an expression will cause the matcher to fail.
+
+@menu
+* Regular Expressions::         
+* Format Description Structure::  
+@end menu
+
+@node  Regular Expressions, Format Description Structure, Format Description, Format Description
+@comment  node-name,  next,  previous,  up
+@subsection Regular Expressions
+
+All regular expressions in the format description must be included
+between two @samp{/}. Therefore a @samp{/} in the regular expression
+must be escaped with a @samp{\}. To match @samp{TCP/IP} write
+@samp{/TCP\/IP/}. This in consequence means, that a @samp{\} must be
+escaped too ;-). Other escape sequences interpreted by the parser are:
+
+@table @code
+@item \n
+A newline character. @xref{Format Description, line by line matching}.
+@item \r
+The carriage return character.
+@item \f
+The formfeed character
+@item \@var{x}
+The characer @kbd{C-@var{x}} (control @var{x}) where @var{x} ranges from
+@samp{A} to @samp{Z}.
+@end table
+
+After escaping is resolved, the string is passed to a standard regular
+expression package (or your systems one @pxref{Regular Expressions}).
+
+@table @code
+@item @r{Operator}
+Meaning
+@item @var{x}            
+the character @samp{@var{x}}
+@item "@var{x}"          
+an @samp{@var{x}}, even if @var{x} is an operator
+@item \@var{x}           
+an @samp{@var{x}}, even if @var{x} is an operator. @emph{Remember that
+the parser eats one @samp{\}. So use @samp{/\\*/} to match a @samp{*} in
+the text.}
+@item [@var{x}@var{y}]         
+the character @samp{@var{x}} or @samp{@var{y}}
+@item [a-c]        
+the characters @samp{a}, @samp{b} or @samp{c}
+@item [^@var{x}]         
+any character but @samp{@var{x}}
+@item .            
+any character but newline
+@item ^@var{x}           
+an @samp{@var{x}} at the beginning of a line
+@item @var{x}$           
+an @samp{@var{x}} at the end of a line
+@item @var{x}?           
+an optional @samp{@var{x}}
+@item @var{x}*           
+0,1,2, ... instances of @samp{@var{x}}
+@item @var{x}+           
+1,2,3, ... instances of @samp{@var{x}}
+@item @var{x}|@var{y}          
+an @samp{@var{x}} or a @samp{@var{y}}
+@item (@var{x})          
+an @samp{@var{x}}
+@item @var{x}@{@var{m},@var{n}@}       
+@var{m} through @var{n} occurrences of @samp{@var{x}}
+@end table
+
+@node  Format Description Structure,  , Regular Expressions, Format Description
+@comment  node-name,  next,  previous,  up
+@subsection Structure of the Format Descriptions
+@cindex Format descriptions, generating
+
+A format description consist of three parts. The first part --- usually
+just one line --- describes how the files should be split into
+documents. The second part, called the @dfn{Layout Section} defines how
+a headline for each document should be computed. 
+
+The last and usually largest part defines which fields should be
+generated and how the indexing should be done.
+
+@menu
+* Documents Separation::        Split files in documents.
+* Layout Section::              Define your headline.
+* Fields and Index Types::      How to index the documents.
+@end menu
+
+@node Documents Separation, Layout Section, Format Description Structure, Format Description Structure
+@comment  node-name,  next,  previous,  up
+@subsubsection Separation of Documents
+@cindex Document separation
+
+A format description begins with a @samp{record-sep:} directive.
+
+@example
+record-sep: @var{regexp}
+@end example
+
+Here @var{regexp} might be @samp{/\f/} to match a line containing a
+formfeed character. Note that the line matching the @samp{record-sep:}
+regular expression is never indexed!
+
+
+@node  Layout Section, Fields and Index Types, Documents Separation, Format Description Structure
+@comment  node-name,  next,  previous,  up
+@subsubsection Layout Section
+@cindex Headlines
+
+The layout section must be embraced by @samp{layout:} and
+@samp{end:}. It can contain multiple @samp{headline:} and one
+@samp{date:} directive. Each @samp{headline:} keyword defines a region in
+the document which should be copied to a section of the headline. The
+region, defined by the regular expressions which start and end it can
+occur any number of times in the document. The order of the directives
+defines the order of the sections in the headline.
+
+@example
+headline: @var{start} @var{end} @var{width} @var{[}@var{skip}@var{]}
+@end example
+
+The above line advises the indexer to copy the text between the matches
+for @var{start} and @var{end}, optionally skipping the text matched by
+@var{skip} to the next @var{width} characters of the headline.
+
+The @samp{date:} directives defines how a date to be associated with
+the document can be extraced. Note that this date is not usable for
+searches. It ist part of the headline and displayed to the user by some
+clients. 
+
+@example
+date: @var{start} @var{scanfarg} @var{d-m-y} @var{d-m-y} @var{d-m-y} @var{skip}
+@end example
+
+The @var{start} and @var{skip} work like above. The @var{scanfarg}
+parameter is passed to @code{scanf} to read in year, month, and day. The
+order of the arguments is indicated by the three @var{d-m-y} where each
+might be @samp{year}, @samp{month}, and @samp{day}. The @samp{month}
+might be followed by @samp{string} to indicate that the month will be
+given as a standard three-letter abreviation. 
+
+
+Here is complete example:
+
+@example
+layout:
+headline: /^PY: / /^[A-Z][A-Z]:/ 5 /^PY: */
+headline: /^AU: / /^[A-Z][A-Z]:/ 21 /^AU: */
+headline: /^TI: / /^[A-Z][A-Z]:/ 41 /^TI: */
+date:     /^ED: / /%d-%3s-%d/ day month string year /^ED: [^ ]/
+end:
+@end example
+
+
+@node  Fields and Index Types,  , Layout Section, Format Description Structure
+@comment  node-name,  next,  previous,  up
+@subsubsection Definition of Field and Index Types
+@cindex Indexing types
+@cindex Fields, definition
+
+The field specification part of the format description is made up of
+multiple @samp{region:} @dots{} @samp{end:} groups.  Each is mapping a
+region of text to a set of query categories aka fields.
+
+@example
+region: @var{start} @var{[}@var{skip}@var{]}
+   @var{fieldlist} @var{options} @var{indexspecs}
+end: @var{end}
+@end example
+
+The @var{start}, @var{skip}, and @var{end} expressions define the region
+of the document for which the index specification applies.
+
+@var{fieldlist} is the list of fields each optionaly followed by a
+description string enlosed in double quotes (@samp{"}). The
+description is entered in the database description (@pxref{Database
+Description}).
+
+Options include the directives @samp{numeric: @var{skip} @var{width}},
+@samp{date: @var{d-m-y} @var{d-m-y} @var{d-m-y}}, and
+@samp{stemming}. The first option advises the indexer to allow numeric
+values only and makes sure that numeric atomic search expressions will
+work with the categories. The second advices the indexer to convert the
+date in the region to the @samp{yymmdd} format prior to index it
+numerically.  The last option tells the indexer to stemm the words in
+the region before entering them in the index. When searching, the server
+also stemms search terms prior to the index lookup.
+
+@var{indexspecs} is a list of index types along with a keyword
+indicating if the region should be mapped to the designated categories
+(@samp{LOCAL}), the default category (@samp{GLOBAL}) or to both
+(@samp{BOTH}). The default category is used when none is specified in the
+query. @xref{Query Syntax}.
+
+Index types currently supported are @samp{TEXT}, @samp{SOUNDEX} and
+@samp{PHONIX}.
+
+Consider the following example: 
+
+@example
+region: /^AU: /
+        au "author names" SOUNDEX LOCAL TEXT BOTH
+end: /^[A-Z][A-Z]:/
+@end example
+
+To the indexer this means: 
+
+For all words starting with @samp{AU: } at the beginning of a line up to a
+line which starts with two capital letters followed by a colon and a
+blank, put the word in the default and the @samp{au} category and its soundex
+code only in the @samp{au} category.
+
+Thus an author name can be found in the created database in the default
+category or the @samp{au} category if the exact spelling is known. If
+the name is misspelled, it might be found using the query
+@samp{au=(soundex @var{misspelled-name})}. @xref{Sample Format},
+@ref{Query Syntax}.
+
+@node  Index Files,  , Format Description, Building Databases
+@comment  node-name,  next,  previous,  up
+@section The Index Files
+
+@code{waisindex} generates a number of index files. If called with
+@samp{waisindex -d test -t fields @dots{}} it uses:
+
+@table @file
+@item test.fmt
+The format definition. @xref{Format Description}. This file is not
+necessary if the option @samp{-t fields} is not used.
+@item test.fde
+The @dfn{optional} format description. Plain text, which is added to the
+database description.
+@item test.syn
+The @dfn{optional} synonym file contains multiple lines with synonym
+terms separated by spaces.
+@example
+wais freewais
+programming hacking
+@end example
+@item test.stop
+The @dfn{optional} stopword file contains words which should be ignored
+when indexing, each in one line.
+@end table
+
+The following files are generated or modified by @code{waisindex}:
+
+@table @file
+@item test.src
+The database description. @xref{Database Description}.
+@item test.fn
+The filename list. One entry for each file in the
+database. @xref{Filename List}.
+@item test.hl
+The headline list. One entry for each document in the
+database. @xref{Headline List}.
+@item test.doc
+Document table. One entry for each document in the database. Contains
+pointers to the filename list and the headline list. @xref{Document Table}.
+@item test.cat
+The catalog file. One entry for each document in the database. A human
+readable combination of document table with headline list and filename
+list.This file may be very space consuming. You can avoid generating
+this file if you use @code{waisindex} with the @samp{-nocat}
+option. @xref{waisindex Options}. @xref{Catalog Files}.
+@item test.dct
+The global dictionary. One entry for each term in the default
+field. @xref{Dictionary Files}
+@item test.inv
+The inverted file for the default field. For each term in the database,
+there is a list of @dfn{postings} giving the documents and positions in
+the documents where the term occurs. @xref{Inverted Files}.
+@item test.stop
+@code{waisindex} might add words to the stopword file, if they occur to
+often and would break the index.
+@end table
+
+For each field in the format description a dictionary and a inverted
+file is generated. This applies only to @code{waisindex} run with the
+@samp{-t fields} option.
+
+@table @file
+@item test_field_@var{name}.dct
+@item test_field_@var{name}.inv
+@end table
+
+@menu
+* Database Description::        The @samp{@var{database}.src} files
+* Filename List::               The @samp{@var{database}.fn} files
+* Headline List::               The @samp{@var{database}.hl} files
+* Document Table::              The @samp{@var{database}.doc} files
+* Catalog Files::               
+* Dictionary Files::            The @samp{@var{database}.dct} files
+* Inverted Files::              The @samp{@var{database}.inv} files
+@end menu
+
+@node  Database Description, Filename List, Index Files, Index Files
+@comment  node-name,  next,  previous,  up
+@subsection The Database Description
+
+The database description (@samp{@var{database}.src}) serves for two
+purposes:
+
+@itemize @bullet
+@item The description is used by some clients to extract connection
+information. This might be hostname/ip-address and port or the location
+of the index files for local searches. @xref{LOCAL SEARCH}.
+@item A number of descriptions might be used to make up a database of
+descriptions also referenced to as @dfn{directory of servers}. Use
+@samp{waisindex -t server @dots{}} to build such a directory.
+@end itemize
+
+This is how a database descriptions looks like (when called without the
+@samp{-export} option):
+
+@example
+(:source 
+   :version  3 
+   :database-name "/usr/local/ls6/src+data/src/freeWAIS-sf-2.0/FIELD-EXAMPLE/test"
+   :cost 0.00 
+   :cost-unit :free 
+   :maintainer "pfeifer@@buster"
+   :keyword-list (
+                  fuhr
+                  pfeifer
+                  )
+   :fields (
+                  (:field
+                   :name "ck"
+                   :description "Citation Code")
+                  (:field
+                   :name "py"
+                   :description "Publication Year (numeric)")
+                  (:field
+                   :name "au"
+                   :description "Author")
+                  (:field
+                   :name "ti"
+                   :description "Title")
+                  (:field
+                   :name "jt"
+                   :description "Journal Title")
+                  (:field
+                   :name "ed"
+                   :description "Date of insertion (date)")
+           )
+   :description "Server created with freeWAIS-sf 2.0 PL 30 on Oct  6 18:09:24 1995 by pfeifer@@buster
+The files of type fields used in the index were:
+   /usr/local/ls6/src+data/src/freeWAIS-sf-2.0/FIELD-EXAMPLE/TEST
+@emph{Here goes the contents of the format description file (@r{database}@code{.fde})}
+"
+)
+@end example
+
+With the @samp{-export} option the first part changes to:
+@example
+(:source 
+   :version  3 
+   :ip-address "129.217.20.190"
+   :ip-name "buster"
+   :tcp-port 210
+   :database-name "test"
+@dots{}
+@end example
+
+You can modify the database description, especially if you want to enter
+it in a directory of servers. Notice that waisindex might overwrite the
+description when re-indexing or adding to the database when the list of
+significant terms (keywords) changes. Therefore, use the format
+description file (@code{@var{database.fde}}) to add your comments on the
+database.
+
+@node  Filename List, Headline List, Database Description, Index Files
+@comment  node-name,  next,  previous,  up
+@subsection The Filename List
+
+The filename list (@samp{@var{database}.fn}) contains for each source
+file of the database its filename, modification time, and the type of
+the documents.
+
+The files starts with four zero bytes. Then for each file follows it's
+name as zero terminated string, its modification time a four byte
+integer and the display type as zero terminated string.
+
+@table @asis
+@item Byte
+Contents
+@item 0-3
+0x00000000
+@item 4-52
+@samp{/usr/local/ls6/src/freeWAIS-sf/FIELD-EXAMPLE/TEST}
+@item 53
+0x00
+@item 54-57
+0x2EEC461D (-> @i{13:46 Dec 12 1994} )
+@item 58-61
+@samp{TEXT}
+@item 62
+0x00
+@end table
+
+@node  Headline List, Document Table, Filename List, Index Files
+@comment  node-name,  next,  previous,  up
+@subsection The Headline List
+
+The headline list contains the headline; a null terminated string for
+each document of the database . The first 4 for bytes are zero.
+
+@table @asis
+@item Byte
+Contents
+@item 0-3
+0x00000000
+@item 4-73
+@samp{ 1990   Ait-Kaci, Hassan; Na  Implementing a Knowledge-Based Library I}
+@item 74
+0x00
+@item 74-144
+@samp{ 1990   Shepard, Michael A.;  Transient Hypergraphs for Citation Netwo}
+@item 145
+0x00
+@item @dots{}
+@end table
+
+The length of the headlines is variable with an upper limit given by the
+macro @code{MAX_HEADLINE_LEN} in @file{config.h}. 
+
+@deftypevr  @file{config.h} int MAX_HEADLINE_LEN
+Maximum length of a headline. It may cause difficulties when increasing
+the value above the default value of 300. Some of the problems are fixed;
+maybe not all ;-)
+@end deftypevr
+
+@node  Document Table, Catalog Files, Headline List, Index Files
+@comment  node-name,  next,  previous,  up
+@subsection The Document Table
+
+The document table contains one entry for each document in the
+database. Each entry contains a pointer to the filename list and the
+headline list. Also start and end of the document in the file is given.
+The other entries are  the number of terms and lines and the date
+extracted from the document (@pxref{Layout Section}).
+
+@table @asis
+@item Byte
+Contents
+@item 0-1
+0x0000
+@item 2-4
+Three byte offset in the filename list.
+@item 5-7
+Three byte offset in the headline list. This entry may be four bytes if you
+selected the @code{HUGE_HEADLINES} option during
+configuration. @xref{Huge Headlines}.
+@item 8-11
+The first character of the document in the source file (four bytes).
+@item 12-15
+The last character of the document in the source file (four bytes).
+@item 16-19
+Number of term in the document (four bytes).
+@item 20-22
+Number of lines in the document (three bytes).
+@item 23-26
+Date extracted from the document (yymmdd: a long int year*10000+month*100+day).
+@item 27-29 
+Next document: Three byte offset in the filename list.
+@item @dots{}
+@end table
+
+The first 25 bytes entry might be zero filled as well. Therefor the
+entry for document @var{n} starts at @var{n}*25+2.
+
+@node  Catalog Files, Dictionary Files, Document Table, Index Files
+@comment  node-name,  next,  previous,  up
+@subsection The Catalog Files
+@cindex catalog
+
+Unless prohibited by the @samp{-nocat} option (@pxref{waisindex
+Options}), @code{waisindex} generates a human readable version of the
+document table (@pxref{Document Table}) with the filenames and headline
+included from the filename list (@pxref{Filename List}) and the headline
+list (@pxref{Headline List}).
+
+@example
+Catalog for database: /usr/local/ls6/src/freeWAIS-sf/FIELD-EXAMPLE/test
+Date: Jun  4 13:32:46 1995
+276 total documents
+
+Document # 1
+Headline:  1990   Ait-Kaci, Hassan; Na  Implementing a Knowledge-Based Library I
+DocID: 0 244 /usr/local/ls6/src/freeWAIS-sf/FIELD-EXAMPLE/TEST
+
+Document # 2
+Headline:  1990   Shepard, Michael A.;  Transient Hypergraphs for Citation Netwo
+DocID: 244 437 /usr/local/ls6/src/freeWAIS-sf/FIELD-EXAMPLE/TEST
+
+@dots{}
+
+@end example
+
+@node  Dictionary Files, Inverted Files, Catalog Files, Index Files
+@comment  node-name,  next,  previous,  up
+@subsection The Dictionary Files
+
+The dictionary file (@file{@var{database}.dct},
+@file{@var{database}_field@var{name}.dct} contains entries for all valid
+terms in the database. An entry contains:
+
+@table @asis
+@item Bytes
+Contents
+@item 21
+The term as a zero terminated string. Therefor the length of the terms is
+20 chars maximum.
+@item 4
+Pointer in the inverted file. @xref{Inverted Files}
+@item 4
+Should be the number of documents the term occurs in. Is the total
+number of occurances instead.
+@end table
+
+The entries are sorted by the terms and grouped in blocks of 1000 entries
+each. This main file is preceeded by a directory containing the first
+entries of the main blocks. The bytes 21-24 of this directory entries
+contain the pointer to the main blocks, the last four bytes are
+zero. Entries in the index block are sorted too so that binary search on
+the index can work. The first two bytes of the file give the number of
+main blocks used. E.g., if we have two blocks the layout is as follows:
+
+@table @asis
+@item Bytes
+Contents
+@item 0-1
+0x0000
+@item 2-3
+2
+@item 4-32
+Directory entry for the first block (21 Bytes: Term, 4 Bytes pointer, 4
+Bytes zero)
+@item 33-61
+Directory entry for the second block
+@item 62-29061
+First block
+@item 29062-58062
+Second block
+@end table
+
+@node  Inverted Files,  , Dictionary Files, Index Files
+@comment  node-name,  next,  previous,  up
+@subsection The Inverted Files
+@cindex Posting
+
+The inverted files are the heart of the index. They contain the
+references to the documents they occur in for each term. The first 4
+bytes contain the number of all terms in the file. The rest of the file is
+made up of term entries. Note that the following is mainly
+@emph{debugger knowledge}; Tungs documentation is not very good here. But
+a Perl script using this definition was able to parse my inverted files
+;-).
+
+@table @dfn
+@item Header1
+@table @asis
+@item Bytes
+Contents
+@item 1
+@samp{@{}, the dictionary flag.
+@item 6
+0x000000000000. Probably used during building?
+@item 2
+Length of header 1
+@item 4
+Total number of occurances of the term. Multiple occurances in documents
+count!
+@item @r{variable}
+The term terminated by a newline. @emph{Variatio delectat}.
+@end table
+@item Header 2
+This is where the entries in the dictionary point to. @xref{Dictionary
+Files}
+@table @asis
+@item Bytes
+Contents
+@item 1
+@samp{E} the full flag, indicating a vaid entry.
+@item 4
+Number of postings following this header.
+@item 4
+Total size of the postings following this header.
+@end table
+@item Postings
+A list of postings, each referring to one document.
+@table @asis
+@item Bytes
+Contents
+@item 4
+The document id. This is the entry number in the document
+table. @xref{Document Table}.
+@item 4
+The total size of the character position list including the first
+one(!). If you use the proximity operators (@pxref{Proximity Search})
+the  word position is stored instead. This also applies to the rest
+of the posting list.
+@item 4
+A single precision float which gives the weight of the term with respect
+to the document. @xref{Query Weighting}.
+@item 3
+The position of the first occurance of the term in the document.
+@item @r{variable}
+If there is more than one occurance of the term in the document it will
+be followed by a list of @dfn{compressed integers}. From each byte bits 6 to 0
+are used. If 7 bit are not enough to store the number, bit 7 of the
+higher order bytes is set. So 0 to 127 is encoded as usual and 128 is
+encoded as 0x8100 129 as 0x8101 an so on.
+@end table
+
+@end table
+
+@node  Queries, Linking with other Systems, Building Databases, top
+@comment  node-name,  next,  previous,  up
+@chapter Queries
+
+@menu
+* Query Formulation::           How to formulate a Query?      
+* Query Weighting::             Where come these Scores from?
+@end menu
+
+@node  Query Formulation, Query Weighting, Queries, Queries
+@comment  node-name,  next,  previous,  up
+@section Formulating a Query
+
+As mentioned in @ref{Protocol}, freeWAIS-sf uses the original WAIS
+Protocol. This protocol was designed just for transporting a @dfn{free
+text query} which means a list of search term separated by spaces. We
+decided deliberately to use this old protocol so that all clients out
+there could use our new features. 
+
+So we had to encode the new and richer query semantics in the query
+string. This means that the query now has to obey a certain syntax
+(@pxref{Query Syntax}) and consequently a user might get a syntax error
+when submitting a query. So our goal was to make the syntax as easy as
+possible and especially leave simple free text queries valid.
+
+In the query the categories to be searched should be selectable for each
+term. To leave the original queries valid (and to support casual users)
+we provided a default category, which is used if no category is
+specified in the query. Now we give an outline of the query language:
+
+The atomic search expressions of the language are terms, term wild-cards
+and phrases (e.g.@: @samp{information}, @samp{inform*},
+@samp{"information retrieval"}).
+
+Stemming is handled transparently for the client. Terms searched in a
+stemmed category are searched using their word stem automatically. For a
+wildcard (only tail truncation is implemented), all matching words from
+the dictionary are used as search terms. Phrase search looks up the
+words in the string. At least one of them must be an index term. Then
+the server scans the documents containing this word for string matches
+for the complete phrase. This means that string search can only work if
+the server has access to the documents. For type @samp{URL} this is not
+the case.
+
+Additionally the prefix operators @samp{soundex} and @samp{phonix} are
+allowed for converting the following query term into its Soundex/Phonix
+code. This is for example very useful when searching in phonebooks if
+the exact spelling of a name is not known.  Arbitrary Boolean
+combination of these atomic expressions with the @emph{binary} operators
+@samp{and}, @samp{or} and @samp{not} (@samp{not} means @samp{and not} in
+Boolean logic and is therefore a binary operation, too. See the examples
+below.) are allowed. Parentheses can be used for grouping. For
+compatibility with the original syntax, @samp{or} may be omitted.
+
+For each expression, a semantic category (field) can be defined using
+the @samp{@var{category} @var{pred}} operator, where @var{pred} is
+@samp{=} for text categories and one of @samp{=}, @samp{<}, @samp{>} for
+numeric categories (@samp{==} is also valid for backward compatibility
+to version 1.1).
+
+Here are some examples: 
+
+@table @samp
+@item information retrieval              
+free text query
+@item information or retrieval           
+same as above
+@item ti=information retrieval           
+@samp{information} must be in the title
+@item ti=(information retrieval)         
+one of them in title
+@item ti=(information or retrieval)      
+same as above
+@item ti=(information and retrieval)     
+both of them in title
+@item ti=(information not retrieval)     
+@samp{information} in title and
+@samp{retrieval} not in title
+@item py==1990                           
+@item py=1990                           
+numerically equal
+@item py<1990                            
+numerically less
+@item py>1990                            
+numerically greater
+@item ed<19930101
+Date search. Format is yyyymmdd
+@item au=(soundex salatan)               
+soundex search, matches eg.@: @samp{Salton}
+@item ti=("information retrieval")       
+phrase search
+@item ti=(information system*)           
+wild-card search
+@item nuclear w/10 waste
+We have added a proximity search feature to freeWAIS-sf. With this
+feature, you could search for @samp{nuclear w/10 waste} (like the
+Lexis/Nexis search syntax) to find all stories that have @samp{nuclear}
+and @samp{waste} within 10 words of each other.
+@item nuclear pre/10 waste
+Proximity Searches
+
+If the order of the two words is important, then @samp{nuclear pre/10
+waste} will find all stories that have @samp{nuclear} up to 10 words
+before @samp{waste}. Proximity also works within fields; for instance,
+@samp{byline=(dan w/2 woods)} will find every story with a byline that
+has @samp{dan} within 2 words of @samp{woods}. Note that you must use
+parentheses around the words you want to look for in the field.
+
+@item atleast 20 clinton
+@cite{At Least} Searches
+
+@samp{atleast 20 clinton} finds every story that has at least 20
+occurrences of @samp{clinton}. @samp{atleast} has to be all lower-case,
+and there cannot be any spaces between @samp{at}, @samp{least}, and the
+number -- @samp{at least 20 clinton} will not work!
+@end table
+
+@node  Query Weighting,  , Query Formulation, Queries
+@comment  node-name,  next,  previous,  up
+@section Query Weighting
+@vindex tf
+@vindex maxtf
+@vindex idf
+@cindex Weighting
+@cindex Document term weight
+@cindex Query term weight
+@cindex Vector space model
+
+Let's for now disregard the boolean operators and assume that a query is
+simply a list of terms. Query weighting is done using the @dfn{Vector
+Space} model. Each term in the query is associated with a @dfn{query
+term weight}. Currently this weight is constantly 1. On the other side,
+the terms in each document get a @dfn{document term weight}. This weight
+is the product of a document specific weight and the @dfn{inverse
+document frequency}. The latter is defined as @samp{idf =
+log(@var{N}/@var{n})} where @var{N} is the number of documents in the
+database and @var{n} the number of documents the term occurs in.
+
+The other part of the document weight is computed as follows: Let
+@var{tf} be the number of occurances of the term in document and
+@var{maxtf} the maximum frequency of any term in the document. A
+preliminary weight is computed according to @samp{@var{w} = (0.5 *
+@var{tf})/(1 + @var{maxtf})}. Then these weights are normalize by
+dividing them by the sum of the squares of all preliminary weights for
+terms in this document. So the document specific weights make up a vector
+of length 1. The final document term weight is yielded by multiplying
+this weight to the @var{idf}.
+
+For simple queries (no booleans) the weight of a document is computed by
+multiplying the query term weight to the query term weight for each term
+in the query and summing up the results. This is often referred to as
+the vector product (hence the name of the model) or scalar product.
+
+Now let's get to the booleans. The @samp{or} operator is just
+dropped. So @samp{information or retrieval} yields exactly the same
+weight than @samp{information retrieval}. To interpret the vector
+product in another way, you can say the @samp{or} operator just sums up the
+weights of its arguments. For the @samp{and} operator the weights of both
+arguments is computed and the final weight is just the minimum of these
+weights. Similar the @emph{binary} @samp{not} operator returns the
+minimum of the weight of the left argument and 1 - the weight of the
+right argument.
+
+@unnumberedsubsec Remarks
+
+Numeric searches are currently handled the same way. This is clearly a
+bug. Why should a document from 1988 yield a higher weight with respect
+to a query @samp{<=1990} than one from 1987 just because there are more
+documents from 1987 in the database than from 1988?
+
+I have no idea how strings searches are weighted. 
+
+Partial searches hopefully are weighted as if all matching terms where
+given. 
+
+The proximity operators might work like the booleans? 
+
+@node Linking with other Systems, Discussion of freeWAIS-sf, Queries, top
+@chapter Linking freeWAIS-sf with other Systems
+
+@menu
+* WWW Clients::                 
+* WWW Server::                  
+* Gopher 2.1.1::                
+@end menu
+
+@node WWW Clients, WWW Server, Linking with other Systems, Linking with other Systems
+@section WWW Clients
+
+Linking was tested with:
+@itemize @bullet
+@item
+NCSA Mosaic 2.4
+@item
+Tuebingen Univ Mosaic 2.4.2
+@end itemize
+
+@node WWW Server, Gopher 2.1.1, WWW Clients, Linking with other Systems
+@section WWW Server
+
+@emph{By Jean-Philippe Martin-Flatin <syj@@ecmwf.int>}
+
+Linking was tested with:
+@itemize @bullet
+@item CERN httpd 3.0
+@end itemize
+
+Direct WAIS access for CERN httpd 3.0 is easy to provide with
+freeWAIS-sf-@value{fwsf-version}. The only thing you need to do is
+rename the WAIS libraries in CERN httpd Makefile's.
+
+If you're a lucky guy and your system supports imake, you need to: 
+
+@itemize @bullet
+@item
+Retrieve Rainer Klute's Imake extension to CERN httpd
+3.0. @xref{Sources}.
+@item
+Replace @file{WWW.cf} in the top-level directory with the code in the Appendix
+(@pxref{freeWAIS-sf and CERN httpd})
+@item
+Update the location of your freeWAIS-sf code in @file{WWW.cf} (variable
+@code{WAISDIR})
+@end itemize
+
+If your system doesn't support imake, you need to update manually the
+WAIS libraries in the Makefile pertaining to your architecture and the
+top-level Makefile. And think about how easy life would be if only you
+had imake.
+
+@node Gopher 2.1.1,  , WWW Server, Linking with other Systems
+@section Gopher 2.1.1
+
+@emph{By Steve Hsieh, originaly written for freeWAIS-sf-1.0}
+
+In @file{gopher2_1_1/gopherd/Makefile}: 
+
+replaced original @code{SFWAISOBJ} with: 
+
+@table @strong
+@item linux
+@example
+   SFWAISOBJ       = ../regexp/libregexp.a ../ir/libinv.a ../ir/libclient.a \
+                     ../ir/libwais.a ../ir/liblocal.a ../ir/libsig.a \
+                     ../ui/source.o ../lib/libftw.a
+@end example
+@item solaris & SunOS
+@example
+   SFWAISOBJ       = ../ir/libinv.a ../ir/libclient.a ../ir/libwais.a \
+                     ../ir/liblocal.a ../ir/libsig.a ../ui/source.o \
+                     ../regexp/libregexp.a ../lib/libftw.a
+@end example
+@end table
+
+In @file{gopher2_1_1/gopherd/waisgopher.c}: 
+change 
+@example
+        MIN(
+@end example
+to 
+@example
+        MINIMUM(
+@end example
+
+Run @code{Configure} in freeWAIS-sf. @xref{Configure}. 
+
+For the following configure questions, @samp{required} means that I had
+to use that value to get gopher to work with freewais-sf. @samp{doesn't
+matter} means that the decision is up to you @dots{}.
+
+@example
+Do you want to use your systems regexp.h (no)?  no <-- required
+Will you have HEADLINE files greater than 16 MB (no)?   no <-- doesn't matter
+Use your systems ctype (no)?    yes <-- required
+Do you want to compile with -DLOCAL_SEARCH (yes)?       yes <-- required
+Do you want to use the modified URL handling (no)?      no <-- doesn't matter
+Where should the installation go (/usr/local/wais)? (specify your own path)
+Do you want to use shm cache (no)?      no <-- doesn't matter
+Disable the UDP packet sending (no)?    no <-- doesn't matter
+@end example
+
+Make freewais-sf @dots{} create symbolic links to in gopher2_1_1 to the
+appropriate freewais-sf directories @dots{}
+
+In @file{gopher2_1_1}: 
+
+@example
+ln -s ../freeWAIS-sf-1.0/ir
+ln -s ../freeWAIS-sf-1.0/ui
+ln -s ../freeWAIS-sf-1.0/lib
+ln -s ../freeWAIS-sf-1.0/regexp
+@end example
+
+Edit @file{gopher2_1_1/Makefile.conf} @file{gopher2_1_1/conf.h} as
+necessary for your system and site.
+
+Make sure to uncomment @code{-DFREEWAIS_SF} in @file{Makefile.conf} ! 
+
+make gopher @dots{} 
+
+In the case of an @samp{index type not recognized} error, test an index
+on an database that has been reindexed using the newly compiled
+@code{waisindex} in @file{freeWAIS-sf-@value{fwsf-version}/ir} (as
+opposed to gopherindex) just to make sure that there really still is a
+problem...
+
+Use @samp{waisindex -export @dots{}} It is important that the host and
+port information is compiled into the @file{@var{database}.src} file,
+@strong{even if the searches are local}! I have my gopher, wais , and
+all the databases all on the same machine. It is also important that the
+@code{waisserver} is running.
+
+@node Discussion of freeWAIS-sf, Sample Format, Linking with other Systems, top
+@chapter Discussion of freeWAIS-sf
+
+@menu
+* Newsgroup comp.infosystems.wais::  
+* freeWAIS-sf Mailing-list::    
+* Bug Reports::                 
+* Submitting Patches::          
+@end menu
+
+@node Newsgroup comp.infosystems.wais, freeWAIS-sf Mailing-list, Discussion of freeWAIS-sf, Discussion of freeWAIS-sf
+@section Newsgroup comp.infosystems.wais
+
+Discussion of freeWAIS-sf mostly happens in
+@samp{comp.infosystems.wais}. Please make sure that you have the term
+@samp{freeWAIS-sf} somewhere in the subject line and the version you are
+referring to somewhere in the body. Please do not send mails to me. I
+will answer postings in c.i.w if they are of general interest - and I
+have the time. Do not reply to my postings by mail. Keep the readers of
+c.i.w informed by posting there.
+
+@node freeWAIS-sf Mailing-list, Bug Reports, Newsgroup comp.infosystems.wais, Discussion of freeWAIS-sf
+@section freeWAIS-sf Mailing-list
+
+There is a mailing-list about freeWAIS-sf, which is intended for beta
+testers. Messages to @samp{wais@@wsct.wsc.com} will be
+forwarded to the subscribers. To join the mailing-list send a mail to
+@samp{majordomo@@wsct.wsc.com}:
+
+@example
+To: majordomo@@wsct.wsc.com
+
+subscribe wais
+@end example
+
+To leave the mailing-list send the same mail with @samp{subscribe}
+replaced by @samp{unsubscribe}.
+
+@node Bug Reports, Submitting Patches, freeWAIS-sf Mailing-list, Discussion of freeWAIS-sf
+@section Bug Reports
+
+Send bug reports not referring the last version to the newsgroup
+(@pxref{Newsgroup comp.infosystems.wais}). 
+
+If you are sure that you use the latest version, try to submit patches
+rather than bug reports. @xref{Submitting Patches}. 
+
+If you cannot solve the problem, send the bug report to the
+mailing-list. @xref{freeWAIS-sf Mailing-list}.
+
+Include if possible:
+@itemize @bullet
+@item
+Description of your hardware and operating system
+@item
+Description how to reproduce the bug -- preferably with the included
+test database.
+@item
+Debugger back-trace if the system crashes or of description of the
+misbehaving of the wais program if it just works not as it should.
+@item 
+The configuration options you chosed. @xref{Configure}.
+@end itemize
+
+Remember that clients are not the focus of freeWAIS-sf. So definitely we
+are only interested in patches for problems with the clients.
+
+@node Submitting Patches,  , Bug Reports, Discussion of freeWAIS-sf
+@section Submitting Patches
+
+If you submit patches, make sure that they apply to the latest
+version. If you have patches for old version, please verify that the
+problem persists with the latest version and try you path on
+it. Otherwise send the patch to the newsgroup (@pxref{Newsgroup
+comp.infosystems.wais}).
+
+Patches for the newest version should be send to the
+mailing-list. @xref{freeWAIS-sf Mailing-list}.
+
+Try to send in context diffs like the ones generated by @samp{diff
+-c}. Try to restrain from reformatting and indenting the source before
+generating the patch to restrict the differences to the real
+changes. Please also include diffs to the @file{Changelog} in each
+directory of the distribution. Add a description of your patch stating
+the problem, the solution, and the names of the functions you changed.
+
+@node  Sample Format, Query Syntax, Discussion of freeWAIS-sf, top
+@comment  node-name,  next,  previous,  up
+@appendix Sample Format Description
+
+Sample document:
+
+@example
+CK: Frei/Schauble:91
+AU: Frei, H.P.; Schauble, P.
+TI: Determining the Effectiveness of Retrieval Algorithms.
+JT: Information processing & management.
+PP: 153
+^L
+CK: Schauble:89
+AU: Schauble, Peter
+TI: Improving the effectiveness of retrieval systems by information
+    structures.
+JT: Information processing & management.
+VO: 25
+PY: 1989
+NO: 4
+PP: 363
+@end example
+
+Sample format description:
+
+@example
+#                               -*- Mode: Sh -*- 
+# test.fmt -- 
+# Author          : Ulrich Pfeifer
+# Created On      : Fri Oct  6 13:27:35 1995
+# Last Modified By: Ulrich Pfeifer
+# Last Modified On: Fri Nov  3 10:14:12 1995
+# Language        : FMW
+# Update Count    : 23
+# Status          : Unknown, Use with caution!
+# 
+# (C) Copyright 1995, Universität Dortmund, all rights reserved.
+# 
+# Remember: indexing and matching is done line by line. Each regular
+# expression can match one line maximum.
+
+# This regular expression should match the line separating documents.
+# The matching line is NOT indexed!  Use /\n\n/ if each file contains
+# only one record.
+
+record-sep: /\f/    # formfeed (alias for \L)
+
+# Now we specify how the headline is constructed.  The date is part of
+# the headline and not searchable.
+layout:
+
+# First me map the regions starting with /^PY: / up to (and excluding)
+# the next /^[A-Z][A-Z]:/ skipping everything from the beginning up after
+# the end of /^PY: */ to the first 4 characters of the headline.
+
+  headline: /^PY: / /^[A-Z][A-Z]:/ 4 /^PY: */
+  headline: /^AU: / /^[A-Z][A-Z]:/ 20 /AU: */
+  headline: /^TI: / /^[A-Z][A-Z]:/ 40 /TI: */
+
+# The date is found on lines matching /^ED: /. The line is kipped up
+# to the end of /^ED: *./. The line is handled to scanf with format
+# string "%d.%d.%d". Day, month, and year are expected in this
+# order. Month may be a string containing the 3 letter abreviation for
+# the name of the month. In this case the keyword "string" must follow
+# "month"
+
+  date: /^ED: / /%d.%d.%d/ day month year /^ED: *./
+
+# Now we define the first region. It starts at /^CK:/. everything up
+# after the end of /^CK: */ is skipped. Region ends at
+# /^[A-Z][A-Z]:/. The match for end is search BEHIND the match for the
+# begin.
+region: /^CK:/ /^CK: */
+
+# All words are transfered in the 'ck' index and the global
+# index. Description of 'ck' is overwritten by "Citation Code".
+
+ck "Citation Code" TEXT BOTH
+end: /^[A-Z][A-Z]:/
+
+# All words in this region will be numeric. They are merge in the 'py'
+# index which will be tagged as nummeric from here on (thats not how
+# it should be - I know). Make sure that you do not pollute 'ck' in
+# the following with non-numeric data.  The "numeric" keyword has it's
+# own skip expression /^PY: [^ ]/ which overwrites the region skip
+# expression. This way you can index the same region nonnumeric (This
+# not ...).
+
+region: /^PY: / /^PY: */
+py "Publication Year" numeric: /^PY: */ 4 TEXT LOCAL
+end: /^[A-Z][A-Z]:/
+
+# This region will be indexed plain for the global index and the 'au'
+# index. The 'au' index will also contain the soundex codes for the
+# words.
+
+region: /^AU: / /^AU: */
+au "Author" SOUNDEX LOCAL TEXT BOTH
+end: /^[A-Z][A-Z]:/
+
+# All words in theis reagion will be stemmend before insertion in the
+# global and the 'ti' index'
+
+region: /^TI: / /^TI: */
+ti "Title" stemming TEXT BOTH
+end: /^[A-Z][A-Z]:/
+
+# This region is indexed for multiple local and the global index.
+# Stemming applies for the 'ti' index and the global index.
+
+region: /^JT: / /^JT: */
+jt "Journal Title" ti stemming TEXT BOTH
+end: /^[A-Z][A-Z]:/
+
+# Here we make the data searchable. Format is merely the same as in
+# the layout section. There is no local skip expression. That wasnt a
+# good idea for numerics anyway. The date can be search with the
+# yymmdd format. See test DATE.
+
+region: /^ED: / /^ED: */
+ed "Date of insertion" <date> /%d.%d.%d/ day month year TEXT LOCAL
+end: /$/
+
+region: /^JT: / /^JT: */
+TEXT GLOBAL
+end: /^[A-Z][A-Z]:/
+@end example
+
+
+@node  Query Syntax, Format Specification Syntax, Sample Format, top
+@comment  node-name,  next,  previous,  up
+@appendix Query Syntax
+
+@example
+expression      : term
+                | expression or term
+                ;
+or              : %prec @samp{or} 
+                | @samp{or} 
+                ;
+and             : @samp{and} 
+                | @samp{not} 
+                ;
+term            : factor
+                | term and factor
+                ;
+factor          : unit
+                | unit @samp{pre/} unit
+                | unit @samp{w/} unit
+                | @samp{atleast/} unit
+                ;
+unit            : @var{word-or-literal} 
+                | phonsound @var{word-or-literal}
+                | @samp{(} expression @samp{)}
+                | @var{word-or-literal}  @samp{=} @samp{(} s_expression @samp{)}
+                | @var{word-or-literal}  @samp{=}  @var{word-or-literal}
+                | @var{word-or-literal}  @samp{=}  phonsound @var{word-or-literal}
+                | @var{word-or-literal} relop @var{word-or-literal}
+                ;
+relop           : @samp{=} @samp{=} 
+                | @samp{<}     
+                | @samp{>}     
+                ;
+phonsound       : PHONIX
+                | SOUNDEX
+                ;
+s_expression    : s_term 
+                | s_expression or s_term
+                ;
+s_term          : s_factor 
+                | s_term and s_factor 
+                ;
+s_factor        : s_unit
+                | s_unit @samp{pre/} s_unit
+                | s_unit @samp{w/} s_unit
+                | @samp{atleast/} s_unit
+                ;
+s_unit          : @var{word-or-literal}
+                | phonsound @var{word-or-literal}
+                | @samp{(} s_expression @samp{)}
+                ;
+@end example
+
+@node  Format Specification Syntax, freeWAIS-sf and CERN httpd, Query Syntax, top
+@comment  node-name,  next,  previous,  up
+@appendix Format Specification Syntax
+
+@example
+docspec         : parseformat | format
+                ;
+parseformat     : record layout
+                ;
+format          : record layout speclist
+                ;
+record          : @samp{record-sep:} REGEXP 
+                ;
+layout          :
+                | @samp{layout:} layoutspecs @samp{end:} 
+                ;
+layoutspecs     : layoutspec
+                | layoutspec layoutspecs
+                ;
+layoutspec      : @samp{date:} REGEXP REGEXP date date date regexp
+                | @samp{headline:} REGEXP REGEXP INT regexp
+                ;
+speclist        : spec
+                | spec speclist
+                ;
+spec            : @samp{region:} REGEXP regexp
+                  fieldlist
+                  options
+                  indexspecs
+                  @samp{end:} REGEXP
+                ;
+options         : 
+                | option options
+                ;
+option          : @samp{numeric:} regexp INT
+                | @samp{date:} date date date
+                | @samp{stemming}
+                ;
+regexp          : 
+                | REGEXP 
+                ;
+indexspecs      : 
+                | indexspec indexspecs
+                ;
+indexspec       : indextype dicts
+                ;
+indextype       : @samp{TEXT}
+                | @samp{SOUNDEX}
+                | @samp{PHONIX}
+                ;
+dicts           : @samp{GLOBAL} 
+                | @samp{LOCAL}  
+                | @samp{BOTH}   
+                ;
+date            : @samp{day}    
+                | @samp{month} monthspec
+                | @samp{year}   
+                ;
+monthspec       :
+                | @samp{string} 
+                ;                 
+fieldlist       : 
+                | WORD descr fieldlist
+                ;
+descr           : 
+                | @samp{"} @var{any string} @samp{"} 
+                ;
+@end example
+
+@node freeWAIS-sf and CERN httpd, Index, Format Specification Syntax, top
+@appendix freeWAIS-sf and CERN httpd
+
+@smallexample
+/* Version numbers of library, daemon, and client: */
+#define LibwwwVersion 2.17
+#define DaemonVersion 3.0
+
+
+/* Where to install binaries? */
+BINDIR = /usr/local/infosystems/WWW/bin
+
+
+/* Do you want to compile the WAIS gateway? If yes, where is freeWAIS
+   located?
+*/
+#define FreeWAIS_sf YES
+#define FreeWAIS_02 NO
+#define FreeWAIS_03 NO
+#define FreeWais (FreeWAIS_02 || FreeWAIS_03)
+
+#if FreeWais
+/* WAISDIR = /usr/local/infosystems/freeWAIS-0.2 */
+WAISDIR = /usr/local/infosystems/freeWAIS-0.3
+WAISLIBDIR = $(WAISDIR)/bin
+WAISINCDIR = $(WAISDIR)/ir
+#endif
+
+#if FreeWAIS_sf
+WAISDIR = /usr/local/infosystems/freeWAIS-sf-1.0
+WAISLIBDIR = $(WAISDIR)/ir
+WAISINCDIR = $(WAISDIR)/ir
+#endif
+
+/*
+ * If you don't want to use GCC for compilation, but the compiler defaulted in
+ * Imake's configuration files, set UseGcc to NO. If you want to change the
+ * native's compiler default options, set CCOPTIONS and/or CDEBUGFLAGS as
+ * needed, preferrably depending on the architectur as show below.
+ */
+
+#define UseGcc YES
+
+#if UseGcc   /* use GNU C compiler: */
+
+         CC = gcc -fpcc-struct-return
+  CCOPTIONS =
+
+#if defined (SunArchitecture) && !defined (i386Architecture) && !defined
+(SparcArchitecture)
+  CCOPTIONS = -m68881
+#endif /* Sun-3 */
+
+#else   /* use native C compiler: */
+
+#if defined (HPArchitecture) && defined (hp9000s800)
+CCOPTIONS = -Aa -D_HPUX_SOURCE -Wl,+b $(USRLIBDIR) -Wl,+s
+#endif /* HPArchitecture */
+
+#if defined (XyzArchitecture) /* e. g. IBMArchitecture, SGIArchitecture etc. */
+         CC = compiler-to-use
+  CCOPTIONS = compiler-options
+#endif /* XyzArchitecture */
+
+#endif /* UseGcc */
+
+/* No need to modify anything below here */
+
+ LIBWWWDIR = $(TOP)/Library/Implementation
+    LIBWWW = -L$(LIBWWWDIR) -lwww
+ DEPLIBWWW = $(LIBWWWDIR)/libwww.a
+
+#if FreeWais
+   LIBWAIS = $(WAISLIBDIR)/client.a $(WAISLIBDIR)/wais.a
+DEPLIBWAIS = $(LIBWAIS)
+#endif
+
+#if FreeWaisSf
+   LIBWAIS = $(WAISLIBDIR)/libclient.a $(WAISLIBDIR)/libwais.a
+DEPLIBWAIS = $(LIBWAIS)
+#endif
+
+/* Imake rule to create a generic name as a link */
+#ifndef InstallAsLink
+#define InstallAsLink(file,link,dir) @@\
+install:: file                       @@\
+        set -x; cd dir; \            @@\
+        $(RM) link; \                @@\
+        $(LN) file link
+#endif
+@end smallexample
+
+@node  Index,  , freeWAIS-sf and CERN httpd, top
+@comment node-name,    next,  previous,      up
+@unnumbered Index
+
+@printindex cp
+
+@contents
+@bye
+

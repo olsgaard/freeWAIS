@@ -1,0 +1,54 @@
+(:source 
+   :version  3 
+   :ip-address "128.109.130.57"
+   :ip-name "cnidr.org"
+   :tcp-port 210
+   :database-name "directory-of-servers"
+   :cost 0.00 
+   :cost-unit :free 
+   :maintainer "wds@kudzu.cnidr.org"
+   :keyword-list (
+                  00
+                  address
+                  cost
+                  database
+                  description
+                  edu
+                  file
+                  free
+                  index
+                  ip
+                  maintain
+                  name
+                  port
+                  server
+                  source
+                  src
+                  tcp
+                  this
+                  unit
+                  version
+                  wais
+                  )
+   :description "Server created with freeWAIS Release 0.1 beta on Apr  9 15:04:44 1993 by wds@kudzu.cnidr.org
+
+	This directory-of-servers is operated by CNIDR - The
+Clearinghouse for Networked Information Discovery and Retrieval.
+
+CNIDR is funded by the National Science Foundation under
+Cooperative Agreement NCR-9216963.
+
+This source is updated from freeWAIS waisindexers and also
+collects new entries from the directory of servers at quake.think.com.
+
+This source was indexed with freeWAIS-0.1, using a Porter stemmer and no
+thesaurus.  Literal searches and partial word searches are accepted, but
+note that stemming is ON - this can affect the accuracy of literal
+searches.
+
+Boolean searching is supported.
+
+For more information, send a note to freeWAIS@cnidr.org
+
+"
+)

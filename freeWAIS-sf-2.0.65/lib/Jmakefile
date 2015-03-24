@@ -1,0 +1,68 @@
+;########################### -*- Mode: Makefile -*- ###########################
+;# Imakefile --
+;# ITIID           : $ITI$ $Header $__Header$
+;# Author          : Ulrich Pfeifer
+;# Created On      : Tue Mar  8 14:46:34 1994
+;# Last Modified By: Ulrich Pfeifer
+;# Last Modified On: Tue Oct 31 18:28:38 1995
+;# Update Count    : 79
+;# Status          : Unknown, Use with caution!
+;##############################################################################
+>MYCTYPE
+>PRIVLIB
+>BIN_EXP
+
+#include "../config.h"
+
+Initialize(CFLAGS,-I. $ctypeinc)
+Initialize(ISOOBJS,$ctypeobj)
+Initialize(BIN_EXP,$installbin)
+Initialize(MAN3,`echo $installmansrc | $sed -e 's/man.$/man3/'`)
+
+/* Library objs */
+             OBJS = alphasort.o \
+                    alloca.o \
+                    freedir.o \
+                    ftw.o \
+                    scandir.o
+
+/* all sources (for makedpend) */
+
+             SRCS = alphasort.c \
+	            alloca.c \
+                    freedir.c \
+                    ftw.c \
+                    scandir.c 
+
+all::	      trunc stringtoany ftwtest scantest
+
+
+NormalLibraryTarget(ftw,$(SRCS),$(OBJS))
+MakeDirectories(install, $(PRIVLIB) $(BIN_EXP))
+MakeDirectories(install.man, $(MAN3))
+InstallLibrary(ftw,$(PRIVLIB))
+
+NormalProgramTarget(trunc,trunc.c,trunc.o)
+InstallProgram(trunc,$(BIN_EXP))
+NormalProgramTarget(stringtoany,stringtoany.c,stringtoany.o)
+InstallProgram(stringtoany,$(BIN_EXP))
+
+NormalProgramTarget(ftwtest,ftwtest.c,ftwtest.o libftw.a $(ISOOBJS))
+NormalProgramTarget(scantest,scantest.c,scantest.o libftw.a $(ISOOBJS))
+
+>MANSRC
+Initialize(L,$(MANSUFFIX))
+L=3
+InstallManPage(ftw,$(MAN3))
+InstallManPage(scandir,$(MAN3))
+
+DependTarget()
+
+test:		ftwtest scantest
+		ftwtest /tmp
+		scantest /tmp
+
+local_realclean:: clean
+	$(RM)  $(LOCAL_LIBRARIES) trunc stringtoany ftwtest scantest
+
+

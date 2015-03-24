@@ -1,0 +1,53 @@
+{title}      Implicit Normal Mode Initialization for a Global Finite-Element
+             Semi-Lagrangian Shallow-Water Model,
+
+{author}     L. Fillion, J. Cote, and M. Roch.
+
+{corp author}Recherche en Prevision Numerique, Service de l'Environnement
+             Atmospherique, 2121 Route Trans-Canadienne, Dorval, Quebec,
+             Canada H9P 1J3.
+
+{citation}   Atmosphere - Ocean ATOCDA, Vol. 30, No. 3, p 321-337, September
+             1992. 8 fig, 1 tab, 27 ref.
+
+{field&group}02B, 07C
+
+{abstract}   Implicit normal mode initialization was applied to a global
+             finite-element shallow-water model where a semi-Lagrangian
+             treatment of the advection terms was used. The local time
+             tendencies required by the initialization scheme were thus
+             furnished by the semi-Lagrangian model itself. Since the
+             initialization scheme was formulated in physical space, it
+             allowed the nonlinear adjustment of the initial mass and wind
+             fields at essentially the same accuracy as standard explicit
+             normal mode initialization without having to rely on the
+             explicit determination of the normal modes of the model. This
+             property was especially useful since the spatial orientation of
+             the model's grid was allowed to vary. For such a case, the usual
+             separability in the longitudinal and latitudinal directions of
+             the linearized dynamics is not possible if the variation of the
+             Coriolis parameter is included in the analysis (as it should on
+             the sphere). The use of a rotated coordinate system represents a
+             new aspect for implicit normal mode initialization. Using real
+             data, the implicit nonlinear normal mode initialization using
+             the present semi-Lagrangian model on a uniform
+             latitude-longitude grid was compared with an Eulerian global
+             spectral shallow-water model. The effect of the rotation of the
+             system of coordinates on the performance of the initialization
+             scheme was also examined in detail. The results demonstrated
+             that both schemes performed equally well at removing
+             high-frequency noise in forecast integrations for their
+             corresponding models and produced mass and wind field
+             adjustments at the initial time that were remarkably close.
+             Future directions of research should include development of the
+             model and its initialization for medium-range and short-range
+             forecasting. (Author's abstract)
+
+{descriptors}*Atmospheric physics, *Global processes, *Mathematical studies,
+             *Meteorology, *Model studies, *Numerical models, *Shallow water,
+             Advection, British Columbia, Canada, Coriolis force, Finite
+             element method, Forecasting, Lagrangian model, Mass balance,
+             Wind effects.
+
+{id number}  93-09673
+{end}

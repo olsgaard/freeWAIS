@@ -1,0 +1,73 @@
+README:	WAIS Unix X UI release 8 b5.1.2			Thu Aug 27 1992
+ Jonathan Goldman				 Thinking Machines Corp
+------------------------------------------------------------------------
+
+WARRANTY DISCLAIMER
+
+This software was created by Thinking Machines Corporation and is
+distributed free of charge.  It is placed in the public domain and
+permission is granted to anyone to use, duplicate, modify and redistribute
+it provided that this notice is attached.
+
+Thinking Machines Corporation provides absolutely NO WARRANTY OF ANY KIND
+with respect to this software.  The entire risk as to the quality and
+performance of this software is with the user.  IN NO EVENT WILL THINKING
+MACHINES CORPORATION BE LIABLE TO ANYONE FOR ANY DAMAGES ARISING OUT THE
+USE OF THIS SOFTWARE, INCLUDING, WITHOUT LIMITATION, DAMAGES RESULTING FROM
+LOST DATA OR LOST PROFITS, OR FOR ANY SPECIAL, INCIDENTAL OR CONSEQUENTIAL
+DAMAGES.
+
+This release of the X WAIS Station provides two executables: xwais and
+xwaisq.  The first, xwais, is a simple shell that "wraps around" xwaisq,
+the real workhorse of the system.
+
+To get an idea how to run use this application, look at the file XwaisHELP.
+
+There are four critical resources the user can specify to change the
+default directories the application uses.  They are the questionDirectory,
+userSourceDirectory, commonSourceDirectory and documentDirectory resources.
+This is where the application will attempt to find the initial questions
+and sources, and where the application will store documents.  Set this
+according to your personal directories.  It is also important that the
+helpFile resources be set to the path where the X sources are.
+
+The default values will probably work for most people.  The application
+does know how to expand ~/ (so long as the environment variable HOME is
+set), but does not know about other user directories.
+
+Notes on building these applications:
+
+This release attempts to build using an Imakefile.  If X is installed on
+your machine, and you have write access to the X binary and
+application-default directories, the X distribution should be easy to
+build.  Use xmkmf to create a locally consistant Makefile, then type "make
+install" to do it all.
+
+**********************************************************************
+A note on X release compatibility:  This software uses a feature of X11R5's
+viewport widget not present in R4.  I tried to make it transparent to R4
+users.
+**********************************************************************
+
+If this doesn't work, you can use my old example makefile, called
+My-Makefile.  Use "make -f My-Makefile".  If it doesn't work "out of the
+box" take a look at it for some pointers on how to actually build xwais and
+xwaisq.  If your site does not use the "usual" directories for X
+(/usr/include/X, /usr/lib/X11, or /usr/local/lib) you should modify the
+CFLAGS and LFLAGS to point at the places your X distribution actaully uses.
+You might have to find a system-administrator to assist you at installing
+the application and its default resources (Xwais).
+
+Take a look at the file Xwais to make sure the commonSourceDirectory and
+helpfile resources are the correct pathnames for you site.  I've attempted
+to do this automatically, but it may not always work.
+
+Finally, I've included shell scripts in the bin directory of this
+distribution that will set the XUSERFILESEARCHPATH to this directory, so
+you need not install the app-defaults.  When you verify that everything is
+set correctly, you may want to do `make install` to install the binaries
+and app-defaults at your site.
+
+A note about the viewers (Xwais.filters resource):  The default viewers
+with this release require the pbm utilities (part of contrib in the MIT X11
+release).

@@ -1,0 +1,16 @@
+Adding soundex and phonix matching to freeWAIS.
+
+Purpose: 
+        indexing phone books with names (and phone numbers) on each line of a
+        document. May easily extended to other document formats.
+
+
+To index use 'waisindex -t oneline_phonix ...' or 'waisindex -t
+oneline_soundex ...'.
+
+For retrieval write 'soundex <term>' or 'phonix <term>' to find the matching
+entries with any client.
+
+Comments, Bugs to:
+
+Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>

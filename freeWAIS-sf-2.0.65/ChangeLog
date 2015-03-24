@@ -1,0 +1,1017 @@
+Wed Jan 31 15:53:34 MET 1996   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+Description patch63:
+
+Configure:
+        now contains a warning not to include single quotes
+	in the character definitions.
+
+FAQ
+	System list update.
+
+other:
+	Changed the query term weighting syntax to 'Probabilistic <*
+	3 Indexing'.
+
+
+	Use getcwd() is present.
+
+	Check for presence of keywords vefore printing them ;-).
+
+	Replace single quotes around a string by double quotes
+	after recognizing. So single quotes may be legal chars.
+
+	Forgott to switch yydebug off :-(
+
+Tue Jan 23 16:14:00 MET 1996   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+bin/makedb.SH
+	Fix for backticks in file selection.
+doc/SF/fwsf.texi
+	Fix for texinfo-3.7.
+ir/
+        /<\/foo>/ did not match </foo>. Fixed by Brian Bullen.
+
+ui/Makefile.SH
+	Generate $(PRIVLIB)/emacs/lisp if necessary.
+
+Sun Jan 14 18:27:01 MET 1996   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+FAQ:
+	Udp systems update.
+cdialect.h:
+	Changed #if I_ALLOCA to #ifdef I_ALLOCA.
+query_l.l
+	Numeric searches with negative numbers did not work.
+
+Fri Dec 29 13:31:13 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	String search in global field did not work if other fields
+	occurred in the query.
+
+Thu Dec 28 17:48:15 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Rodney Barnett wrote:
+
+
+In freeWAIS-sf-2.0.55, queries of the form
+
+        word1 prox_op (word2 bool_op word3)
+
+where prox_op is "w/n" or "pre/n" and bool_op is "and" or "or", do not work
+properly.  I do not know much about the history of freeWAIS-sf, so I cannot
+tell how many previous versions have the same problem.  However, a quick
+check of the code I have indicates that the problem existed in
+freeWAIS-sf-1.2-pre9 as well.
+
+The problem is that the "and" and "or" operators simply concatenate the word
+positions of their two operands.  However, the proximity operator assumes
+that the word positions are in increasing order.  The following patch
+changes the "and" and "or" operators to merge the word positions of their
+operands in a way that preserves the increasing order of the word positions.
+
+Rodney
+rbarnett@us.teltech.com
+
+	New flex.
+
+        Changed return type of read_weight_from*() to double. Some
+	compilers like that more than float :-(.
+
+	Init response now tells about the freeWAIS-sf Version.  There
+	is currently no other way to determine what server you are
+	connected to!
+
+Wed Dec 20 14:05:00 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Adapted to 'flex version 2.5.2'.
+	GNU Bison version 1.24.
+	Numeric searches with '.' did not work.
+
+Mon Dec 18 14:57:37 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+waisq.c	From: malyshki@cs.wmich.edu (Vladislav Malyshkin)
+
+	The differencs between these files is :
+        	1) added +1 to s_malloc(..) and s_realloc(...)
+        	2) now waisq understands  new values for -v 
+        	   option. Now it is possible to use 
+	           -v 10-20    (print documents # 10,11,12,.....20)
+                	and 
+        	   -v all      (print all) old version 
+	           -v document_number
+                   also works.
+
+
+makedb
+	Some backtickes were not evaled corectely.
+
+irkeywords.c
+	Rename char* keyword to char* keywrd sice it conficts with
+	keywords() on some systems.
+
+stoplist.c
+	Disabling the internal stoplist did not work.
+
+
+
+Wed Dec  6 12:16:31 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Added dbm stuff from egw@aubranch.egwestate.andrews.edu. 
+	Did not add the program for filling the dbm database yet.
+
+        Patch from Rodney Barnett:
+
+I recently ported freeWAIS-sf-2.0.52 to DYNIX/ptx 4.10 running on a
+Sequent S2000/250.  Along the way, I found a bug and had to make a few
+changes to get it to compile.  The following describes the changes and
+provides a patch.
+
+1. problem: use of proximity operators causes core dump.
+       fix: prox_value is no longer a char *, so don't s_free() it.
+   file(s): query_l.l, query_l.c
+
+2. problem: waisserver.c fails to compile because the O_* constants are
+            not defined.
+       fix: I_SYS_FILE is defined if sys/file.h defines the *_OK constants
+            and shouldn't be used to determine what file to include for
+            the O_* constants, so eliminate that #ifdef and allow the test
+            of I_FCNTL to determine what to include for the O_* constants.
+            Also, cdialect.h defines these variables and should be included
+            before this test.  (NOTE: I'm not sure how this works for
+            other UNIX variants, so take this fix with a grain of salt.)
+   file(s): waisserver.c
+
+3. problem: irsearch.c and sersrch.c fail to compile with an error about
+            mismatched parameters for search_word_before_pairs () and
+            search_word () respectively.
+       fix: in the old-style (K&R) function definitions of these functions
+            the compiler wides the float parameter (query_weight) to a
+            double; however, that isn't required of the new-style function
+            declaration, so the problem is really that the function
+            prototype says that query_weight is a float, but the function
+            definition says that query_weight is a double.  Fix that by
+            making query_weight a double in the prototype.
+   file(s): irsearch.c, sersrch.c, and irext.h
+
+Rodney
+rbarnett@us.teltech.com
+
+Fri Nov 17 15:53:50 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+FIELD-EXAMPLE:
+	Correct results for test now?
+	Indexing for py was erroneous.
+
+doc/SF:
+	Typo, <numeric> -> numeric:.
+	
+waisindex:
+	Index types are now reported in the <database>.src file.
+
+Tue Nov 14 19:51:48 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+
+	Did I really forgot to integrate 2.0.1.[1-3] in the patches?
+        Shudder. Prepare to save ir/query_y.c before running make
+        unless you have bison. ir/query_y.c was up to date. It's
+        source ir/query_y.y was not. So this patch updates
+        ir/query_y.y and it will be newer than ir/query_y.c after
+        applying the patch!
+
+	Fixed erroneous beginning of line matches for headlines.
+
+	Fix for literal searches from Ellen G. White.
+
+Tue Nov 14 17:22:34 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+		Lost some diffs in previous patches.
+
+Tue Nov 14 09:29:52 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	typo
+
+Mon Nov 13 14:01:35 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Fixed false beginning-of-line matches with region end
+	expressions.
+
+Thu Nov  9 15:09:47 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Removed ui-local.c Added a fix from ui-local.c to ui.c
+
+fwsf.texi
+	Frequency in dictionary is not document frequency.
+
+
+format:
+	Added '\t' to the regular expressions.
+
+
+	Keeps now track of used file buffers.
+
+	Fixed a very tricky memory bug which must be in there since
+	wais8-b.
+
+	Added counter for file buffers to database record.
+
+	Force rewrite of source description now.
+
+Fri Nov  3 13:38:55 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+Now runs on AIX 3.2. Note that uname(3) on AIX lies about the system
+version. So AIX 3.2 will probably newer be in the FAQ :-(
+
+	Uninitialzed memory read bug in Intersection.
+
+	Removed prototype for search_word since it makes the AIX
+	compiler unhappy.
+
+	Removed prototype for search_word_before_pairs since it makes
+	the AIX compiler unhappy.
+
+	Removed some unnecessary variables.
+
+Fri Nov  3 10:56:46 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+waisindex
+	Completely rewrote how_index_line. The regions now cannot
+	overlap themselfes - which was wiered. Also regions are
+	closed now when field or document changes. Now buggy format
+	descriptions where the region end expressions never matches
+	can be processed without exhausting cpu and disk.
+
+	Fixed off-by-one bug in headlines.
+	Fixed off-by-one bug in skip expressions.
+
+ctype:
+	Moved the define for _AP in cdialect.h up before the include
+	of ctype.h.  Added dummy _AP macro to make it usable in
+	./ctype.h.  Prototypes for mystrcmp, mystrncmp, and
+	mystrcasecmp.
+
+doc:
+	Included new test.fmt. Change some of the off-by-one regexps
+	(probably not all).
+
+
+
+Tue Oct 31 18:37:33 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+Installation code was broken in #41 :-(
+
+	Chmod is now called directly when installing library.
+	Install manpage fixed.
+
+Fri Oct 27 11:00:36 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+Configure
+	Version string now indicates if proximity or string search is
+	selected.
+
+Queries
+	Data queries should now be yyyymmdd. The next century starts
+	soon.
+
+makedb:
+	Cleaned by Norbert Goevert. Also the files already dead are
+	counted and subtracted from limit.
+
+fwsf.texi
+	Updated mailinglist stuff.
+
+Makefiles
+	Calling ranlib on installed library should work now.
+
+Fri Oct 20 18:21:12 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Configure now test if a extern definition for sys_errlist
+	should be included.
+
+	Makedb now can index in temporary directories. So the time
+	where databases are not available is just the time needed to
+	copy the database back.
+
+	Configure now test if a extern definition for sys_errlist.
+
+	Sighash seems to be obsolete?
+
+	Fixed weigting bug for numeric searches.
+
+Mon Oct 16 13:59:47 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+FIELD-EXAMPLE/Jmakefile
+	Removed include for "../config.h".
+
+
+Some files were broken by the previous patch.
+
+ir/field_l.l
+	Cleaned (?) escaping code. Made \n and alias for buildin
+	regexps.
+
+ir/field_index.c and other.
+	Code for removing tag in HTML/URL
+	Passed dataops->type to how_index_line if dataops->indextype
+	is not given. this is obviously a hack.
+
+ui/Jmakefile
+	Remove waisping before linking.
+
+Wed Oct 11 21:13:12 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Bad memory bug. Tung copied add_word to field_add_word and
+	added one more than obsolete '+'.
+
+	Repassed through GNU indent. No change.
+
+Wed Oct 11 16:58:13 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Fixed memory read error.
+
+	Removed bad free() call.
+
+	Query parser now knows about the legal character set.
+
+	Cleaned grammar.
+
+Tue Oct 10 20:04:07 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Not all compilers know elseif :-(
+
+Tue Oct 10 19:35:15 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+
+	Added query term weighting. Did some cleanup of the
+	grammar. Not yet sure that all expressions remeained
+	valid. Means Not sure that the grammar works ;-)
+
+	Added test for term weighting.
+	query: Probabilistic <- 3 Indexing
+
+	Rule to compile test_query.
+
+	Additional parameter query_weight for search_word().
+
+	Handling for query term weighting with '<- 99.99' as prefix
+	operator.
+
+
+	Fixed bug (?) from tung. The field 'text' was not recognized
+	in every case.
+
+Tue Oct 10 13:43:38 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+
+	Fixed weighting of partial matches for numeric fields.  Patch
+	depends on the internal_weight of numeric matches to be 1.0
+
+	Fixed date query.
+
+	Another mkdep fix.
+
+	FAQ now mentiones 2.0.
+
+	texinfo manual roughly adapted to 2.0.
+
+
+Fri Oct  6 20:47:19 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Added unit for HUGE_HEADLINES.
+
+	Fixed handling of man3.
+
+	Fri Oct  6 18:44:34 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+New Feature: DATE SEARCHES!!!
+
+	Change test data comlete to have more complex records with
+	resonable date entries.
+
+	The format description demonstrated now the use of the date
+	field. Also a new syntax without the nasty '<...>' is
+	shown. Added some hopefully useful comments.
+
+	query: au=(pennekamp or fuhr) and processing
+	query: py==1995 and (ti=(Retrieval freeWAIS) or au=pfeifer)
+	query: ed>1993
+	query: au=pfeifer
+	query: au=groﬂjohann
+	query: 'Enhanced Retrieval'
+	query: py==1995
+	query: Pfeif*
+	query: Probabilistic Indexing
+	query: (Searching w/2 Documents) or (Development pre/3 Linear)
+
+	Added FIELD-EXAMPLE/DATE.should
+	Added test for date. Removed #ifdef's which were evaluated at
+	distribution generation time.
+
+
+	Made comments operable. Added aliases for keywords:
+
+	<field>      -> region
+	<date>       -> date
+	<headline>   -> headline
+	<layout>     -> layout
+	<numeric>    -> numeric
+	<record-end> -> record-sep
+
+	All new keywords may be followed by ';';
+	The <end> after the layout section is optional now.
+	Moved fields_getdate_internal() (former fields_getdate) from
+	ircfiles.c. Fixed clear_Ltable to honor new
+	DateDescription. Added code in how_index_line() for indexing
+	dates by calling fields_getdate_internal().
+
+ir/field_y.y:
+	DateDescription is now member of the stack union.
+	Clean up the handling of the date layout option. Added
+	rule for specifying date indexing. Indented the whole.
+
+ir/ircfiles.c
+	Moved fields_getdate_internal (former fields_getdate)
+	index_fields.c. New fields_getdate() just calls
+	fields_getdate_internal with the global date specification.
+
+	Added DateDescription to store all information needed for
+	extracting dates.
+
+ir/irfiles.c
+	Added code to document date and numeric fields in the source
+	description.
+
+
+Fri Oct  6 08:48:26 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Fix for mkdep. Forgot to double '$' :-(
+
+Fri Oct  6 08:27:57 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Beautified mkdep output.
+
+	Added I_TERMIOS for ui/swais.c
+
+	Added sys_errlist hack for BSD.
+
+	Swapped installation of swais and waissearch.
+
+	Added conditional include of <termios.h> in ui/swais.c.
+
+Wed Oct  4 18:30:19 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+
+Configure:
+	New check for Version.
+	Tests for sys_error and strerror.
+	Definitions for I_SYS_RESOURCE, I_SYS_SELECT, I_SYS_SOCKET.
+
+Makefiles:
+	Fixed 'make depend' for 'gcc -M'.
+
+ir/server-single.c:
+	Replaced call to ulimit() by getrlimit() as suggested by John
+	Fieber.
+
+ir/sockets.c:
+	Tried a cleanup. Removed all #ifdef __XXX__.
+
+misc:
+	Removed doc/original-TM-wais/Makefile.
+	Replaced HAVE_SYS_SELECT_H by I_SYS_SELECT.
+	Fix from Norbert Goevert.
+	Hack to enforce trailing \0 in WriteAnySymbol().
+
+Fri Sep 29 12:55:48 MET 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+Makefiles:
+	Switched to dist-3.0.60.
+
+
+ir/
+	Added ../ctype/ctype.o to libwais.a. This will cause problems
+	if one switches back to the sustems ctype without removing
+	the library. But it is easier for waisperl.
+
+ui/swais
+       	Added I_NETINET_IN and I_SYS_TYPES/I_TERMIO for swais.
+	Moved compilation for swais down since it is the most
+	likely to fail.
+
+	Removed #ifdef ULTRIX/__convex__ code.  Added conditional
+	inclusion of <netinet/in.h>, <termio.h>, and <sgtty.h>.
+
+ui/wais-ui.c	
+        Won't prepend source->directory if source->database starts
+	with '/'.
+
+
+Thu Sep 21 18:34:38 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+        No real Change. Just to get a new baseline.
+        
+	Made ws shell extractable.
+
+	Fixed typos.
+
+	Fixed bad extraction message.
+
+	Automatic Changes
+
+	Wed Sep 20 14:19:40 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+. Description:
+
+	Configure now looks for perl. You need perl5 to use some
+        new utilities in ./bin. All come with manual pages. Have a look
+        at makedb! Really cute.
+
+	bin/Jmakefile: Added makedb, catalog, dictionary, inverted_file,
+	wnd mkfmt. Removed swais.sh.
+
+	bin/Makefile.SH: Added makedb catalog dictionary inverted_file
+
+	Installs link named waisping for waisq.
+
+	Added new utilities in bin. Remoed some old trash.
+
+Tue Sep 19 21:19:52 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch13: Description:
+
+Configure: Test for compiler version failed if $cc -v was too verbose.
+	   Rerunning Configure did twist the default for MYREGEXP.
+
+	   Fix to make mkdep run on Linux (second try).
+
+ir:        Added MakeDirectories for PRIVLIB.
+
+	   Changed ISO to MYCTYPE. Broke 8-bit code! The GERMAN test was
+           to easy :-(
+
+syslog.c:  Added dummy variable in case your system has syslog.
+	   This should make your compiler and 'ar' happy.
+
+ui:        Added REGLIB to object list.
+
+Fri Sep 15 12:50:04 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch12 Description:
+
+
+The ui/Makefile did not work with the local regexp library.
+
+Fri Sep 15 12:07:00 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch7 Description:
+
+
+Now runs on hw=alpha os=OSF1 osver=V3.0 with the native compiler and
+gcc version 2.7.0 (no -O flag!)
+
+	Regexp question twisted the answer.
+
+	Mkdep now works on linux also.
+
+        Prototypes for getuser_name() and getuser_env_name().
+
+	Fixed CNIDR copyright line.
+
+	Comments for format files (Shell style)
+
+	Fixed #ifdef in cpp macro call.
+
+	Removed prototype for write_weight_in_ptr() which seems to
+	puzzle the OSF compiler.
+
+	Fix from kru@upc.muc.de (Frithjof Kruggel): -s option in
+	waisq, waissearch.
+
+Tue Sep 12 14:37:03 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch6 Description:
+
+        Now runs on Linux:
+                hw=i486 os=Linux osver=1.2.1 cc=gcc version 2.6.3
+
+        Make sure to use 'makedepend' for generating dependencies.
+
+	Removed leading tabs in make macro definitions.
+
+	Removed byte_order.h
+	Removed inclusion of byte_order.h.
+
+        Tests for byteorder and syslog.
+	Added BYTEORDER, HAS_SYSLOG and I_ALLOCA.
+	Added LITTLEENDIAN BIGENDIAN.
+
+	Removed prototype for alphasort(). Gcc and cc do not agree on
+	it.
+
+	Changed NEED_VSYSLOG to HAS_SYSLOG.
+
+	Removed redefinition of malloc.
+
+Mon Sep 11 15:07:09 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch4 Description:
+
+	Added various options from the autoconf configure. See
+	descriptions of the other changes.
+
+	Changed d_waissearch_args to waissearch_args to make metalint
+	happy.
+
+	Added alloca magics from autoconf. Added prototypes for
+	getuser_name() and getuser_env_name().
+
+	Added conditional inclusion of sys/param.h.
+
+	Changed HAVE_GETCWD to HAS_GETCWD. Added conditional inclusion
+	of pwd.h.
+
+	Changed TELL_USER to call getuser_name(). Replaced alphasort()
+	by prototype.
+
+	Replaced inclusion of string.h by cdialect.h. Moved example
+	lines starting with '#' to the right.
+
+	Replaced getenv("USER") by getuser_env_name().
+
+	Added typecasts for writeCompressedInteger() and
+	readCompressedInteger() to make gcc happy.
+
+	Streamlined sys/file.h fcntl.h and sys/fcntl.h stuff.
+	Hope it still works.
+
+	Simplified getwd(), getcwd() and memmove() stuff.
+
+	Fixed declaration of number_of_files in main().
+
+	Streamlined sys/file.h, fcntl.h, and sys/fcntl.h stuff. Set
+	return type of signal handlers to Signal_t.
+
+	Added alloca to library.
+
+	Wrapped into #ifndef HAS_ALLOCA.
+
+	Added dummy variable in case alphasort is known.
+
+	Added dummy variable in case scandir is known.
+
+	Changed TELL_USER to call getuser_name(). 
+
+Sun Sep 10 15:04:29 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch3 Description:
+
+	Typo in main Jmakefile
+	Removed doc/original-TM-wais/manl/Makefile and x/Makefile
+
+Sun Sep 10 13:29:02 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch2 Description:
+
+	Added test for vprintf.
+
+	Code for generating and removing Emacs TAGS.
+
+	Changed SYSVREGEXP to MYREGEXP to really use the included
+	regexp packet if requested.
+
+Fri Sep  8 21:39:23 MET DST 1995   Ulrich Pfeifer <pfeifer@ls6.informatik.uni-dortmund.de>
+
+patch1 Description:
+
+	Customized for sunos 5.3 and gcc 2.5.8.  Needs -lsocket and -lnsl
+	during configuration (additional libraries).
+
+	Fixed Installation (some paths were missing)
+
+	Added install.SH for systems without BSD conformant install
+
+	Added dependency to PRIVLIB and $socketlib. Not sure if
+	$socketlib is used correctly?
+
+	Fixed prototypes for save_operand_id and retriev_result.
+
+	Added conditional #undef bcopy to overwrite confmagic.h
+	definitions when bcopy cannot do overlapping copies.
+
+	Changed HAVE_STRDUP to HAS_STRDUP.
+
+	Fixed prototype for substrcmp
+
+	Removed prototype for getrnge. Sunos 4.1.4 and 5.3 do not
+	agree on it.
+
+	Fixed prototype for put_tags_in_gdb.
+
+	Fixed handling of NULL index_directory in server_security.
+
+	Removed superfluous second prototype for allocate_index_block.
+
+	#ifdef-ed definition of add_stop_words with AUTO_STOPWORDS.
+	irhash.c contains another one!?  #ifdef-ed also a call to it.
+
+	Gcc did not accept struct sigcontext* in prototype. Added a
+	typedef struct sigcontext sigcontext_t and it magically
+	worked!
+
+	Added initialization for BIN_EXP. Jmake does not know about
+	it?
+
+	Added NLENGTH macro for DIRENT.
+
+	Changed STRCSPN to HAS_STRCSPN as proposed by metaconfig.
+
+	Removed duplicate RCSid.
+
+
+Fri Feb 10 10:32:29 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* configure.in: Release 1.1.2
+
+Thu Feb  9 09:42:52 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* configure.in: 1.1.1
+
+Tue Jan 10 17:22:19 1995  Ulrich Pfeifer  <pfeifer@buster>
+
+	* configure, config.h, Defaults.tmpl.in: Initial revision
+
+	* Imakefile, configure.in: Version 1.1
+
+Thu Dec 22 14:56:24 1994  Ulrich Pfeifer  <pfeifer@buster>
+
+	* Makefile.in: CFLAGS gets replaced by configure now.
+
+Tue Dec 13 18:52:45 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Makefile.in: chip@chinacat.unicom.com (Chip Rosenthal) patches.
+	Excluding the merge of libinv and libwais
+
+	* Imakefile: added lib/alloca.c
+
+Wed Oct 12 12:38:08 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* Makefile.in: "make install" now does no more depend on "make all"
+	Fixed typo in "make veryclean"
+
+	* Imakefile: "make install" now does no more depend on "make all"
+
+Fri Sep  9 09:19:09 1994  Ulrich Pfeifer  <pfeifer@woodstock>
+
+	* TODO: 1.0
+
+	* configure.in, config.c, acconfig.h:
+	Fixed the MAX_OCCURANCES - STOP_WORD_FLAG bug
+
+	* README: 1.0
+
+	* Imakefile: Added toto again, renamed README-sf to README
+
+	* TODO: *** empty log message ***
+
+Thu Sep  8 16:41:46 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* ui/swais.c: make BSD happy
+
+Wed Sep  7 13:31:13 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* ui/swais.c, ui/waissearch.c:
+
+	ctype is now included from cdialect.h after inclusion of string.h.
+	ds, inclusion of string.h after that caused probems
+
+Wed Sep  7 13:28:27 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Defaults.tmpl.top: moved TELL_USER to Defaults.tmpl
+
+Mon Sep  5 07:52:48 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Imakefile: Added target TAGS
+
+Fri Sep  2 14:35:21 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Defaults.tmpl.top, Imakefile, README-sf, acconfig.h, configure.in:
+	fixed overlapping memory copies; removed ANSI_LIKE, wich does not work yet
+
+Tue Aug 23 12:31:19 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Defaults.tmpl.top: Added the HEADLINE defines
+
+Mon Aug 22 13:59:24 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Install.tmpl.in: Added Variable WAISLIBDIR
+
+	* configure.in: fixed -lsocket and -lnsl stuff
+
+	* Imakefile: Added LaTeX documentation to dist and veryclean
+
+	* Makefile.in:
+	Removed autoconf stuff added dvi and ps files to veryclean
+
+	* configure.in: Bad -lnsl -lsocket tests
+
+	* configure.in: .94
+
+Sat Aug 13 16:54:11 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Imakefile: Added udping fir dist
+
+Tue Aug  9 15:39:00 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Imakefile: added 'install: config.h' removed autoconf stuff
+
+	* Imakefile: removed ir/iubuild.c  ir/macbuild.c  ir/macver.c from dist
+
+Fri Aug  5 19:45:56 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* configure.in: Added check for getrnge
+
+	* acconfig.h: added HAVE_GETRNGE for SGIs running IRIX 5
+
+	* Imakefile: removed config.h from dist
+
+	* Imakefile: Fixed dist code
+
+	* Makefile.in:
+	removed code for "make dist" . Imakefile will suffice. One Place
+	better than two.
+
+	* sound.readme, iubio-wais.readme, iubio-wais.news: Initial revision
+
+	* configure.in: Release beta 04
+
+	* configure, config.c, install.sh, mkinstalldirs, DOCUMENTS, COPYRIGHT, ANNOUNCEMENT:
+	Initial revision
+
+	* acconfig.h: Release beta 04
+
+Fri Aug  5 06:51:26 1994  Huynh Quoc T. Tung  (huynh1@linus)
+
+	* README-sf: Release beta 04
+
+Fri Aug  5 06:51:02 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* README-s, Makefile.original, Install.tmpl.in, Makefile.in, Imakefile:
+	Release beta 04
+
+Fri Aug  5 06:46:08 1994  Huynh Quoc T. Tung  (huynh1@linus)
+
+	* Defaults.tmpl.top: Release beta 04
+
+Fri Aug  5 06:41:05 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Defaults.tmpl.in: Initial revision
+
+Thu Aug  4 07:12:18 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Makefile.in: Initial revision
+
+	* Imakefile: vor Auslagerung von Version nach configure.in
+
+Fri Jul 22 12:05:53 1994  Ulrich Pfeifer  (pfeifer@linus)
+
+	* Imakefile: Initial revision
+
+Tue Jul 12 11:30:07 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* Future_of_freeWAIS-sf: posted Version
+
+	* Future_of_freeWAIS-sf: Initial revision
+
+Sun Jun 12 15:25:17 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* acconfig.h: Initial revision
+
+Fri Jun 10 08:23:52 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* configure.in: Comments for install program
+	check strdup
+
+Mon May 30 14:48:19 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* README-sf.html: Initial revision
+
+Mon May 30 14:08:40 1994  Huynh Quoc T. Tung  (huynh1@woodstock)
+
+	* README-sf: beta
+
+Mon May 16 13:41:32 1994  Huynh Quoc T. Tung  (huynh1@woodstock)
+
+	* Defaults.tmpl: FLAG NEW_WEIGHT added.
+
+Wed May 11 11:28:15 1994  Huynh Quoc T. Tung  (huynh1@woodstock)
+
+	* Defaults.tmpl, Defaults.tmpl.top: Initial revision
+
+Wed Apr 13 08:32:19 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* configure.in: Initial revision
+
+Tue Apr 12 15:18:07 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* README-sf: 08
+
+Wed Apr  6 23:54:29 1994  Huynh Quoc T. Tung  (huynh1@woodstock)
+
+	* README-sf: stemming, Uli
+
+Wed Apr  6 23:54:00 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* Install.tmpl.in: 08, autoconf
+
+	* Install.tmpl.in: Initial revision
+
+Wed Mar 30 07:16:39 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* README-sf: 07
+
+Fri Mar 25 12:42:00 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* README-sf: 07
+
+Wed Mar 23 18:13:44 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* README-sf: Notes on patch level 07
+
+Fri Mar 11 09:15:45 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* x/Xwais.raw: Changed for installation with imake
+
+	* x/Imakefile:
+	New installation. Compiles now with the -DLOCAL_SEARCH switch
+
+Thu Mar 10 17:35:55 1994  Huynh Quoc T. Tung  (huynh1@woodstock)
+
+	* x/XwaisqHELP:
+	descriptions for field, boolean, partial, literal search.
+
+Tue Mar  8 12:14:49 1994  Ulrich Pfeifer  (pfeifer@woodstock)
+
+	* README-sf: Initial revision
+

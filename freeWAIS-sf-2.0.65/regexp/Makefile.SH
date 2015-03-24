@@ -1,0 +1,211 @@
+: Makefile.SH generated from Jmake.tmpl and Jmakefile [jmake 3.0 PL58]
+: $X-Id: Jmake.tmpl,v 1.2 1995/09/25 12:41:11 pfeifer Exp $
+
+case $CONFIG in
+'')
+	if test -f config.sh; then TOP=.;
+	elif test -f ../config.sh; then TOP=..;
+	elif test -f ../../config.sh; then TOP=../..;
+	elif test -f ../../../config.sh; then TOP=../../..;
+	elif test -f ../../../../config.sh; then TOP=../../../..;
+	else
+		echo "Can't find config.sh."; exit 1
+	fi
+	. $TOP/config.sh
+	;;
+esac
+case "$0" in
+*/*) cd `expr X$0 : 'X\(.*\)/'` ;;
+esac
+CURRENT=regexp
+DIR=`echo $CURRENT/ | sed -e 's/\.\///g'`
+echo "Extracting ${DIR}Makefile (with variable substitutions)"
+
+DATE=`date`
+
+$spitshell >Makefile <<!GROK!THIS!
+########################################################################
+# Makefile generated from Makefile.SH on $DATE
+
+SHELL = /bin/sh
+JMAKE = jmake
+TOP = ..
+CURRENT = $CURRENT
+DIR = $DIR
+
+########################################################################
+# Parameters set by Configure -- edit config.sh if changes are needed
+
+AR = ar rc
+CC = $cc
+CTAGS = ctags
+JCFLAGS = \$(CFLAGS) $optimize $ccflags $large
+JLDFLAGS = \$(LDFLAGS) $optimize $ldflags
+LIBS = $libs
+MAKE = make
+MKDEP = $mkdep \$(DPFLAGS) --
+MV = $mv
+RANLIB = $ranlib
+RM = $rm -f
+SED = $sed
+
+########################################################################
+# Automatically generated parameters -- do not edit
+
+CFLAGS = -I. -I\$(TOP)/ctype
+USRINC = $usrinc
+SOURCES =  try.c \$(SRCS)
+OBJECTS =  try.o \$(ISOOBJS) libregexp.a \$(OBJS)
+
+########################################################################
+# New suffixes and associated building rules -- edit with care
+
+.c.o:
+	\$(CC) -c \$(JCFLAGS) \$<
+
+!GROK!THIS!
+$spitshell >>Makefile <<'!NO!SUBS!'
+########################################################################
+# Jmake rules for building libraries, programs, scripts, and data files
+# $X-Id: Jmake.rules,v 1.2 1995/09/25 12:41:11 pfeifer Exp $
+
+########################################################################
+# Force 'make depend' to be performed first -- do not edit
+
+.FORCE_DEPEND::
+
+all:: .FORCE_DEPEND
+
+########################################################################
+# Start of Jmakefile
+########################### -*- Mode: Makefile -*- ###########################
+# Imakefile --
+# ITIID           : $ITI$ $X-Header $__Header$
+# Author          : Ulrich Pfeifer
+# Created On      : Mon Mar 21 15:19:18 1994
+# Last Modified By: Ulrich Pfeifer
+# Last Modified On: Thu Sep  7 09:55:33 1995
+# Update Count    : 29
+# Status          : Unknown, Use with caution!
+##############################################################################
+
+SRCS = regexp.c regerror.c regsub.c
+OBJS = regexp.o regerror.o regsub.o
+
+MANSUFFIX = 3
+
+EXTRA_INCLUDES = -I.
+INCROOT = .
+
+LIBS = libregexp.a
+
+all:: try
+
+local_realclean::
+	$(RM) try
+
+try: try.o $(ISOOBJS) libregexp.a
+	$(RM) $@
+	if test -f $@; then $(MV) $@ $@~; else exit 0; fi
+	$(CC) -o $@ try.o $(ISOOBJS) libregexp.a $(JLDFLAGS) $(LIBS)
+
+test: try tests
+	@echo 'No news is good news...'
+	try <tests
+
+local_realclean::
+	$(RM) try libregexp.a
+
+all:: libregexp.a
+
+local_realclean::
+	$(RM) libregexp.a
+
+libregexp.a: $(OBJS)
+	$(RM) $@
+	$(AR) $@ $(OBJS)
+	$(RANLIB) $@
+
+depend:: ../mkdep
+
+../mkdep:
+	@echo "You have to run Configure in $(TOP) first."; exit 1
+
+depend::
+	($(SED) '/^# DO NOT DELETE/q' Makefile && \
+	($(MKDEP) $(SOURCES); echo 'foo: bar') | \
+	$(SED) -e 's:/usr/include[^ ]*::g; s:$(USRINC)[^ ]*::g; ' \
+	-e '/: / b print' -e 'H; d; n; : print' -e 'x; s/\\\n//g' \
+	-e 's/  */ /g; s/ :/:/;' -e '/: *$$/d' \
+	) > Makefile.new
+	cp Makefile Makefile.bak
+	cp Makefile.new Makefile
+	$(RM) Makefile.new
+
+########################################################################
+# Common rules for all Makefiles -- do not edit
+
+emptyrule::
+
+clean: local_clean
+realclean: local_realclean
+clobber: local_clobber
+
+local_clean::
+	$(RM) core *~ *.o
+
+local_realclean:: local_clean
+
+local_clobber:: local_realclean
+	$(RM) Makefile config.sh
+
+Makefile.SH: Jmakefile
+	-@if test -f $(TOP)/.package; then \
+	if test -f Makefile.SH; then \
+	echo "	$(RM) Makefile.SH~; $(MV) Makefile.SH Makefile.SH~"; \
+	$(RM) Makefile.SH~; $(MV) Makefile.SH Makefile.SH~; \
+	fi; \
+	echo "	$(JMAKE) -DTOPDIR=$(TOP) -DCURDIR=$(CURRENT)" ; \
+	$(JMAKE) -DTOPDIR=$(TOP) -DCURDIR=$(CURRENT) ; \
+	else touch $@; exit 0; fi
+
+Makefile: Makefile.SH
+	/bin/sh Makefile.SH
+
+tags::
+	$(CTAGS) -w *.[ch]
+	$(CTAGS) -xw *.[ch] > tags
+
+local_clobber::
+	$(RM) tags
+
+########################################################################
+# Empty rules for directories with no sub-directories -- do not edit
+
+install::
+	@echo "install in $(CURRENT) done."
+
+deinstall::
+	@echo "deinstall in $(CURRENT) done."
+
+install.man::
+	@echo "install.man in $(CURRENT) done."
+
+deinstall.man::
+	@echo "deinstall.man in $(CURRENT) done."
+
+Makefiles::
+
+Makefiles.SH::
+
+########################################################################
+# Dependencies generated by make depend
+# DO NOT DELETE THIS LINE -- make depend relies on it
+
+# Put nothing here or make depend will gobble it up
+.FORCE_DEPEND::
+	@echo "You must run 'make depend' in $(TOP) first."; exit 1
+!NO!SUBS!
+chmod 644 Makefile
+$eunicefix Makefile
+

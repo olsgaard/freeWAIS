@@ -1,0 +1,156 @@
+Version: 0.87, wais-8-b5.1
+Date: Thu Aug 27 1992
+Author: Jonny Goldman <jonathan@Think.COM>
+
+Use this window to obtain information from one or more sources available in
+your WAIS system.
+
+If you have opened a questions that already exists, it appears in the "Tell
+me about:" box.
+
+To ask a new question, type search words in the "Tell me about:" box. 
+
+Full Text Search:
+-----------------
+These should be words that relate as closely as possible to the topic you are
+interested in.  They don't have to form a grammatical sentence, and they
+don't have to be in any particular order.
+
+Partial/Literal Search:
+-----------------------
+        EXAMPLE:
+                system*                 # match system or systems
+
+               'information retrieval'  # match exactly 'information retrieval'
+
+
+Field Search:
+-------------
+ 1. type a field from the list of fields (e.g. au, ti, py) 
+    containing in <database>.src
+
+ 2. type an operator. This will usually be an equals "=" sign. 
+    (Also >, <, ==)
+
+ 3. type the term you wish to search on.
+
+    EXAMPLE:  ti = (information retrieval)
+              ti = information network 
+           or ti = (information) network
+              would mean the term 'information' is in field "ti".
+              The term 'network' is in global database.
+
+Boolean Search:
+---------------
+You can use the following "connectors" to perform logical operations 
+on search statements: 
+                     and, or, not (means and-not).
+
+    EXAMPLE: au = salton and au = buckley
+             This would give you listings for either salton or buckley
+
+             au = salton and pu = 'new york'
+             This would give you listings for all documents by author salton
+             that are published be new york
+
+             au = salton not pu = 'new york'
+             This would give you a listing for all documents by author salton
+             that were not published by new york.
+
+You can also use parenthesis to determine precedence:
+
+     EXAMPLE: au = salton and (pu = 'new york' or springer)
+              would give listing of all documents by author salton published
+              by either new york or springer.
+             
+              (information and retrieval) or (information and systems)
+              This would give you a listing for all documents containing
+              either both words information, retrieval 
+              or both words information, systems
+
+Statements inside parenthesis will be searched first.    
+
+
+Numeric Search:
+---------------
+ py == 1994                       # publication year 1990
+ py > 1994                        # publication year greater than 1994
+ py < 1994                        # publication year less than 1994
+
+Soundex/Phonix Searches:
+----------------------
+soundex salatan                   # matches eg. 'Salton'
+phonix salatan
+
+Combined Searches
+-----------------
+au = salton not py < 1990
+(au = salton) information retrieval
+(au = salton) or ti = 'information retrieval'
+(ti = information and ti= retrieval) and py == 1994
+(au = soundex salatan or salton) and ti = (information and system*) and py > 1990
+
+Query Syntax Error:
+-------------------
+Query Syntax Error is recognized.
+
+Example:
+--------
+  (information retrieval               # parentheses missing
+  ti = (information and (au = salton)) # syntax error but
+  ti = (information) and (au = salton) # ok
+
+
+To choose the source or sources to be searched for the information, click
+on Add Source.  A popup menu displays the list of available sources. Click
+on the source you want to highlight it, then click on the "Ok" button; this
+adds it to the "In Sources:" list.  To delete a source, click on it in the
+"In Sources:" list so that it is highlighted, then click on the Delete
+Source button.
+
+When you have chosen the sources you want, click on the Search button to
+start the search.  The documents that WAIS finds are listed in the
+"Resulting documents:" list. The number to the left of each document is its
+"score"; the higher the score, the closer the document matched your
+question.
+
+To view a document, click on its name in the list so that it is
+highlighted, and then click on the View button.  The document appears in a
+window.  Click on the Add Section button to add this file to the "Similar
+to:" list, which is described below.  Click on Find Key to highlight the
+search words that this document matches.  Click on Save to File to save the
+document to a file; a dialog box appears that prompts for a filename.
+Click on Done to delete the window.
+
+To save a result to a file, click on its name in the list so that it is
+highlghted, and then click on the Save... button.  A file requester will
+appear.  Simply fill it in and press "OK".
+
+To view one of the sources in the "In Sources:" list, double click on its
+name in the list.  A Source View window will appear.  To remove this
+window, press "Cancel".  If you wish to change this source, edit its data
+and press "Save".
+
+To view one of the documents in the "Similar To:" list, double click on its
+name in the list.  The document will appear in a window.  All the actions
+associated with document windows apply.
+
+Normally the Abort button is "fuzzed", but during Search or Retrieval you
+may click on this button to abort the Search or Retrieval operation.
+
+If you want to fine-tune your search, add documents to the "Similar to:"
+list.  Adding a document to this list essentially tells WAIS to "get me
+more documents like this one."  To add a document, click on it in the
+"Resulting documents:" list, then click on Add Document.  To remove a
+document, click on it in the "Similar to:" list, then click on Delete
+Document.  When you have the documents you want in the "Similar to:" list,
+click on Search to rerun the search.
+
+You can also modify some of the settings in the application using the
+"Prefs" button.  Of particular note is the "Maximum Results" which controls
+the maximum number of results a Question will return.
+
+Click on the Done button when you are finished with your search. If this is
+a new question, a file requester will appear, asking if you want to save
+the question to a file.  If you do, it will subsequently appear in your
+Questions list in the main X WAIS window.

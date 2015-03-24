@@ -1,0 +1,20 @@
+(:source
+ :version 3
+ :ip-name "Hypatia.gsfc.nasa.gov"
+ :tcp-port 210
+ :database-name "NASA-directory-of-servers"
+ :cost 0.00 
+ :cost-unit :free 
+ :maintainer "root@Hypatia.gsfc.nasa.gov"
+ :description "Server created with WAIS release 8 b5.1 on May  5
+14:05:34 1993 by warnock@Hypatia 
+
+This database contains WAIS source files of interest to the NASA
+community.  Some, but not all, are run by the STELAR project at the
+National Space Science Data Center.  Others are here purely as a service
+to the astronomy, astrophysics, planetary and space physics communities.
+Direct queries about specific databases to the maintainers listed in the
+individual source files.
+
+"
+)

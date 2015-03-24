@@ -1,0 +1,43 @@
+<record-end> /^{end}/
+
+<layout>
+<headline> /^{title} / /^{[^t]/ 50 /^{title} */
+<headline> /^{author} / /^{[^a]/ 20 /^{author} */
+<headline> /^{id number} / /^{[^i]/  8 /^{id number} */
+<end>
+
+<field> /^{title} /
+ti TEXT BOTH
+<end> /^{[^t]/
+
+<field> /^{author} /
+au SOUNDEX LOCAL TEXT GLOBAL
+<end> /^{[^a]/
+
+<field> /^{corp author}/
+ca TEXT BOTH
+<end> /^{.[^o]/
+
+<field> /^{citation} /
+ci TEXT LOCAL
+<end> /^{[^c]/
+
+<field> /^{field\\&group}/
+fg TEXT LOCAL
+<end> /^{[^f]/
+
+<field> /^{abstract} /
+ab TEXT BOTH
+<end> /^{[^a]/
+
+<field> /^{descriptors}/
+de TEXT BOTH
+<end> /^{[^d]/
+
+<field> /^{id number} /
+id TEXT LOCAL
+<end> /^{[^i]/
+
+<field> /^{id number} /
+yr <numeric> /^{id number} *.]/ 2 TEXT LOCAL
+<end> /^{[^i]/

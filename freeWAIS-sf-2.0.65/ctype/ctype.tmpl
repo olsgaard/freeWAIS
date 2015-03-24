@@ -1,0 +1,99 @@
+/*                               -*- Mode: C -*- 
+ * ctype.tmpl -- 
+ * ITIID           : $ITI$ $Header $__Header$
+ * Author          : Ulrich Pfeifer
+ * Created On      : Fri Jul 22 14:35:24 1994
+ * Last Modified By: Ulrich Pfeifer
+ * Last Modified On: Tue Sep  6 17:35:32 1994
+ * Update Count    : 2
+ * Status          : Unknown, Use with caution!
+ */
+
+int mystrcmp(s1, s2)        
+    unsigned char *s1, *s2;        
+{        
+  if (!s1) {        
+    return(-1);        
+  }        
+  if (!s2) {        
+    return(1);        
+  }        
+  while(*s1 == *s2) {        
+    if (!*s1) { return(0); }        
+    s1++; s2++;        
+  }        
+  return(*s1-*s2);        
+}        
+
+int mystrcasecmp(s1, s2)        
+    unsigned char *s1, *s2;        
+{        
+  if (!s1) {        
+    return(-1);        
+  }        
+  if (!s2) {        
+    return(1);        
+  }        
+  while(toupper(*s1) == toupper(*s2)) {        
+    if (!*s1) { return(0); }        
+    s1++; s2++;        
+  }        
+  return(toupper(*s1)-toupper(*s2));        
+}        
+
+int mystrncmp(s1, s2, n)        
+     unsigned char *s1, *s2;
+     long unsigned int n;
+{        
+  if (!s1) {        
+    return(-1);        
+  }        
+  if (!s2) {        
+    return(1);        
+  }        
+   while((n > 0) && (*s1 == *s2)) {        
+     s1++; s2++; n--;
+     if(n == 0) {return(0);}
+   }        
+  return(*s1-*s2);        
+}
+
+#if 0
+int mystrncmp(s1, s2, n)        
+     unsigned char *s1, *s2;        
+     long unsigned int n;
+{      
+  int i;
+
+  if (!s1) {        
+    return(-1);        
+  }        
+  if (!s2) {        
+    return(1);        
+  }        
+  for (i=0;i<n && (s1[i]==s2[i]);i++)
+    if (!s1[i]) { return(0); }        
+  }        
+  return(s1[i]-s2[i]);        
+}        
+
+
+int mystrncasecmp(s1, s2, n)        
+     unsigned char *s1, *s2;        
+     int n;
+{      
+  int i;
+
+  if (!s1) {        
+    return(-1);        
+  }        
+  if (!s2) {        
+    return(1);        
+  }        
+  for (i=0;i<n &&  (tolower(s1[i])==tolower(s2[i]));i++)
+    if (!s1[i]) { return(0); }        
+  }        
+  return(tolower(s1[i])-tolower(s2[i]));        
+}   
+#endif
+

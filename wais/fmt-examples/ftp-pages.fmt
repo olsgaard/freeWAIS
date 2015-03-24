@@ -1,0 +1,9 @@
+<record-end> /<.BODY>/
+
+<layout>
+<headline> /<TITLE>/ /<\/TITLE>/ 80 /<TITLE> *./
+<end>
+
+<field> /<HTML>/
+stemming TEXT GLOBAL
+<end> /<.BODY>/

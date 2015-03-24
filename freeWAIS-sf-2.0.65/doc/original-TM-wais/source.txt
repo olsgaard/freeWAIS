@@ -1,0 +1,242 @@
+
+
+		        Source Description Structures
+
+		       Brewster Kahle brewster@Think.com
+		         Harry Morris morris@think.com
+				  2/20/91
+
+
+A "source description structure" is used by a client of the WAIS system to
+contact a database on a server.  This document describes a text encoding of
+the source description structure.  This specification is compatible with
+the clients that are given out with the WAIS release (version 8 and higher)
+and with the Directory of Servers maintained by Thinking Machines.  Example
+C code to read and write these structures is available free of charge from
+the authors.
+
+Note that WAIS end users should never see this structure, since a typical
+user will use the source structures retrieved from the directory of servers
+or those created by waisindex, and interact with them through a client user
+interface.
+
+Philosophy:
+-----------
+
+Sources form the conceptual link between an information user and a database
+vendor.  As such, they serve two functions.  First, they provide a means
+for the database vendor to inform the user of database specific
+information, in particular, how to contact the database, and how much it
+costs to do so.  Second, they serve as repositories for the user's
+customizations.
+
+The fields which describe how to contact a server, what database name to
+use, and how much the service costs are required.  The other fields are
+strictly optional.  Servers may choose to use them to make suggestions
+about how their service might be used, or clients may choose to let the
+user modify certain options.  While not all clients may want or need all
+the optional fields, it is in everyone's best interest to have any
+particular function expressed in a single format that all can share.  The
+optional fields presented here are ones we have found useful.  If you have
+suggestions for fields that should be added to the specification, please
+contact the authors.
+
+Clients should always be prepared to ignore the non-required fields.
+
+An example source structure is:
+
+(:source 
+  :version  		3 
+  :ip-name 		"quake.think.com"
+  :ip-address 		"192.31.181.1"
+  :tcp-port 		210
+  :maintainer 		"brewster@think.com"
+  :database-name 	"directory-of-servers"
+  :cost  		0.00
+  :cost-unit 		:free
+  :description 		
+"The directory of servers is a white pages of servers maintained by many
+others.  This one is maintained by Thinking Machines Corporation on the
+internet.  To submit new entries to the directory of servers, mail to
+wais-directory-of-servers@quake.think.com. -brewster"
+  :update-time 		(:time-interval :interval :daily 
+ 			 	:day 0 :hour 1 :min 30)
+  )
+
+Syntax:
+-------
+
+The syntax is based on a subset the Common Lisp printer format (see Common
+Lisp, the Manual, by Guy Steele).  We chose this format because is easy to
+parse on many different platforms, and from many different languages.  The
+format is summarized below.
+
+A source is a structure but written as a list.  Every structure is written
+in the form
+
+	(<structure-type>
+	 <keyword> <value>
+	 <keyword> <value>
+	 ...
+	)
+
+Structure types and keywords are always symbols.  Value may be a symbol,
+decimal, integer, string, array, ANY, or another structure.  The Common
+Lisp structure format was not used because many lisp implementations do not
+handle unknown keywords well.
+
+Symbols are preceded with a colon (in the keyword package), and consist of
+all lower case letters with embedded hyphens. Strictly speaking, symbols
+are not case sensitive, but some clients seem to be ignoring this.
+Sticking with lower case is safe.  Example symbols :2foo and :bar-baz3.
+
+Strings start and end with '"'; if a '"' is to appear in the string, then
+it a '\' is inserted before it.  If a '\' is to appear then, '\\' is used.
+
+Integers are written without a decimal point.  Floating point numbers are
+written with a decimal point.
+
+Arrays are written as #(value value value ...).  For example, a 1
+dimensional array of numbers looks like #(115 101 120).
+
+Lists are formed by simply enclosing enumerated items in parentheses.  The
+items are separated by white space.  For example, a list of numbers looks
+like (3 4 57).
+
+Z39.50 byte arrays (ANYs) are written as structs with length and byte keys
+or as a string.  For example, (:any :length 3 :bytes #(115 101 120)) or
+"foo".  The string form may only used when every character is a printable
+character; this is used to reduce the structure size and increase
+readability, but is optional.
+ 
+
+
+Required Fields (set by vendor):
+-------------------------------
+
+:version <integer>  
+The number is the major version number of the source structure format.  The
+current version is 3.  This must be the first slot.
+
+:database-name <string> 
+These are the names of the databases on the server.  It is a list of
+databases, separated by <XXX> characters
+
+at least one of :ip-name, :ip-address.  Both combination may be specified.
+XXX what about modems
+
+	:ip-address  <string> a legal internet address such as
+	 "192.31.181.1"  
+
+	:ip-name <string> a legal internet name such as "quake.think.com" 
+
+:cost <float>
+Cost of using this server. see :cost-unit for units
+
+:cost-unit <cost-unit-type>
+one of the following values.
+
+	:free, 
+	:dollars-per-session, 
+	:dollars-per-minute, 
+	:dollars-per-query, 
+	:dollars-per-retrieval,
+	:other
+
+
+Optional Fields set by vendor:
+------------------------------
+
+:tcp-port <integer>
+The tcp port to connect to.  The default is 210, the official Z39.50 port
+number.
+
+:configuration <string>
+(XXX weird stuff, plus what contact method to use! XXX)
+
+:script <string>
+A string of commands to be interpreted after establishing the connection to
+the server.  This may involve loging in, authentication, configuring the
+connection etc.  The commands are those used by White Knight (yuk).  They
+are currently only used in making modem connections (XXX it is possible
+that tcp might want to use this too, and that we may want to run scripts
+just before starting the connection, just after starting the connection,
+and just before closing the connection).
+
+:maintainer <string>
+An english description of who to contact for information.
+
+:description <string>
+An english description of the database.
+
+:update-time <time-interval>
+The interval at which the server's data is updated.  This is a structure of
+the form
+
+    (:time-interval 
+      	:interval  	<interval-type>
+      	:day  		<integer>
+      	:hour  		<integer>
+      	:min  		<integer> 
+      	) 
+ 
+    where interval-type is one of 
+	
+	:continuous - day, hour, min are ignored
+	:hourly - min is used
+	:daily - hour and min are used
+	:weekly - day is day of week, hour and min are used
+	:monthly - day is day of month, hour and min are used
+	:unschedualed - day, hour, min are ignored
+	(XXX what about yearly)
+
+Optional Fields set by user:
+----------------------------
+
+:font <string>
+Font for displaying this source's documents.  This is machine specific,
+clients should use their default if they don't understand the value.  Note
+that a vendor may wish to suggest a font for use with its database.
+
+:font-size <integer>	
+The size to use for displaying the font.  The units are machine dependent.
+
+:window-geometry  <rect>
+The positioning of the source editing window (if there is one) in machine
+dependent units.  It is of the form
+	
+	(:rect  
+		:left	<integer>
+		:top  	<integer>  
+		:right  <integer>  
+		:bottom <integer>
+		) 
+
+:confidence  <integer>
+A subjective evaluation of how "good" the server is.  This may be used by
+clients to help score documents or allocate funds.
+
+:num-docs-to-request  <integer>
+How many documents to ask for from this source.
+
+:contact-at <time-interval (see :update-time)>
+Clients which can automatically contact a server on behalf of their user
+use this field to determine when.  Note, multitasking clients may have
+system level utilities for this purpose.
+
+:last-contacted <absolute-time>
+A record of the last time the source was contacted.  The format is
+
+	 (:absolute-time 
+	      	:year  	<integer>
+	      	:month  <integer>
+	      	:mday  	<integer>
+	      	:hour  	<integer>
+	      	:minute <integer>
+	      	:second <integer> (second = 61 means the server has not been
+		 		   contacted)
+	      	) 
+
+:timeout <integer>
+The number of seconds to give the this source's server to respond to a
+query before disconnecting the communications circuit.

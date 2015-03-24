@@ -1,0 +1,31 @@
+<record-end> //
+
+<layout>
+<headline> /<title>/ /<\/title>/ 
+        80 /<title>./
+<end>
+
+<field> /<title>/
+ti "Title" stemming TEXT BOTH
+<end> /<\/title>/
+
+<field> /<h[0-9]>/
+hl "Headline" stemming TEXT BOTH
+<end> /<\/h[0-9]/
+
+<field> /<dt>/
+dt "Description Term" stemming TEXT BOTH
+<end> /<d[dt]>/
+
+<field> /<address>/
+ad "Description Term" stemming TEXT BOTH
+<end> /<\/address>/
+
+<field> /<b>/
+stemming TEXT GLOBAL
+<end> /<\/b>/
+
+<field> /<i>/
+stemming TEXT GLOBAL
+<end> /<\/i>/
+

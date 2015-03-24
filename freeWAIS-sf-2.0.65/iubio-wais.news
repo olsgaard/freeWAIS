@@ -1,0 +1,130 @@
+From usenet.ucs.indiana.edu!sunflower.bio.indiana.edu!gilbertd Thu Nov  5 08:50:05 EST 1992
+Article: 1007 of comp.infosystems.gopher
+Newsgroups: comp.infosystems.gopher
+Path: usenet.ucs.indiana.edu!sunflower.bio.indiana.edu!gilbertd
+From: gilbertd@sunflower.bio.indiana.edu (Don Gilbert)
+Subject: Booleans, partial words and other WAIS mods in biology data searches
+Message-ID: <Bx8wv9.K3D@usenet.ucs.indiana.edu>
+Sender: news@usenet.ucs.indiana.edu (USENET News System)
+Nntp-Posting-Host: sunflower.bio.indiana.edu
+Organization: Biology, Indiana University - Bloomington
+Date: Thu, 5 Nov 1992 13:45:09 GMT
+
+
+I have just about finished adding boolean operators 'and' and 'not', 
+partial words, literal phrases, symbol matching and extended results
+retrieval to the WAIS release 8b5 source, and the Gopher server here
+is sporting these new features.    It will be next week until the source
+to these is publicly available, but you can try these out now via
+Gopher or WAIS to ftp.bio.indiana.edu.
+
+To answer a general question of using WAIS (& Gopher) for large databank
+searching, biology gophers are doing that now with great success.
+We have indexed the databank of all known gene sequences, called Genbank,
+which is some 300 megabytes in size, and contains over 86000 separate
+entries.  The WAIS index of this is around 50 megabytes, but it is that
+low due to some modifications I made to the wais source (the default
+size when I first tried unmodified wais indexing was around 300 megabytes
+of index!).   Gopher/WAIS searching and retrieval from this large
+databank is very fast, possibly faster than that provided by some software
+specially written for searching this database.
+
+The boolean 'and' and literal phrase modifications I'm using in WAIS were
+written by Tim Gauslin for use with USGS earth science databases in
+his WAIS service (see below).   His modifications for database search
+also include a special keyword field indexing, useful for databases with
+fixed fields, which I may also borrow.
+
+
+This is a summary of new biology data searching and retrieval offerings
+at the IUBio Archive (Internet host ftp.bio.indiana.edu).  These
+data are now available via a Wide Area Information Server, WAIS, as
+well as via Internet Gopher.
+
+Here is the general WAIS source pointer for this archive.  
+(:source
+   :version  3
+   :ip-address "129.79.224.25"
+   :ip-name "ftp.bio.indiana.edu"
+   :tcp-port 210
+   :database-name "INFO"
+   :cost 0.00
+   :cost-unit :free
+   :maintainer "archive@bio.indiana.edu"
+   :description "
+This WAIS service includes several indexed Biology information sources,
+including Genbank nucleic acid gene sequence databank, Drosophila genetics
+BioSci/Bionet network news, and others.
+")
+
+This WAIS service sports several zippy modifications.  These include
+boolean operators 'and' and 'not', partial word matches,
+literal phrase matches, and extended number of results.
+
+Boolean searches: The terms 'and' and 'not' are effective 
+    in modifying the query.   For example,
+    
+    Query: red and green not blue
+    Result: just those records with both the words 'red' and 'green',
+            excluding all records with the word 'blue'.
+            
+Partial words:  The asterisk (*) applied at the end of
+    a partial word will match all documents with words that 
+    start with the partial word.  For example,
+    
+    Query: hum*
+    Result: all records with 'hum', 'hummingbird', 'human',
+            'humbug', etc.
+            
+Literal phrases:  If quotes (') or double quotes (\") surrounding
+     a phrase, it will match that phrase exactly.  For example,
+     
+     Query: 'red rooster-39'
+     Result:  only those records with the the full string
+            'red rooster-39' will be matched.
+
+     There are some practical limits on this.  The first part
+     of a literal must be a word that is otherwise indexed.
+     Thus your literal cannot start with a symbol or other
+     word delimiter.  Within quotes, the boolean operators
+     and the partial word key are not active.
+     
+These features can generally be mixed in a query, for example:
+     Query:  'Df(32)-[34]red' and hum* not Brown        
+
+
+Results limit (Gopher only):  The maximum number of results that
+     are returned for a query is by default up to 200 (may change).
+     But you may set a higher, or lower, maximum by appending
+     the greater than (>) symbol immediately followed by the
+     number you wish at the end of your query.  For example,
+
+     Query:  brown and cow* or "red rooster" >300
+     Result:  up to 300 matches will be returned.
+
+
+
+These modifications are based upon the publicly available WAIS
+source distribution from ftp.think.com, version 8-b5, dated
+10 May 92, by Harry Morris, Brewster Kahle and Jonathan Goldman.  
+
+The boolean 'and' and the literal search code was borrowed mostly intact 
+from the work done by Tim Gauslin on verson 8-b3 of wais source. 
+This source is available thru ftp as
+   ridgisd.er.usgs.gov:/software/wais/usgswais.tar
+See the USGS_Earth_Science_Data_Directory.src WAIS source for more
+details.
+
+Other hacks, several bugs and general mangling of the wais source 
+was added by d.g. gilbert (gilbertd@bio.indiana.edu).  These modifications
+can (or in a bit) be picked up via ftp or gopher to ftp.bio.indiana.edu.
+Look in folder IUBio Software+Data/util/wais  for  iubio-wais-8b5.tar.Z
+(full source) or iubio-wais-8b5.tar.patches  for a difference or
+patch file.  [As of 5Nov85 I don't have these sources ready yet, try
+next week]
+
+-- 
+Don Gilbert                                     gilbert@bio.indiana.edu
+biocomputing office, biology dept., indiana univ., bloomington, in 47405
+
+

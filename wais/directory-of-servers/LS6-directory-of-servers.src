@@ -1,0 +1,33 @@
+(:source 
+   :version  3 
+   :ip-name "quake.think.com"
+   :tcp-port 210
+   :database-name "directory-of-servers"
+   :cost 0.00 
+   :cost-unit :free 
+   :maintainer "brewster@think.com"
+   :description 
+"Server created with WAIS-8 on Fri Mar  8 14:30:57 1991 by
+ brewster@think.com
+This is a White Pages listing of WAIS servers.  For more information on
+WAIS, use the WAIS system on the wais-docs server, or add yourself to the
+wais-interest@think.com mailing list, or get the newest software from
+think.com:/public/wais.
+
+To server makers: Please make new servers of text, pictures, music
+whatever.  We will try to list all servers in the directory that get sent
+in to: wais-directory-of-servers@think.com (use the -register option on
+the command waisindex), but I reserve the right to take servers out if they
+are not consistently available.  I will send notice to the maintainer
+before doing so.
+
+Bugs and comments to bug-wais@think.com.
+ -brewster@think.com
+
+The files of type server used in the index were:
+   /proj/wais/wais-sources/directory-of-server.src
+   /proj/wais/wais-sources/jargon.src
+   /proj/wais/wais-sources/tmc-library.src
+"
+)
+

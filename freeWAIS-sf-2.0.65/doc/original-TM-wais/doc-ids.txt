@@ -1,0 +1,168 @@
+
+			    Document Identifiers
+				    or
+	International Standard Book Numbers for the Electronic Age
+
+
+		    Brewster Kahle (Brewster@think.com)
+		       Thinking Machines Corporation
+			      September 1991
+				Version 2.2
+
+
+An electronic document identifier would allow computers to refer to
+documents created and maintained on other computers.  This system is
+designed to allow distributed Hypertext systems as well as large electronic
+publishing structures.  
+
+The doc-id is made up of three fields: a NAME, an ADDRESS, and a
+REDISTRIBUTION-DISPOSITION.  Usually the name and address are the same, so
+they do not need to be repeated, and the redistribution-disposition is not
+required if redistribution is permitted.
+
+This document is a proposal for a semantics and syntax for a
+doc-id structure.
+
+First, a few examples:
+   rfp-882:rfp@think.com	means a document was created on the rfp 
+				database on think.com has a document called
+				rfp-882.
+   /pub/rfp-822@think.com	means that an FTP name for a file
+				"/pub/rfp-822" from think.com.
+				This name might or might not be valid as an
+				address.
+   (rfp-822:rfp@nic.org, rfp-822:rfp-redist@think.com, f)
+   				means the original source of the document
+   				is on the nic.org host, but it is
+   				redistributed from think.com and it
+   				free to do further redistribution.
+				The redistributor (rfp-redist@think.com) 
+				is an address that can be used to retrieve
+				the document, but that service in not
+				necessarily on think.com.
+   b0-100:rfp-882:rfp@think.com	Bytes 0-100 of this document.
+   rfp-822:rfp-redist@think.com:z3950  
+				is a name of a document,  it might work
+				as an address, and if it does, the z3950
+				service is used to access the document
+
+As can be seen from the examples there are several levels of short
+forms for the full doc-id form:
+"(original_local_doc_id:original_database@original_hostname:tcp-port,
+  redistributor_local_doc_id:redistributor_database@redistributor_hostname:tcp-port,
+  copyright_disposition)"
+A further restriction can be attached before the local_doc_id to indicate
+a part of a document.
+
+To use these identifiers to locate and retrieve the document, a directory
+service might is necessary.
+
+These identifiers can also be described by the types of uses they are
+expected to perform:
+   1.  How to get a copy of this document from a WAIS type server?
+   2.  From an FTP type server?
+   3.  Is redistribution of a copy of the document allowed a copy 
+       of it within copyright law?
+   4.  Do two document identifiers correspond to the same document?
+   5.  How should a reference to a remote document be formatted in
+       another document (Hypertext pointer)?
+   6.  How do you refer to a piece of a remote document?
+These operations can be performed with this structure.
+
+The separate fields of a document identifier are defined as:
+
+   ORIGINAL and REDISTRIBUTOR fields are another way of saying NAME and
+ADDRESS respectively.  The original ID (name) is only useful for recognizing
+copies found through different paths.  If a document has not be
+redistributed, then the original and redistributor are the same and one can
+be eliminated.  The redistributor ID (address) can be used to find the
+document.  See the section below on accessing documents using doc-id's.
+
+   HOSTNAME (both original and redistributor) (eg. think.com or
+12234343.isdn) is used as a unique name in some defined namespace.  The
+function as an address is secondary to that of using it as a unique name to
+distinguish naming authorities.  The syntax is an email style such as a
+Domain Name System name.  The hostname can be augmented with a tcp port
+number or service if the default port is inappropriate for whichever
+service is suggested (Z39.50 or FTP for instance).  The syntax would be a
+hostname:port (eg. think.com:21 or think.com:ftp).  How to contact that
+hostname might not be fully specified by just giving its name (for instance
+if a login procedure is necessary, or the hostname is not a network name)
+then the database name and hostname can be used to query the directory of
+servers to find more information on that database.
+
+   DATABASE (both original and redistributor) (eg. rfc) is a name of a
+database on a server that can be accessed via WAIS protocol (Z39.50).  This
+name could be put in the database field.  These names are picked by the
+server.
+
+   LOCAL_DOC_ID (both original and redistributor) (eg. rfc-882) is a
+string that is created by a database that is an opaque object that is
+used by clients to ask for that document from the database sometime
+in the future.  If the database decides to delete the underlying
+document, then the client is out of luck.
+
+   DOCUMENT SECTION is a string that indicates what part of a document is
+being referred to (eg.  b0-1000 is bytes [0 1000)).  If it is not present,
+then the whole document is assumed.  This syntax allows for different types
+of sections to be used, such as "l" for line, "p" for page, "c" for
+chapter, "f" for frame, etc.  Only "b" and "l" are specified at this time.
+
+   COPYRIGHT_DISPOSITION is a field that describes the redistribution
+rights of the document it points to.  This values of field are not fully
+specified.  Known value:
+	f	Free to redistribute
+	r	Restricted, so the doc-id can be redistributed, but the 
+		receiver must get the copy from the redistributor itself.
+If it is not specified, then f is assumed.
+
+The goals are for the doc-id to be:
+  1) easy to create unique IDs for documents (without a central authority),
+  2) possible to retrieve the document using the ID in many cases
+	 (serve as an address),
+  3) allow users of the IDs to know the copyright intent of the publisher,
+  4) allow users to know when they have two references to the same document,
+  5) and be terse.
+
+Syntax:
+  The syntax of the fields follows the email standards.  Thus, if a space
+is inbedded in a database name then it can be put in quotation marks (").
+(NOTE: I dont know how email handles non-ascii.  I would be be in favor of
+using lisp's printing rules so "\125" would be the character 125 in ascii.
+The reason for Lisp is that it is well defined).
+
+
+Common operations on doc-ids:
+
+	Do two doc-id's refer to the same document?  Compare the original
+doc-id field to see if they are the same.  If there is only one field (a
+shorthand) then that is the original doc-id.
+
+	How to I retrieve a document from a doc-id?  The full answer is to
+ask the directory of server the question
+"redistributor_database@redistributor_hostname:tcp-port" and it will return
+a source structure (see another specification for this structure) which
+contains contact information.  In many cases, however, the
+redistributor_hostname and tcp-port can be used to contact the host
+directly to make the retrieval request.  To know if it is an FTP or WAIS
+service, there are two indications:
+	If the tcp service is specified, use it.
+	If there is no redistributor_local_doc_id then it is an FTP doc-id.
+		(eg. /pub/foo@think.com as opposed to rfc-23:foo@think.com)
+	If the databasename starts with a "~" or "/" then it is a FTP
+		filename. (this method is not preferred)
+	Otherwise it is a WAIS doc-id.
+
+	How do I reference about a database (not a full doc-id)?  Just use
+the database@hostname:tcp-port or database@hostname form.  This can be a
+handy shorthand in user interfaces.
+	
+	When can I used shortened forms?  If there is redundant
+information, eliminate it.  If the hostname is localhost, for instance, it
+can be eliminated, making an ftp-able file from a local machine be just the
+pathname.  In a reference in a paper, just use the original doc-id.
+
+
+OPEN ISSUES:  Are any of the fields case sensitive?  What is the syntax for
+a phonenumber as hostname (eg foo@0116175551212.phone)?  How are non-ascii
+characters quoted in these strings (eg \234 for the decimal byte 234)?

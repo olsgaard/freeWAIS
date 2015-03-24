@@ -1,0 +1,8 @@
+
+ Search Response:
+  NumberOfRecordsReturned: 3
+   1: Score: 1000, lines:  30 '1995 Pfeifer, U.; Fuhr, N Searching Structured Documents with the'
+   2: Score: 1000, lines:  12 '1995 Pfeifer, U; Poersch, Searching Proper Names in Databases'
+   3: Score: 1000, lines:  19 '1995 Pfeifer, U.; Fuhr, N Efficient Processing of Vague Queries us'
+
+View document number [type 0 or q to quit]: Search for new words [type q to quit]: 

@@ -1,0 +1,47 @@
+;########################### -*- Mode: Makefile -*- ###########################
+;# Imakefile --
+;# ITIID           : $ITI$ $Header $__Header$
+;# Author          : Ulrich Pfeifer
+;# Created On      : Tue Mar  8 14:49:56 1994
+;# Last Modified By: Ulrich Pfeifer
+;# Last Modified On: Wed Sep 20 13:20:29 1995
+;# Update Count    : 42
+;# Status          : Unknown, Use with caution!
+;##############################################################################
+>SCRIPTDIR
+>MANSRC
+
+#include "../config.h"
+
+++SCRIPTS check-sources getaddrs server_stats stats.awk
+++SCRIPTS wais-gif-display wais-html-display wais-jfif-display
+++SCRIPTS wais-jpeg-display wais-pict-display wais-ppm-display
+++SCRIPTS wais-tiff-display waisretrieve ws
+
+all::
+	@echo "Nothing to make in \"bin\".";
+
+#define DocumentedPerlScriptRule(script)                                @!\
+++SCRIPTS script                                                        @!\
+                                                                        @!\
+script: script.SH                                                       @@\
+	/bin/sh script.SH                                               @@\
+                                                                        @!\
+script.man: script                                                      @@\
+	pod2man script > script.man                                     @@\
+                                                                        @!\
+InstallManPage(script,$(MANSRC))
+
+DocumentedPerlScriptRule(makedb)
+DocumentedPerlScriptRule(catalog)
+DocumentedPerlScriptRule(dictionary)
+DocumentedPerlScriptRule(inverted_file)
+DocumentedPerlScriptRule(mkfmt)
+
+ws: ws.SH
+	/bin/sh ws.SH
+
+InstallScripts()
+MakeDirectories(install.man, $(MANSRC))
+DependTarget()
+CleanTarget()

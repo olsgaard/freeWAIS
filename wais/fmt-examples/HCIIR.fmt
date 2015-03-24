@@ -1,0 +1,36 @@
+<record-end> /<.BODY>/
+
+<layout>
+<headline> /^PY: / /^[A-Z][A-Z]:/ 5 /^PY: */
+<headline> /^(AU|ER): / /^[A-Z][A-Z]:/ 21 /(AU|ER): */
+<headline> /^TI: / /^[A-Z][A-Z]:/ 41 /TI: */
+<date> /^ED: / /%d-%3s-%d/ day month string year /^ED: [^ ]/
+<end>
+
+<field> /^CK: /
+ck  TEXT BOTH
+<end> /^[A-Z][A-Z]:/
+
+<field> /^PY: /
+py <numeric> /[^ ]:[^ ]/ 4 TEXT LOCAL
+<end> /^[A-Z][A-Z]:/
+
+<field> /^(AU|ER): /
+au SOUNDEX LOCAL TEXT BOTH
+<end> /^[A-Z][A-Z]:/
+
+<field> /^TI: /
+ti stemming TEXT BOTH
+<end> /^[A-Z][A-Z]:/
+
+<field> /^CC: /
+cc TEXT BOTH
+<end> /$/
+
+<field> /^(SD|AB): /
+stemming  TEXT GLOBAL
+<end> /^[A-Z][A-Z]:/
+
+<field> /^FT: /
+stemming TEXT GLOBAL
+<end> /^[A-Z][A-Z]:/

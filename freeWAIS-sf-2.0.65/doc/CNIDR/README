@@ -1,0 +1,310 @@
+Title: README freeWAIS-0.2
+Authors: Thinking Machines, Jim Fullton, Kevin Gamiel, Jane Smith
+Copyright: Copyright 1993 CNIDR
+Last update: 10.01.93
+Abstract: This file contains overview information about freeWAIS 0.2
+
+Send comments and bug fixes to freeWAIS@cnidr.org
+------------------------------------------------------------------------
+
+WARRANTY DISCLAIMER PROVIDED WITH ORIGINAL WAIS
+NOTE: Portions of freeWAIS remain unchanged from the original Thinking Machines
+distribution. This warranty disclaimer applies to those portions.
+
+This software was created by Thinking Machines Corporation and is
+distributed free of charge.  It is placed in the public domain and
+permission is granted for anyone to use, duplicate, modify and
+redistribute it.
+
+Thinking Machines Corporation provides absolutely NO WARRANTY OF ANY
+KIND with respect to this software.  The entire risk as to the quality
+and performance of this software is with the user.  IN NO EVENT WILL
+THINKING MACHINES CORPORATION BE LIABLE TO ANYONE FOR ANY DAMAGES
+ARISING OUT THE USE OF THIS SOFTWARE, INCLUDING, WITHOUT LIMITATION,
+DAMAGES RESULTING FROM LOST DATA OR LOST PROFITS, OR FOR ANY SPECIAL,
+INCIDENTAL OR CONSEQUENTIAL DAMAGES.
+
+------------------------------------------------------------------------
+
+WARRANTY DISCLAIMER for freeWAIS
+
+Copyright Statement for freeWAIS 0.2 and subsquent freeWAIS
+releases:
+
+Copyright (c) MCNC, Clearinghouse for Networked Information Discovery
+and Retrieval, 1993. 
+
+Permission to use, copy, modify, distribute, and sell this software
+and its documentation, in whole or in part, for any purpose is hereby
+granted without fee, provided that
+
+1. The above copyright notice and this permission notice appear in all
+copies of the software and related documentation. Notices of copyright
+and/or attribution which appear at the beginning of any file included
+in this distribution must remain intact.
+
+2. Users of this software agree to make their best efforts (a) to
+return to MCNC any improvements or extensions that they make, so that
+these may be included in future releases; and (b) to inform MCNC/CNIDR
+of noteworthy uses of this software.
+
+3. The names of MCNC and Clearinghouse for Networked Information
+Discovery and Retrieval may not be used in any advertising or publicity
+relating to the software without the specific, prior written permission
+of MCNC/CNIDR. 
+
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND,
+EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+IN NO EVENT SHALL MCNC/CNIDR BE LIABLE FOR ANY SPECIAL, INCIDENTAL,
+INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES WHATSOEVER
+RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR NOT ADVISED OF
+THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF LIABILITY, ARISING OUT
+OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+------------------------------------------------------------------------
+
+First, if you are trying to figure out how to install or build this
+software, take a look at the file "INSTALLATION", in this directory.
+
+
+
+
+0.  GENERAL INFORMATION
+
+Several mailing lists exist to discuss problems/features/enhancements to
+both original WAIS and freeWAIS.  These are wais-talk@think.com and
+zip@cnidr.org.  You can join either of these by sending requests to
+wais-talk-request@think.com or zip-request@cnidr.org.
+
+freeWAIS is evolving into a system with full support for Z39.50-92.  The
+current release of freeWAIS (0.2) provides support for the standard WAIS
+protocol only, and will be the backwards compatibility module for
+freeWAIS-1.0.  freeWAIS-1.0 will include support for Z39.50-92 info-1
+attribute sets and es-1 element sets.
+
+Most of the documentation has been derived from the original WAIS
+releases.  We hope to have a comprehensive set of documents ready for
+the freeWAIS-1.0 release.
+
+
+
+
+1.  WHAT'S IN THIS PACKAGE AND HOW TO USE IT
+
+This package contains a sample toolkit for:
+
+  1. creating servers:  waisindex and waisserver.
+  2. communicating:     Z39.50-88 and WAIS protocol software.
+  3. clients:           lots of different clients
+
+This package is distributed as a UNIX tar file.  You should have the
+following directories:
+
+top = freeWAIS-0.2
+
+in top:
+
+Makefile        - a top-level Makefile to build the entire system
+README          - this file
+INSTALLATION    - some instructions on how to build this software
+RELEASE-NOTES   - current state of the software, including changes
+                  from the last release
+bin/            - where compiled executables will go
+doc/            - all documentation
+ir/             - the WAIS toolkit, indexer and server code
+ui/             - some example user interfaces, including the GNU Emacs and
+                  shell interfaces
+wais-sources/   - example sources, including the directory of servers
+x/              - an X11R5 client (Motif/Athena)
+
+
+New man pages are not yet complete.  The old man pages remain in the
+doc/Original directory.
+
+Three programs comprise the core of this software release:
+
+WAISINDEX: This indexer is a simple Information Retrieval engine that
+ indexes every word of the input files, creating an "inverted file index".
+ This allows keyword searching based on the full text of documents.  The
+ indexer uses the file system in a straightforward and conservative manner
+ (it is written in ANSI C) and so it should be quite portable.  A number of
+ "filters" have been written to handle common file formats.  Making new ones
+ is easy, see the file ircfiles.c for examples and instructions.
+
+WAISSERVER: Listens to a TCP port for questions (Z39.50-88 packets) and uses
+ the appropriate index to answer the question.  This is pretty stable.
+ Waisserver may be run as a standalone server, or it can be run from inetd.
+ Look at the MAN page for waisserver for example inetd.conf entries.
+
+WAISSEARCH: A simple shell user interface for sending questions to
+ wais servers.  Additionally, there are X and Gnu Emacs interfaces included,
+ which you will probably find more convenient to use.  freeWAIS also provides
+ Mac and MS-DOS/MS-Windows clients.
+
+
+-------------------------
+CREATING A WAIS DATABASE
+-------------------------
+
+To create an index for your own private use, consult
+doc/original-TM-wais/waisindex.txt.  Here is an example.
+
+First index some files:
+        waisindex -d ~/wais-sources/rmail -t rmail RMAIL
+then make a search request:
+        waissearch -d ~/wais-sources/rmail "What is WAIS?"
+
+Once the index is made, you can also search it using the xwais or Gnu
+Emacs interfaces.  See the documentation files for further information.
+
+
+To create a server for everyone to use:
+
+To advertise the availability of your data, you can send in an entry to
+the Directory of Servers, a server running at an easily accessible
+location (quake.think.com AND cnidr.org).  The following command will
+index your-files, and register the index with the Directory of Servers.
+Needless to say, this should be done with care.
+
+        waisindex -export -register your-files
+
+PLEASE NOTE:  Stemming and Literal Searches interact oddly!!
+
+When stemming is turned on for a particular server, literal string
+searches may not behave as one would expect!  *Please* note in your .src
+file (before registering) the status of stemming on your server.  We
+will attempt to remedy this in a future release.
+
+---------------------
+RUNNING A WAIS SERVER
+---------------------
+
+There are two options for running the server:
+
+1. as a standalone process,
+2. as a daemon under inetd.
+
+To run the standalone server simply type "waisserver -p <port-number>"
+at a prompt, where port-number is a TCP port that the server will use to
+handle client connections.  Most UNIX systems will only allow the super
+user to use ports less than 1024.
+
+To run under inetd, you must have the z3950 service defined and a line
+in your inetd configuration file that tells inetd what to do when a
+connection is received on the z3950 port.  On most systems this means
+adding the z3950 service to /etc/services or the NIS (used to be called
+YP) database as follows:
+
+z3950           210/tcp                         # Z39_50 protocol for WAIS
+
+and in /etc/inetd.conf:
+
+z3950 stream tcp nowait waisp <top>/bin/waisserver waisserver.d -e <top>/server.
+log -d <top>/wais-sources
+
+Note the user field in this example is waisp, which is the userid the
+daemon will be run under. This userid is rarely present, and can be
+replaced by something appropriate for your site (typically UUCP).  The
+directory <top> is as defined above (this directory), and the user
+specified in the above line must have read/write permission to the
+directory specified in the -d argument.  The -e argument is a file the
+daemon will use to log it's output, which must be writable too.  This is
+explained in more detail in the man page on waisserver.
+
+A server security feature has been added that will restrict access to
+particular databases from certain hosts.
+
+Every user connection is validated against a file which contains a list
+of hosts/domains that can connect to this server. If the file does not
+exist, then the server is open to everybody.
+
+The names of the security files can be found in server.h
+
+The format of the SERVER SECURITY file ("SERV_SEC")
+is as follows:
+
+host_name    host_address
+
+  or
+
+welchlab.welch.jhu.edu       128.220.59.10
+welchlgate.welch.jhu.edu     128.220.59.13
+
+
+Access can be given to specific domains, so if one wanted to give access
+to everyone in the welch.jhu.edu domain, the file would look like this:
+
+welch.jhu.edu        128.220.59
+
+Note that the host address is optional, but that the host name is not.
+
+The format of the DATABASE SECURITY file ("DATA_SEC")
+is as follows:
+
+database_name        host_name       host_address
+
+  or
+
+foo  welchlab.welch.jhu.edu          128.220.59.10
+foo  welchlgate.welch.jhu.edu        128.220.59.13
+
+
+Access can be given to specific domains, so if one
+wanted to give access to everyone in the
+welch.jhu.edu domain, the file would look like this:
+
+foo  welch.jhu.edu   128.220.59
+
+Note that the host address is optional, but that the
+host name is not.
+
+Using a star in this case would allow access to everyone
+for a particular database, for example:
+
+foo  welch.jhu.edu   128.220.59
+bar  *       *
+
+This would be useful if you wanted to give public access
+to certain databases on a particular server and restricted
+access to others.
+
+--------------
+TESTING IT OUT
+--------------
+
+Try to talk to the directory-of-servers:
+% bin/waissearch -h cnidr.org -p 210 -d directory-of-servers source
+
+You should get a bunch more results.  This requires an internet connection,
+so if you can telnet to cnidr.org, it should work.
+
+Now you can try your server:
+
+% bin/waissearch -h <your-host> -p <port-number> help where <your-host>
+is the name of the machine you are running the server on, and <port-number>
+is the port specified when starting the server (or the z3950 port if run
+under inetd).  This should return at least two results: the source
+description file INFO.src and a catalog of what your server is serving.
+
+You can then try the other user interfaces included in this release.
+
+----------------------------------------------------------------------
+For instructions on using the Gnu Emacs interface to access remote servers,
+see the file ui/wais.el.
+
+
+
+
+2. RANDOM NOTES
+
+- The version of Z39.50 contained herein is for inspection only.  It is based
+  on the obsolete 1988 version.  It will be replaced with an implementation
+  of Z39.50-92 in freeWAIS 1.0.  These protocols are not compatible,
+  although the freeWAIS 1.0 server (when used with this package) will answer
+  queries from either client set.
+
+- The best way to learn the use of the Z39.50 library is to study
+  the example code in ir.c (for a server) and ui.c and ui (for a client).
+
+- freeWAIS 0.21 will support multiple search engines.

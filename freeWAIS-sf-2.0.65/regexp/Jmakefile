@@ -1,0 +1,45 @@
+;########################### -*- Mode: Makefile -*- ###########################
+;# Imakefile --
+;# ITIID           : $ITI$ $Header $__Header$
+;# Author          : Ulrich Pfeifer
+;# Created On      : Mon Mar 21 15:19:18 1994
+;# Last Modified By: Ulrich Pfeifer
+;# Last Modified On: Thu Sep  7 09:55:33 1995
+;# Update Count    : 29
+;# Status          : Unknown, Use with caution!
+;##############################################################################
+
+
+#include "../config.h"
+
+             SRCS = regexp.c regerror.c regsub.c
+             OBJS = regexp.o regerror.o regsub.o
+
+Initialize(CFLAGS,-I. -I\$(TOP)/ctype)
+
+        MANSUFFIX = 3
+#ifdef ISOxxx
+   EXTRA_INCLUDES = -I../ctype -I.
+          INCROOT = .
+          ISOOBJS = ../ctype/ctype.o
+#else
+   EXTRA_INCLUDES = -I.
+          INCROOT = .
+#endif /* ISO */
+             LIBS = libregexp.a
+NormalProgramTarget(try,try.c,try.o $(ISOOBJS) libregexp.a)
+
+test: try tests
+	@echo 'No news is good news...'
+	try <tests
+
+local_realclean::
+	$(RM) try libregexp.a
+
+NormalLibraryTarget(regexp,$(SRCS),$(OBJS))
+DependTarget()
+
+/* don't have the macros !?
+InstallManPage(regexp,$(MANDIR)/man3)
+*/
+

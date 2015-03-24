@@ -1,0 +1,53 @@
+
+
+This is a file of helpful cron entries and shell scripts for running the
+WAIS system.
+
+
+---------------------------------------------
+
+#!/bin/csh
+
+# index all mail sent and recieved.  To archive all mail sent in emacs do:
+# (setq mail-archive-file-name "~/mail-sent")
+# to index all mail recieved add an entry to the aliases file or your
+# .forward file such as 
+# /users/your-name-here/mail-archive, \your-name-here
+
+set maildir   = /users/your-name-here
+set sourcedir = $maildir/wais-sources
+
+# construct a new mail-archive index
+waisindex -mem 10 -d $sourcedir/mail-archive -t mail $maildir/mail-archive*
+
+# add in old stuff
+waisindex -mem 10 -d $sourcedir/mail-sent -t mail $maildir/mail-sent*
+
+
+
+
+
+---------------------------------------------
+
+Add this to rc.local and you'll have a waisserver:
+
+#
+# WAIS server
+#
+echo -n 'WAIS server:' >/dev/console
+if [ -f /wais/bin/waisserver ]; then
+	/wais/bin/waisserver -p 210 -d /wais/wais-sources \
+           >/wais/server.log 2>&1 &
+ 	(echo -n 'done.') >/dev/console
+fi
+
+
+---------------------------------------------
+Cron entry for checking sources (good for administrators):
+
+#!/bin/csh
+
+/wais/latest/bin/check-sources /wais/wais-sources/ | grep "not responding"
+/wais/latest/bin/check-sources /wais/wais-private-sources/ | grep "not responding"
+
+---------------------------------------------

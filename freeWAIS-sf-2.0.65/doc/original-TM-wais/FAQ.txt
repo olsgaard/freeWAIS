@@ -1,0 +1,193 @@
+Frequently Asked Questions (FAQ) for WAIS
+
+-------------------------------------------------------------------------
+Subject: 1. What is WAIS?
+
+ WAIS stands for Wide Area Information Servers, and is an architecture for
+ a distributed information retrieval system.  WAIS is based on the client
+ server model of computation, and allows users of computers to share
+ information using a common computer-to-computer protocol.
+
+-------------------------------------------------------------------------
+Subject: 2. Where can I FTP
+
+ WAIS is available via anonymous FTP from a variety of sources.  The main
+ distributor is think.com, in the wais subdirectory.
+
+ a. a mac client?  
+
+  think.com:/wais/WAIStation0.62.hqx
+
+ b. a unix client?
+
+  a few UNIX based clients are available in the core distribution, which
+  can be found on think.com:
+
+  think.com:/wais/wais-8-b#.tar.Z, where # is the most recent version (4 at
+  this time).  This includes the server, and clients for X Windows, GNU
+  Emacs and a couple of simple shell-based clients.
+
+ c. a dos client?
+  
+  The University of North Carolina has been a main developement site for
+  WAIS software.  Several DOS clients can be found in the FTP archives on
+  wais.oit.unc.edu.
+
+ d. a NeXT client?
+
+  A client for NeXT can be found in think.com:/wais/XXX
+
+ e. a VMS client?
+
+  WAIS has been ported to VMS by the folks at the University of North
+  Carolina.
+
+ f. the server?
+
+  An example WAIS server is part of the core distribution.
+
+-------------------------------------------------------------------------
+Subject: 3. How do I find out what WAIS databases there are?
+
+ WAIS provides a service called the Directory of Servers.  The Directory of
+ Servers is a WAIS server like any other information source, but contains
+ information about the other WAIS servers on the Internet.  To find out
+ about servers, simply ask the directory-of-servers source a question.
+
+ A complete listing of the advertized sources (databases) is available via
+ anonymous FTP from think.com:/wais/wais-sources.tar.Z
+
+-------------------------------------------------------------------------
+Subject: 4. What do I do when the directory of servers is unreachable?
+
+ Sometimes the Directory of Servers is not available.  There are backup
+ servers that contain copies of the list of source in the Directory of
+ Servers.  To find out about them, use the Directory of Servers when it is
+ available, and ask about "directory of servers".
+
+-------------------------------------------------------------------------
+Subject: 5. How do I add a server to the directory of servers?
+
+ To add a server to the Directory of Servers, simply mail a source
+ description structure to wais-directory-of-servers@quake.think.com.
+ If you use the waisindex program from the core wais distribution, you may
+ use the -register argument and the source description structure will be
+ mailed automatically to wais-directory-of-servers@quake.think.com.
+
+-------------------------------------------------------------------------
+Subject: 6. Where can I read more about WAIS in the trade press?
+
+ A complete WAIS bibliography is in the doc subdirectory of the WAIS
+ distribution.  It is also available via WAIS using the wais-doc.src
+ source.
+
+-------------------------------------------------------------------------
+Subject: 7. What is Z39.50?
+
+ Z39.50 is a computer-to-computer protocol designed for the library
+ community to assist in locating documents in library archvies.
+
+-------------------------------------------------------------------------
+Subject: 8. Who is working on Z39.50 implementations?
+-------------------------------------------------------------------------
+Subject: 9. Do they interoperate?
+-------------------------------------------------------------------------
+Subject: 10. Where do these people talk about protocol details?
+-------------------------------------------------------------------------
+Subject: 11. What's a Z39 anyway?  Where did these people come from?
+-------------------------------------------------------------------------
+Subject: 12. What other systems work with WAIS?
+
+ WAIS is principally a protocol, and hence other systems designed for
+ information access may use the protocol.  A fe examples are listed below.
+
+ a. What's a gopher?
+
+ Gopher is a Campus Wide Information System designed at the University of
+ Minnesota.  More information on Gopher can be found from XXX.
+
+ b. What's WWW (World Wide Web)?
+
+ c. What does "archie" have to do with WAIS?
+
+ Archie is a tool designed at the University of Toronto for use in locating
+ anonymous FTP archives.  This is a natural information retrieval
+ application.  To date there are three systems that relate WAIS and archie:
+
+ 1. Archie: archie is using the WAIS indexer and information retrieval
+ tools to allow free text search on the Archie database.
+ 2. WAIS-archie:  there is a WAIS server that has indexed the complete list
+ of Archie filenames.
+ 3. ftpable-readmes.src: there is a WAIS server that has indexed the
+ complete list of README files in the archie list.
+
+ d. What does Prospero have to do with WAIS?
+
+ e. How does WAIS relate to X.500 (ISO directory service) ?
+
+-------------------------------------------------------------------------
+Subject: 18. What's the scoring algorithm used by WAIS?
+
+-------------------------------------------------------------------------
+Subject: 19. How do I approximate a boolean search?
+
+-------------------------------------------------------------------------
+Subject: 20. How do I make a good index to a set of documents?
+
+-------------------------------------------------------------------------
+Subject: 21. What alternatives do I have to the default document parser?
+
+-------------------------------------------------------------------------
+Subject: 22. What relationship does WAIS have to DowQuest?
+
+-------------------------------------------------------------------------
+Subject: 23. How much does DowQuest cost, and what can I learn from it?
+
+-------------------------------------------------------------------------
+Subject: 24. Can the results be e-mailed back to my Internet mailbox?
+
+-------------------------------------------------------------------------
+Subject: 25. Are there any commercial WAIS servers?
+
+-------------------------------------------------------------------------
+Subject: 26. Can I look things up in
+  the Whole Earth Catalog?
+  the American Library Directory?
+  Books in Print?
+  Dissertation Abstracts International?
+  the Library of Congress?
+  Ulrich's International Periodicals Directory?
+  the Thomas Register of American Manufacturers?
+- Why not?  
+
+-------------------------------------------------------------------------
+Subject: 27. Can I use WAIS to search through and display
+  images?
+  sounds?
+  video?
+  X-rays?
+  Postscript files?
+  SGML-encoded text?
+  multimedia documents?
+  e-mail?
+  usenet news?
+  catalogs, directories, lists, lexicons, dictionaries?
+
+-------------------------------------------------------------------------
+Subject: 28. What's wrong with WAIS?
+  as a protocol?
+  in relation to scaling up to 1000s of servers?
+  with the existing clients?
+
+-------------------------------------------------------------------------
+Subject: 29. How do I integrate WAIS into my
+  campus-wide information system (CWIS) ?
+  mail-based archive server (MBAS) ?
+  anonymous FTP server ?
+  mail reader ?
+  news system ?
+  Hypercard stack ?
+  pen-based computer ?
+
+-------------------------------------------------------------------------
+Subject: 30. How do I do WAIS over a dialup connection ?

@@ -1,0 +1,26 @@
+;########################### -*- Mode: Makefile -*- ###########################
+;# Imakefile --
+;# ITIID           : $ITI$ $Header $__Header$
+;# Author          : Ulrich Pfeifer
+;# Created On      : Tue Mar  8 14:53:44 1994
+;# Last Modified By: Ulrich Pfeifer
+;# Last Modified On: Thu Sep  7 13:47:03 1995
+;# Update Count    : 17
+;# Status          : Unknown, Use with caution!
+;##############################################################################
+>MANSRC
+
+#include "../../../config.h"
+
+MakeDirectories(install.man, $(MANSRC))
+InstallManPage(waisindex,$(MANSRC))
+InstallManPage(waisq,$(MANSRC))
+InstallManPage(waissearch,$(MANSRC))
+InstallManPage(waisserver,$(MANSRC))
+InstallManPage(xwais,$(MANSRC))
+InstallManPage(xwaisq,$(MANSRC))
+
+veryclean:: clean
+
+DependTarget()
+

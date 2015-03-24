@@ -1,0 +1,303 @@
+Title: Frequently Asked Questions (FAQ) for FreeWAIS
+Authors: Aydin Edguer, Bob Waldstein, Jim Fullton
+Copyright: Copyright 1993 CNIDR
+Last update: 04.09.93
+Abstract: This file contains frequently asked questions and answers
+about freeWAIS 0.2
+
+This FAQ was compiled from the original WAIS FAQ by Aydin Edguer and the
+Z39.50 FAQ by Bob Waldstein.
+
+For more information, send a note to cnidr@cnidr.org
+
+-------------------------------------------------------------------------
+What is WAIS?
+
+ WAIS stands for Wide Area Information Servers, and is an architecture for
+ a distributed information retrieval system.  WAIS is based on the client
+ server model of computation, and allows users of computers to share
+ information using a common computer-to-computer protocol.  WAIS was
+ originally designed and implemented by a development team at Thinking
+ Machines, Inc. led by Brewster Kahle.  Kahle has formed WAIS Inc. to
+ provide commercial WAIS software and services, and the support for the
+ freely available version (freeWAIS) has been assumed by the
+ Clearinghouse for Networked Information Discovery and Retrieval (CNIDR).
+
+-------------------------------------------------------------------------
+Where can I get.......
+
+ WAIS is available via anonymous FTP from a variety of sources.  The
+ distributor of the original WAIS is think.com, in the wais subdirectory.
+ freeWAIS is distributed from ftp.cnidr.org.
+
+ a. a mac client?
+
+
+  two Macintosh clients are provided in freeWAIS.
+                                or
+  think.com:/wais/WAIStation0.62.hqx
+
+ b. a unix client?
+
+  a few UNIX based clients are available in the core freeWAIS  distribution,
+  which can be found on ftp.cnidr.org.  These include X (Motif and
+  Athena),  a simple screen-oriented client (SWAIS) a command-line client
+  (waissearch) and the components for an emacs-compliant client.
+
+
+ c. a dos client?
+
+  MS-DOS and MS-Windows clients are available in the freeWAIS
+  distribution.  The MS-DOS clients are based on Waterloo TCP and packet
+  drivers, while the MS-Windows clients are based on Winsock.
+
+ d. a NeXT client?
+
+   A NeXTStep client is available in the freeWAIS distribution.
+
+ e. a VMS client?
+
+  WAIS has been ported to VMS by the folks at the University of North
+  Carolina.  freeWAIS has not yet been ported to VMS (any volunteers?)
+
+
+-------------------------------------------------------------------------
+How do I locate WAIS databases??
+
+ WAIS provides a service called the Directory of Servers.  The Directory of
+ Servers is a WAIS server like any other information source, but contains
+ information about the other WAIS servers on the Internet.  To find out
+ about servers, simply ask the directory-of-servers source a question.
+
+
+-------------------------------------------------------------------------
+What do I do when the directory of servers is unreachable?
+
+ Sometimes the Directory of Servers is not available.  There are backup
+ servers that contain copies of the list of sources in the Directory of
+ Servers.  To find out about them, use the Directory of Servers when it is
+ available, and ask about "directory of servers".  There are at least two
+ directories of servers in the United States, with several others around
+ the world.  The US servers are:
+
+        directory-of-servers:quake.think.com
+        directory-of-servers:cnidr.org
+
+-------------------------------------------------------------------------
+How do I add a server to the directory of servers?
+
+ To add a server to the Directory of Servers, simply mail a source
+ description structure to wais-directory-of-servers@cnidr.org or
+ wais-directory-of-servers@quake.think.com.
+
+ If you use the waisindex program from the core freeWAIS distribution, you may
+ use the -register argument and the source description structure will be
+ mailed automatically to both national servers.
+
+-------------------------------------------------------------------------
+Where can I read more about WAIS in the trade press?
+
+
+ A complete WAIS bibliography will be available on ftp.cnidr.org.
+
+-------------------------------------------------------------------------
+What is Z39.50?
+
+ Z39.50 is a computer-to-computer protocol designed for information
+ search and retrieval.  The newest releases of freeWAIS (those with a
+ release of 1.0 or higher) support Z39.50-92 as well as original WAIS
+ queries.
+
+-------------------------------------------------------------------------
+Who is working on Z39.50 implementations?
+
+Below is a definitely incomplete list, and these are people working on
+servers and/or clients). "Working on" is a rough phrasing for some:
+
+    Apple
+    AT&T Library Network
+    BRS Software
+    CARL Systems
+    CNIDR
+    Columbia Law School
+    DRA   (Data Research Associates)
+    Dartmouth College
+    FCLA
+    Gaylord Information Systems
+    Innovative Interfaces Inc.
+    Library of Congress
+    MDC   (Mead Data Central)
+    MIT Information Services
+    NOTIS
+    OCLC
+    Pandora Systems
+    Penn State
+    RLG
+    Stanford University
+    UC Berkeley
+    UC DLA (Division of Library Automation)
+    University of North Carolina
+    Viginia Tech
+
+-------------------------------------------------------------------------
+Do they interoperate?
+
+Yes.  Within the acceptable limits provided by the protocol, Z39.50-92
+systems will interoperate.
+-------------------------------------------------------------------------
+Where do these people talk about protocol details?
+
+Lots of different places.  The ZIP list at CNIDR provides a discussion
+forum for the freely available release of Z39.50-92, while the Z3950IW
+list at the Florida Center for Library Automation provides a iscussion of
+the technical details of Z39.50.
+
+        zip@cnidr.org - send a subscribe message to zip-request@cnidr.org.  This
+
+        list is maintained by a human, so any message will do.
+
+        z3950iw@nervm.bitnet - send a standard subscribe message to
+        z3950iw-request@nervm.bitnet
+
+-------------------------------------------------------------------------
+What's a Z39 anyway?  Where did these people come from?
+
+Z39 is a committee - more commonly known as NISO.  Here is what they say
+about themselves.
+
+From: NISO brochure titled "Making the information profession more productive"
+NISO ... develops and promotes consensus-approved standards used in
+library services, publishing, and many other information-related
+industries.
+
+NISO standards address the communication needs of these industries
+in areas such as information retrieval, preservation of materials,
+information transfer, forms and records, identification systems,
+publication formats, and equipment and supplies...
+
+NISO was created more than a half-century ago as Committee
+Z39 of the American National Standards Institute.  ANSI is the
+organization that administers the U.S. system of voluntary
+standardization.
+
+Since its inception, NISO has developed more than 50 technical
+standards...
+
+NISO's current mission includes:
+   .  Identifying areas in which standards are needed.
+   .  Developing, writing, and maintaining voluntary technical standards.
+   .  Reviewing and improving existing standards.
+   .  Representing U.S. Interests in international standards development.
+   .  Coordinating NISO standards with other national and
+      international standards developers..."
+
+-------------------------------------------------------------------------
+What other systems work with WAIS?
+
+ WAIS is principally a protocol, and hence other systems designed for
+ information access may use the protocol through gateways.  WAIS is based
+ on Z39.50-88, while freeWAIS (v. 1.0 and greater)  is based on Z39.50-92,
+ with a backwards compatibility module for the original WAIS.
+
+ What's the difference?
+
+   (Note: ISO is the International Standards Organization. There is a standard
+   ISO 10162/10163, the Search and Retrieval (SR) Service Definition and
+   Protocol Definition. Its importance/relevance given below)
+
+There are two categories of changes from the 1988 version to the 1992
+version (version 2): changes necessary for alignment with SR, and
+features deemed necessary by implementors, to provide sufficient
+functionality so that implementation can be economically justified.
+
+In the first category: The 1988 version was developed between 1983-87
+(and approved by ANSI in 1988).  Meanwhile, development of the ISO
+Search and Retrieve protocol took a parallel and somewhat complimentary
+path: There were various drafts of SR between 1984 and 1991 (when it was
+finally approved);  the U.S. input to SR was influenced by Z39.50, but
+Z39.50 wasn't entirely stable during that period.  The result was that
+a few incompatibilities remained. For example, the search request in SR
+has small-set- and medium-set-element-set-names; Z39.50 version 1 had
+only a single, or global, element set parameter.  As another example,
+version 1 did not include Preferred-record-syntax.  Version 1 did not
+use ASN.1.  (Virtually all OSI application protocol data structures are
+described using ASN.1.  Version 1 was finalized slightly before ASN.1
+was stable, and version 1 developed a homegrown syntax notation which
+has been abandoned in version 2.)  A serious limitation of version 1 is
+the lack of flexibility to reference objects -- attribute-sets,
+diagnostic-sets, and other objects -- which SR references through OSI
+object identifiers.  All of these limitations are corrected in Z39.50
+version 2.
+
+In the second category are enhancements to security, access control, and
+attribute sets and related objects; and a new "proximity" query.
+
+
+-------------------------------------------------------------------------
+What's the scoring algorithm used by WAIS?
+
+freeWAIS scores documents based on the number of occurances of the query
+words in a document, the location of the words in ta document, the
+frequency of those words within the collection, and the size of the document.
+
+Original WAIS scored based on the word position and word count in each
+document (5 points if the word occurred in the headline, 1 point
+otherwise).
+
+-------------------------------------------------------------------------
+How do I approximate a boolean search?
+
+freeWAIS supports simple boolean searching.  The words and, or, and not
+are interpreted to mean a request for a boolean search with the boolean
+operaton being performed on the terms delimited by the operators.
+
+-------------------------------------------------------------------------
+How do I make a good index to a set of documents?
+
+The most important thing is to make sure your documents quantify well.
+Remember, putting everything into one large document will result in one
+large document being returned for each search!  Try to come up with an
+indexing scheme that will allow the user to see a clear headline for each
+quantum of information that might be useful.
+
+-------------------------------------------------------------------------
+What alternatives do I have to the default document parser?
+
+The default parser in freeWAIS supports many datatypes, and can easily be
+modified to support others.
+
+-------------------------------------------------------------------------
+
+Are there any commercial WAIS servers?
+
+Yes.  For more information about commercial WAIS servers, contact WAIS,
+Inc. (frontdesk@wais.com).  This is the only commercial WAIS providor at
+this time.  Many companies market Z39.50 systems.
+
+-------------------------------------------------------------------------
+
+Can I use WAIS to search through and display
+  images?
+  sounds?
+  video?
+  X-rays?
+  Postscript files?
+  SGML-encoded text?
+  multimedia documents?
+  e-mail?
+  usenet news?
+  catalogs, directories, lists, lexicons, dictionaries?
+
+  In a word, yes.  WAIS is not limited to text documents.  Other data
+  types can be searched by using different search engines and parsers.
+  It is still rather difficult to change search engines, but future
+  releases of freeWAIS will provide a much better mechanism for this.
+
+
+-------------------------------------------------------------------------
+How do I do WAIS over a dialup connection ?
+
+You can't, yet.  You *can* access WAIS clients via a dialup connection.
+Many sites provide access to simple WAIS - a screen-oriented WAIS client.
+
+

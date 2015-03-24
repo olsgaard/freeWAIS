@@ -1,0 +1,22 @@
+README:	WAIS Unix release 8 b5				Sun May 10 1992
+ Jonathan Goldman				 Thinking Machines Corp
+------------------------------------------------------------------------
+
+WARRANTY DISCLAIMER
+
+This software was created by Thinking Machines Corporation and is distributed 
+free of charge.  It is placed in the public domain and permission is granted 
+for anyone to use, duplicate, modify and redistribute it.
+
+Thinking Machines Corporation provides absolutely NO WARRANTY OF ANY KIND with
+respect to this software.  The entire risk as to the quality and performance 
+of this software is with the user.  IN NO EVENT WILL THINKING MACHINES 
+CORPORATION BE LIABLE TO ANYONE FOR ANY DAMAGES ARISING OUT THE USE OF THIS
+SOFTWARE, INCLUDING, WITHOUT LIMITATION, DAMAGES RESULTING FROM LOST DATA OR
+LOST PROFITS, OR FOR ANY SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES.
+
+------------------------------------------------------------------------
+
+This directory contains some support software used by the other software in
+this distribution.  In particular there are some portable directory
+routines in this directory used by other parts of the WAIS software.

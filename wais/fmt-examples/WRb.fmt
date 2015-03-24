@@ -1,0 +1,32 @@
+
+<record-end> /^\n/
+
+<layout>
+<headline> /^ Erscheinungsjahr: /  /$/                     4  /^ Erscheinungsjahr: ./
+<headline> /^ ..............1.: /  /^ ................:/  20  /^ ..............1.:/
+<headline> /^            Titel: /  /^ ................:/  76  /^            Titel:/
+<end>
+
+<field>    /^ Erscheinungsjahr: /
+jahr <numeric> /^ Erscheinungsjahr: ./ 4 TEXT LOCAL
+<end>      /$/
+
+<field>    /^ ..............[1-9].: / /^ ................: /
+verf SOUNDEX LOCAL TEXT BOTH
+<end>      /^ ................:/
+
+<field>    /^ +(Titel|Serie|Kongreﬂ): / /^ ................: /
+titel stemming TEXT BOTH
+<end>      /^ ................:/
+
+<field>    /^ +(Verlag|Verlagsort): / /^ ................: /
+verl TEXT LOCAL
+<end>      /^ ................:/
+
+<field>    /^             ISBN: / /^ ................: /
+isbn TEXT LOCAL
+<end>      /^ ................:/
+
+<field>    /^ +(Art|Signatur|Schlagwort): / /^ ................: /
+TEXT GLOBAL
+<end>      /^ ................:/

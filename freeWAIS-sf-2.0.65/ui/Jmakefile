@@ -1,0 +1,48 @@
+;########################### -*- Mode: Makefile -*- ###########################
+;# Imakefile --
+;# ITIID           : $ITI$ $Header $__Header$
+;# Author          : Ulrich Pfeifer
+;# Created On      : Tue Mar  8 14:48:35 1994
+;# Last Modified By: Ulrich Pfeifer
+;# Last Modified On: Thu Jan 18 10:01:20 1996
+;# Update Count    : 101
+;# Status          : Unknown, Use with caution!
+;##############################################################################
+
+>PRIVLIB
+>LN
+
+#include "../config.h"
+
+Initialize(CFLAGS,$ctypeinc -I\$(TOP)/ir)
+Initialize(LDFLAGS,-lcurses -ltermcap -lm)
+Initialize(ISOOBJS,$ctypeobj)
+Initialize(REGLIB,$regexplib)
+Initialize(BIN_EXP,$installbin)
+
+             OBJS = $(ISOOBJS) \
+		    question.o wais-ui.o document.o \
+		    util.o  source.o \
+		    ../ir/libwais.a $(REGLIB) ../lib/libftw.a 
+          SOURCES = question.c wais-ui.c document.c util.c  source.c
+
+NormalProgramTarget(waisq, waisq.c, waisq.o $(OBJS))
+NormalProgramTarget(waissearch, waissearch.c, waissearch.o $(ISOOBJS) 
+	            ../ir/libwais.a $(REGLIB) ../lib/libftw.a)
+NormalProgramTarget(swais, swais.c, swais.o $(OBJS))
+InstallProgram(waisq,$(BIN_EXP))
+
+install::
+	$(RM) $(BIN_EXP)/waisping
+	$(LN) $(BIN_EXP)/waisq $(BIN_EXP)/waisping
+
+InstallProgram(waissearch,$(BIN_EXP))
+InstallProgram(swais,$(BIN_EXP))
+CppScriptTarget(wais.el,wais.el.raw,-DINSTALLROOT=\"$(BIN_EXP)\",wais.el.raw)
+
+local_realclean::
+	$(RM) wais.el
+
+MakeDirectories(install, $(PRIVLIB)/emacs $(PRIVLIB)/emacs/lisp)
+InstallNonExec(wais.el, $(PRIVLIB)/emacs/lisp)
+DependTarget()

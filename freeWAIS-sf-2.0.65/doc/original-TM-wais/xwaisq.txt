@@ -1,0 +1,131 @@
+
+
+
+     Thu Feb 20 1992                                              XWAISQ(1)
+
+
+
+     NAME
+          xwaisq - X interface to the WAIS questions
+
+     SYNOPSIS
+          xwaisq [ standard X toolkit arguments ] [ QuestionName ]
+
+     DESCRIPTION
+
+          xwaisq is an X Windows based client for the WAIS system.  It is
+          the application used for modifying and submitting questions to a
+          WAIS server.
+
+          This application is heavily dependant on the X Toolkit resource
+          mechanism.  Questions are stored to the user's "questionDirec-
+          tory" (usually ~/wais-questions) and can be retrieved using this
+          application.
+
+          A question is posed in three parts:
+
+          1.  Search words, labeled "Tell me about"
+          2.  Sources, labeled "In Sources"
+          3.  Relevance Feedback, labeled "Similar to"
+
+          Search words can be entered into the "Tell me about" frame by
+          simply typing into the frame.  Pressing return will initiate the
+          search (however, if you have not yet specified a source, you'll
+          be warned, and no search will actually occur).
+
+          To add a source  to  a question, press  "Add Source", and select
+          the source from the popup  menu.  To remove  a source  from  the
+          question,  select the source, and click on the "Delete Source"
+          button.
+
+          To add a document to a question, select the document in the
+          Result Document list, and press "Add Document".   To remove  a
+          document  from the question, select the document, and click on
+          the "Delete Document" button.
+
+          When  you have you question completely  defined, you can search
+          the sources by pressing the "Search" button, or <RETURN> in the
+          "Tell me about" window.
+
+          To view  a resulting  document, select the  document and  press
+          the "View" button.  A  new Document  window  will appear.    If
+          you'd like to see  the keywords matched, press the "Find Key"
+          button.   To save the document  to a file, press  the "Save to
+          File"  button.  When  you are finished  with the document, press
+          "Done" button in the Document window.
+
+          When you are finished with the question close its window using
+          the "Done" button.  Any changes to the question  will be written
+          back to the question directory.
+
+
+
+     Thinking Machines                                                    1
+
+
+
+
+
+
+     XWAISQ(1)                                              Thu Feb 20 1992
+
+
+     FILES
+
+          Xwais                         application Default file.
+          $(HOME)/wais-questions        location of saved questions.
+          $(HOME)/wais-sources          location for personal sources.
+
+     RESOURCES
+
+          The following resources may be changed to modify the default
+          behavior of the application.  I recommend you look at the
+          resource file Xwais to get a better idea of all the resources
+          available.
+
+          Xwais*questionDirectory:      ~/wais-questions/
+          Xwais*documentDirectory:      ~/wais-documents/
+          Xwais*userSourceDirectory:    ~/wais-sources/
+          Xwais*commonSourceDirectory
+          Xwais*seedWords
+          Xwais*initialSource
+          Xwais*questionName
+          Xwais*DoSearch
+
+          The last four resources are usually unspecified.  Under special
+          circumstances they may be used to fully specify a question
+          without a file.
+
+     BUGS
+
+          xwaisq is heavily dependant on it's resources.  If it is unable
+          to find the proper resource file, it will most likey become unus-
+          able.
+
+          xwaisq has no limit to resizing, so if the window is resized too
+          small, some buttons may be lost.
+
+     SEE ALSO
+
+          xwais(1), waisindex(1), waisserver(1)
+
+     AUTHOR
+          Jonny Goldman <Jonathan@Think.COM>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     2                                                    Thinking Machines
+
+

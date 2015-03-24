@@ -1,0 +1,133 @@
+wais.el - GNU Emacs interface to WAIS
+
+wais.el is a GNU emacs lisp file that allows people to use WAIS through
+GNU Emacs.  It relies on the WAIS version 8 distribution, particularly on a
+shell program called waisq.
+
+wais.el has a number of configuration variables that must be set properly
+at a site upon installation of the WAIS software.
+
+(defvar *wais-top-directory* "/proj/wais/wais/")
+(defvar waisq-program (concat *wais-top-directory* "bin/waisq")
+  "Location of the waisq executable. 
+   This comes in the bin directory of the wais release") 
+(defvar waisindex-program (concat *wais-top-directory* "bin/waisindex")
+  "Location of the waisindex executable. 
+   This comes in the bin directory of the wais release")
+(defvar *common-source-directory* (concat *wais-top-directory* "wais-sources/")
+  "Where the common sources for you site live.  nil if there are none")
+
+(defvar *wais-question-directory* "~/wais-questions/")
+(defvar *wais-source-directory* "~/wais-sources/")
+(defvar *wais-document-directory* "~/wais-documents/")
+(defvar wais-tmp-directory "/tmp/")
+(defvar wais-version 8)
+
+The first four variables are site specififc, and should be modified
+according to your site.
+
+The GNU Emacs interface to WAIS (refered to as wais-gmacs from now on) is
+based on the WAIS Station built for the Apple Macintosh, and xwais, which
+you'll find in this distribution.  To a very large degree the applications
+can be used interchangably, as they all use the same basic file structure.
+
+The principle functions in wais-gmacs are:
+
+wais:
+ Find a wais question and go to it.
+ First tries to find the question named Quick, then any wais question,
+ finally it creates a Quick question, prompting for search words and source.
+
+wais-select-question:
+ Make a menu of questions so you can select one.  
+ Type ? after invocation to get help on commands available.
+ Type q immediately to make the question menu go away.
+
+wais-select-source:
+ Make a menu of sources so you can select one.  
+ Type ? after invocation to get help on commands available.
+ Type q immediately to make the source menu go away.
+
+wais-create-question:
+ Create a new Question named NAME
+
+wais-create-source:
+ Create a new Source and a database to go with it
+
+wais-novice:
+Create and run the 'Quick' novice question, and pop up
+the novice Help
+
+There are three new "modes" created by gmacs-wais:
+
+1. waisq-mode
+2. waisk-mode
+3. waisd-mode
+
+Each mode has some special keybindings associated with it.
+
+waisq-mode is the pricipal mode for manipulating WAIS questions.  The
+keybindings for waisq-mode are:
+
+   Movement commands:
+
+   C-n     Move to next document, or arg documents.
+   C-p     Move to previous document, or arg documents.
+   e,f,v   Edit, Find or View the current document (all are synonymous).
+   n       Edit to next document, or arg documents.
+   p       Edit to previous document, or arg documents.
+   space   Scroll document in other window forward.
+   delete  Scroll document backward.
+   B       Go to the best line in the document
+   C-l     Refresh Display and reset Question Window.
+
+   Sources:
+
+   A       Add a source to the question.
+   D       Delete all sources from the question.
+
+   Relevance Feedback:
+
+   a       Add the current document to the question.
+   d       Delete all relevant documents from the question.
+
+   Action Commands:
+
+   k       Replace the 'Find documents on' words
+   G,RET   Go for it (submit the query).
+   N       Make a new question.
+   m       Toggle multiple document buffer mode. 
+   s       Select another question.
+   S       Save this document to a file.
+   ? or h  Show this message (Help).
+   q       quit WaisQ, but keep the question's buffer.
+   Q       Quit WaisQ and kill this question's buffer.
+
+waisd-mode is the principal mode for viewing WAIS documents, as retrieved
+through a WAIS question.  The keybindings for waisd-mode are:
+
+   Movement commands:
+
+   All the usual text-mode cursor movement work.
+   In addition the following commands are available:
+
+   B       Go to the best line in the document
+   space   Scroll document forward.
+   delete  Scroll document backward.
+
+   Action Commands:
+
+   s       Add the marked region as a section to the Relevant Documents.
+   ? or h  Show this message (Help).
+   q       quit WaisQ, but keep the question's buffer.
+   Q       Quit WaisQ and kill this question's buffer.
+
+waisk-mode is the same as text-mode, but pressing RETURN will initiated the
+search.
+
+Some notes on retrieving and saving sources (from the directory of servers,
+or from the help query):
+
+If you use the S (capital-S, Save document to file) on a source, it will
+prompt for the name of the source file, and automatically add the .src if
+necessary.

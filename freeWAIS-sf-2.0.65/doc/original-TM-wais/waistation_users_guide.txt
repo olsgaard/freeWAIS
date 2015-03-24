@@ -1,0 +1,433 @@
+This is the User's Guide to the Macintosh version of the WAIS interface.
+It is provided here as a reference guide to the other WAIS user interfaces
+provided with this release.
+
+------------------------------------------------------------------------
+
+WAIStation
+
+This program is distributed free of charge by Thinking Machines
+Corporation.  Permission is hereby granted to anyone to use, duplicate,
+modify and redistribute this program for internal use, so long as this
+notice is attached.
+
+Thinking Machines Corporation provides absolutely no warranty of any kind
+with respect to this program.  The entire risk as to the quality and
+performance of this program is with the user.
+
+IN NO EVENT WILL THINKING MACHINES CORPORATION BE LIABLE TO ANYONE FOR ANY
+DAMAGES ARISING OUT OF THE USE OF THIS PROGRAM, INCLUDING WITHOUT
+LIMITATION DAMAGES RESULTING FORM LOST DATA OR LOST PROFITS, OR ANY
+SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES.
+
+
+WAIStation
+
+A User Interface for 
+Wide Area Information Servers
+
+User Guide, Prototype Version
+
+This document briefly describes the initial prototype of WAIStation, a user 
+interface for Macintosh developed by Thinking Machines Corporation. 
+WAIStation enables users to retrieve information from the DowQuest document 
+retrieval system at Dow Jones News/Retrieval, the Connection Machine 
+Document Retrieval System, your local Macintosh, and any other database server 
+that supports the WAIS protocol. 
+
+The interface communicates with the database server using an ANSI standard 
+protocol for database retrieval applications, called Z39.50 (see references). 
+WAIStation communicates through either the serial port (to a modem or terminal 
+line) or via AppleTalk or EtherNet to a UNIX system running the Connection 
+Machine Document Retrieval System. 
+
+The goal of the Wide Area Information Servers project is create an open
+architecture of information servers and clients by deriving and standardizing a
+computer-to-computer protocol that will enable users to find and question
+servers.
+
+For more information on the WAIS project see the references section at the end 
+of this document.
+
+
+The information in this document is subject to change without notice and should
+not be construed as a commitment by Thinking Machines Corporation.  Thinking
+Machines Corporation reserves the right to make changes to any products
+described herein to improve functioning or design.  Although the information in
+this document has been reviewed and is believed to be reliable, Thinking
+Machines Corporation does not assume responsibility or liability for any errors
+that may appear in this document. Thinking Machines Corporation does not assume
+any liability arising from the application of use of any information or product
+described herein.  Connection Machine is a registered trademark of Thinking
+Machines Corporation. WAIStation is a trademark of Thinking Machines
+Corporation.
+
+UNIX is a trademark of AT&T Bell Laboratories.
+
+Apple, AppleTalk and Macintosh are registered trademarks of Apple Computer,
+Inc.
+
+Dow Jones News/Retrieval is a registered service mark of Dow Jones & Company,
+Inc. DowQuest is a trademark of Dow Jones & Company, Inc.
+
+Thanks to Advanced Software Concepts for TCPack software.
+
+
+Copyright 1990, 1991 Thinking Machines Corporation. All rights reserved.
+
+Thinking Machines Corporation
+245 First Street
+Cambridge, Massachusetts 02142-1214
+(617) 876-1111
+
+WELCOME TO WAIStation 
+
+Have you ever been frustrated by a search-and-retrieval system that couldn't
+seem to understand what you wanted?
+
+Have you ever looked through a dozen retrieved articles to find only one that
+met your intent?
+
+Have you ever wanted to wave that one good article at the system, and say Look!
+This is what I want! Find me more articles like this one!
+
+Well, now you can do exactly that. 
+
+WAIStation was built around two notions: first, that the user of a search-and-
+retrieval system should be able to provide feedback to assist or retarget the
+search; and, second, that the best way to search for articles (or any other
+documents) is to search from a good example, not just from one or two keywords.
+
+So, the model for a WAIStation search is: 
+*	Start with a few key words or phrases (as usual). 
+*	Examine the articles WAIStation retrieves. 
+*	Tell WAIStation which articles, or which sections of articles, you find
+most useful (i.e. closest to the subject you're looking up). Ask it to search
+again, using those selections as models.
+*	Repeat the process until you've found what you want. 
+
+SHARPENING AND WIDENING SEARCHES
+
+Providing relevance feedback to WAIStation, as explained above, lets you zero
+in on precisely the information you're looking for. But it also lets you widen
+a search, or change it completely. While you're hunting for information on
+Subject A, if an interesting article on Subject B turns up you can select that
+article as the model for the next search. What's more, you can branch off onto
+a new search without losing track of your original search. In fact, you can
+continue both searches, and even start others; the range and movement of your
+searches are up to you.
+
+SEARCHING IN MANY SOURCES
+
+WAIStation gives you access to sources of information ranging from files stored
+on your own computer's disks to electronic libraries across the country.
+Moreover, it lets you search through any combination of these sources in a
+single, integrated search. You choose which sources are to be used for which
+searches; you can change your mind at any stage during the search.
+
+AUTOMATICALLY RE-SEARCHING QUESTIONS
+
+Since new information arrives all the time, you frequently want to run searches
+at intervals, to find out what's new in some particular area. To facilitate
+this, WAIStation lets you store the data from a search as a Question. You can
+then instruct WAIStation to run questions for you at selected intervals. For
+example, WAIStation can run questions for you each morning at 3 am, and have
+the results waiting for you when you come into work. (Of course, you can re-run
+your questions interactively, or change them as you like, at any time.)
+
+GO AHEAD  EXPLORE!
+
+This introduction has only suggested what WAIStation can do for you. The rest
+of this Quick Reference Guide will explain how to do each of the items
+mentioned above. But to get fullest use out of WAIStation, you'll have to try
+it out for yourself. Explore experiment see what works best for you. And
+please, since this is still an experimental system, let us know how you like
+it. Fill out and mail the questionaire at the end of this booklet. Or,
+
+Send comments, questions, complaints, or praise to:
+Brewster Kahle
+Thinking Machines Corporation
+245 First Street
+Cambridge, MA 02142
+(617) 234-1000
+Email: wais@think.com
+AppleLink: wais@think.com@dasnet#
+
+TABLE OF CONTENTS
+
+Getting Started					2
+Creating a New Question				3
+Getting Results					4
+Search Strategies:  Improving Questions		5
+Selecting Part of a Document			6
+Other Methods					7
+Search Strategies  Following Tangents		8
+Chaining Questions				9
+To Close and/or Save a Question			10
+To Save a Question Without Closing It		10
+To Re-Open a Question				10
+Keeping Up-To-Date on Sources			11
+References					12
+Questionaire					13
+
+GETTING STARTED
+
+Double-click on the WAIStation icon:
+        
+The SOURCES and QUESTIONS windows will appear.
+                     		 
+Sources are generally available to everyone at a given site.  Questions, on the
+other hand, generally belong to individuals. If this is the first time you have
+used WAIStation, your QUESTIONS window will probably be empty.  When you save a
+question, its name and icon appear in your window.
+
+CREATING A NEW QUESTION
+
+1.	From the QUESTION menu, select NEW QUESTION.
+                    
+A new QUESTION window opens. 
+
+2.	Choose a source that you want your Question to search. Drag it from the
+SOURCES window into the From These Sources field in the QUESTION window.
+                                                              
+
+The source name will appear in the sources field.
+
+	Do this for as many sources as you wish.
+
+3. 	Type words or phrases in the Look for documents about field, describing
+the subjects about which you want information. WAIStation searches for these
+words to find useful documents.
+
+4. 	Click on RUN, to run the question. (See GETTING RESULTS, on page 4)
+
+GETTING RESULTS
+
+1. 	Click on RUN (or, hit RETURN).
+
+The world cursor will turn while WAIStation searches for documents that 
+match your request. The Results field then displays the titles of the most 
+useful documents found. Documents are ranked from 0 to 3 stars, depending 
+on how well they match the question: the best matches are at the top of the 
+list. 
+
+Click on the scroll bar to see more documents.
+                                               
+2.	Double-click on any document in the list to display it.
+                                                            
+A new window opens, displaying the document. If the document is too large 
+to fit in the window, the section that shows the best match to your question 
+is displayed.
+
+	You can display as many of the documents as you like. You can also save
+and print documents, using commands in the FILE menu. The TEXT menu contains
+commands that control the format in which documents are displayed.
+
+3. 	Searching from keywords alone is rarely sufficient. At this point,
+therefore, you probably want to to select some documents (or some sections of
+some documents) to guide the next step of your search. The next few pages
+explain how to do this and suggest some possible search strategies.
+
+	On the other hand, you may have found what you wanted; or, you may not
+have time at the moment to pursue the search. In these cases, you can either
+discard your question or save it to re-use at a later time. For information on
+how to do this, see page 10.
+
+SEARCH STRATEGIES:  IMPROVING QUESTIONS
+
+You can use the information from one set of results to modify your original
+question or to create further questions. Improving your original question often
+leads to improved results. So, if your first search didn't provide what you
+want, try one of the following techniques.
+
+1. 	Probably the best way to improve a question is to drag one or more 
+particularly interesting documents from the Results list into the Similar 
+To field. This allows WAIStation to get a fuller sense of what you're looking 
+for, and thus a better chance of finding the information you need.
+                                               
+When you run the question again the Results list will be updated with the 
+new results, which will include documents similar to the one you selected (if 
+such documents exist in the database). 
+
+SELECTING PART OF A DOCUMENT
+
+2. 	Alternatively, if one particular section within a document seems more
+useful than the rest, you can ask WAIStation to search for documents that
+resemble that section. To do that,
+
+*	Drag the cursor over a section of the document to select the text.
+                                                   	
+An icon will appear in the left margin.
+*	Drag the new icon into the Similar To field.
+                                                      
+	Run the query again.
+ The results will be updated with documents similar to the text you 
+selected.
+
+OTHER METHODS
+
+3. 	You can add or remove searchwords. This is often helpful if WAIStation
+didn't interpret your initial words the way you expected it to.
+
+	Add searchwords by typing them in; remove them by backspacing over them, 
+or by selecting them with the mouse and then pressing Delete.
+
+4. 	You can add or remove sources.
+	Add sources by dragging them into the source field; remove them by
+dragging them out of the source field.
+
+	After modifying your QUESTION, click again on RUN.  A new list of
+documents will be displayed. (If the new list is identical to the old list,
+then you may want to try using different searchwords.  Otherwise, chances are
+that you need to try a different approach, or that the database really
+doesn't contain any more documents that are relevant to your question.)
+
+SEARCH STRATEGIES  FOLLOWING TANGENTS
+
+The techniques listed on the previous page explained how to improve a search
+for information on your original topic. Other search strategies involve
+changing topics, perhaps to follow up some new line of questioning that grew
+out of your original search.
+
+*	You can change the topic completely by changing searchwords.
+*	You can follow a new line of research that suggests itself, by dragging
+the relevant result(s) whole documents or sections into the Similar To field.
+
+You may want to change your searchwords to fit the new topic, as well.
+
+Either of these strategies can be accomplished either by altering your original
+question, or by creating new questions that preserve the context of the older
+questions. Chaining questions in this manner allows you to follow interesting
+new directions in a search, without losing any of your old data.
+
+CHAINING QUESTIONS
+
+1. 	While one question window is open, select NEW QUESTION from the
+QUESTION menu.
+
+The new Question window will contain the same sources as the existing 
+Question window has. You can alter this list of sources, or use it as is.
+
+2. 	Drag documents or sections of documents from the existing Results into
+the Similar To field in the new Question window. Or, type searchwords into the
+new window. Or do both.
+                                                       
+3. 	RUN the new question.
+
+	You can continue to chain questions at will. You can save any of these 
+questions whenever you like.
+
+TO CLOSE AND/OR SAVE A QUESTION
+
+1.	 Click on the box in its upper left corner.
+
+If the question has not been saved previously, or if you have made changes 
+to the question, WAIStation asks you if you want to save the changes you 
+have made.
+
+2.	Click on YES to save the new version of the question.  If the question
+has not been saved before, it will appear in the QUESTIONS window.
+
+	Click on NO to discard the modifications (or, if this is a new
+question, to discard the entire question.)
+
+TO SAVE A QUESTION WITHOUT CLOSING IT
+
+	Select SAVE or SAVE AS from the FILE menu.
+
+TO RE-OPEN A QUESTION 
+
+	Double-click on its icon in the QUESTIONS window. (Or, open the
+question from the QUESTION menu.)
+
+KEEPING UP-TO-DATE ON SOURCES
+
+Your System Administrator will have arranged to have some or all of your site's
+sources updated at regular intervals. Needless to say, these intervals may not
+be the same for all sources. (A daily newspaper and a weekly magazine will
+probably be updated at different intervals.)  In order to decide when you want
+your Questions run, therefore, you must ask two questions: How often am I
+interested in checking this question? and How often (and when) will its sources
+be updated? If your sources are updated daily, it makes no sense to re-run your
+questions every hour; if you only want to check for new data once a week, then
+running the question weekly is the best strategy.  To find out when a source is
+updated, and to tell WAIStation when to search that source for you, use the
+SOURCE window for each source your questions search.
+
+1. 	Double-click on a Sources icon (or choose OPEN SOURCE from the Source 
+menu).
+                                                             
+The SOURCE window for the selected source appears. You will notice, in the 
+upper half of the window, information that tells you when the database for 
+this source is updated.
+
+2. 	You may select the number of document headlines you wish to have
+displayed with the Number of Documents pop-up menu.
+
+3.	You can also select the default font and size of the text for documents
+that are displayed from this source, using the Font and Size pop-up menus.
+
+4. 	Click on the Contact field in the lower half of the window. Choose how
+often you want your questions to search this source.  The selected interval
+will appear in the Contact field, followed by fields that request further
+information.
+
+	Click on those fields, and enter the information. See your system
+administrator for additional assistance.  Note: Try to select a time for your
+automatic searches that won't conflict with the times everyone else chooses. A
+couple of good guidelines are: Don't search a source as soon as it's updated;
+and, if you're specifying an exact time, use an odd number of minutes: 3:52,
+for example, rather than 3:30 or 4:00.  Note also: every question of yours that
+searches this source gets updated at the time you choose. Questions that search
+multiple sources get updated every time one of their sources is searched.
+
+REFERENCES
+
+Wide Area Information Concepts, Brewster Kahle.  Thinking Machines Technical 
+Memo DR-89-1.  Available from Thinking Machines Corporation or Brewster Kahle 
+(Internet: brewster@think.com; AppleLink: BREWSTER).
+
+WAIS Interface Protocol Prototype Functional Specification, Franklin Davis et
+al. Thinking Machines. Available from Franklin Davis (Internet: fad@think.com;
+AppleLink: FAD) or Brewster Kahle (brewster@think.com, BREWSTER).  Z39.50-1988:
+Information Retrieval Service Definition and Protocol Specification for Library
+Applications.  National Information Standards Organization (Z39), P.O. Box
+1056, Bethesda, MD 20817.  (301) 975-2814.  Available from Document Center,
+Belmont, CA. Telephone 415-591-7600.  DowQuest promotional literature available
+from Dow Jones & Co. Inc., 200 Liberty Street, New York, NY 10281.
+
+QUESTIONAIRE
+
+As part of the WAIS research project, your feedback is extremely important. 
+Please take a few minutes to complete this after you have become comfortable 
+with WAIStation.
+
+1.	How could WAIStation be better?
+
+2.	What was confusing about WAIStation?
+
+3.	What could be removed from WAIStation?
+
+4.	What could be added?  What could WAIStation do for you?
+
+5.	Did you make any discoveries about WAIStation?
+
+6.	How much time did you use WAIStation?
+
+7.	Did WAIStation feel like a real Macintosh program?
+
+8.	If you have used other information retrieval programs, please comment
+on how WAIStation compared. Please list the systems you are comparing with.
+
+9.	Was the User Guide helpful? Do you have suggestions?
+
+10.	Other comments:
+
+
+Thank you! Please fold and mail this, or give it to your system administrator.
+
+Brewster Kahle
+Thinking Machines Corporation
+245 First Street
+Cambridge, MA  02142-1264
+

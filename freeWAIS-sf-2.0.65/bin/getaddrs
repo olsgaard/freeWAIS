@@ -1,0 +1,23 @@
+#!/bin/sh
+# this is a simple script for converting the addresses in a server log
+# to internet domain names.
+
+# the argument to this script is the name of the server log file.
+# this has been modified to use b5 logging (no longer needs nslookup).
+
+if (test $# -eq 0)
+then
+	echo "usage: $0 <server-log-file>"
+	echo "  gets IP names in <server-log-file>."
+	exit 1
+fi
+
+addrs=/tmp/addrs.$$
+
+grep -i from: $* | \
+ awk '{print " ", $11}' | sort -f | uniq | tr -d ","  >> $addrs
+
+wc -l $addrs | awk '{print $1 " different hosts:"}'
+cat $addrs
+
+rm $addrs

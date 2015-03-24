@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# WIDE AREA INFORMATION SERVER SOFTWARE:
+#   No guarantees or restrictions.  See the readme file for the full standard
+#   disclaimer.
+#
+# Script for checking all source in a directory to see if they are alive.
+# This is useful for a system administrator.  If an advertized server is
+# down consistently, please notify the maintainer and the maintainer of the
+# directory of servers that the source came from.  (the master directory of
+# servers is maintained by brewster@think.com)
+#
+# $Log: check-sources,v $
+# Revision 2.0  1995/09/08 07:55:19  pfeifer
+# Metaconfig baseline
+#
+# Revision 1.1  1994/08/05  06:52:21  pfeifer
+# Release beta 04
+#
+# Revision 1.2  92/02/23  17:06:03  jonathan
+# changed name to waisping (for server logs)
+# 
+# $Header: /usr/local/ls6/src+data/src/freeWAIS-sf-2.0/bin/RCS/check-sources,v 2.0 1995/09/08 07:55:19 pfeifer Exp $
+#
+
+if (test $# -ne 1)
+then
+	echo "usage: $0 <wais-source-directory>"
+	echo "  Checks all sources in the directory <wais-source-directory>"
+	echo "  to see if they are responding to WAIS requests."	
+	exit 1
+fi
+
+for s in $1/*.src
+do
+	 waisping -c $1 `basename $s`
+done
+
+
+
